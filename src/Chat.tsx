@@ -1,5 +1,6 @@
 import React from 'react';
 import {PostEventSource} from "./event-source"
+import {backendBaseUrl} from "./environment"
 
 export function Chat() {
     const [message, setMessage] = React.useState('')
@@ -7,7 +8,7 @@ export function Chat() {
     const [done, setDone] = React.useState(false)
 
     const sendMessage = () => {
-        const eventSource = new PostEventSource(`http://localhost:7071/api/message`, {body: message})
+        const eventSource = new PostEventSource(`${backendBaseUrl}/api/message`, {body: message})
         setMessage("")
         setDone(false)
         eventSource.ondone = () => setDone(true)
