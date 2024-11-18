@@ -16,13 +16,8 @@ export function Chat() {
         let msg = ""
         eventSource.onmessage = (event) => {
             const token = event.data
-            /*if (token === "<END_OF_STREAM>") {
-                eventSource.close()
-                //onAnswerCompleted(msg)
-            } else {*/
-                msg = msg + token
-                setAnswer(msg)
-            //}
+            msg = msg + token
+            setAnswer(msg)
         }
 
         eventSource.onerror = () => {

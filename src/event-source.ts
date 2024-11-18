@@ -2,6 +2,7 @@ export class PostEventSource {
     private reader: ReadableStreamDefaultReader<Uint8Array> | null = null
     private decoder = new TextDecoder()
     private buffer = ''
+    private prevLineWasDataLine = false
     private controller = new AbortController()
     public onmessage: ((event: MessageEvent) => void) | null = null
     public ondone: (() => void) | null = null
@@ -65,13 +66,19 @@ export class PostEventSource {
 
                 let eventData = ''
                 for (const line of lines) {
+                    console.log(`"${line}"`)
                     if (line.startsWith('data: ')) {
-                        eventData += line.substring(6) + '\n'
+                        if (this.prevLineWasDataLine) {
+                            eventData += "\n"
+                        }
+                        eventData += line.substring(6)
+                        this.prevLineWasDataLine = true
                     } else if (line === '') {
                         // Leere Zeile signalisiert das Ende eines Events
                         if (this.onmessage) {
                             this.onmessage({data: eventData} as MessageEvent)
                         }
+                        this.prevLineWasDataLine = false
                         eventData = ''
                     }
                 }
