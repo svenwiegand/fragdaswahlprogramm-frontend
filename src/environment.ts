@@ -1,1 +1,1 @@
-export const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL
+export const backendBaseUrl = import.meta.env.VITE_BACKEND_BASE_URL
