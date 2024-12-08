@@ -1,8 +1,9 @@
-import { css } from '@emotion/react'
+import {css} from '@emotion/react'
 import {Link} from "../styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 
-const barStyle = css`
+const headerStyle = css`
+    flex-shrink: 0;
     display: flex;
     align-items: baseline;
     align-self: stretch;
@@ -28,7 +29,7 @@ const spacerStyle = css`
 
 export function PageHeader() {
     return (
-        <div css={barStyle}>
+        <div css={headerStyle}>
             <span css={logoStyle}>frag</span>
             <span css={logoLightStyle}>das</span>
             <span css={logoStyle}>wahlprogramm</span>

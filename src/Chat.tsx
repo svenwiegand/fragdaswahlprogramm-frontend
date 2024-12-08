@@ -1,6 +1,16 @@
 import React from 'react';
 import {PostEventSource} from "./event-source"
 import {backendBaseUrl} from "./environment"
+import {css} from "@emotion/react"
+
+const chatStyle = css`
+    flex-grow: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+`
 
 export function Chat() {
     const [message, setMessage] = React.useState('')
@@ -28,7 +38,7 @@ export function Chat() {
     }
 
     return (
-        <div>
+        <div css={chatStyle}>
             <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
             <button onClick={sendMessage}>Senden</button>
             <div>{answer}</div>

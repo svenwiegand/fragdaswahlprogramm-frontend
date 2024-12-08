@@ -12,15 +12,19 @@ export function getMessages(locales: readonly string[]): MessagesById {
 }
 
 export function getBrowserLocales(): readonly string[] {
-    return navigator.languages ?? [navigator.language] ?? ["de-de"]
+    return navigator.languages
 }
 
 const messages: Record<string, MessagesById> = {
     de: {
         about: "Hilfe",
+        imprint: "Impressum",
+        privacy: "Datenschutz",
     },
 
     en: {
         about: "Help",
+        imprint: "Imprint",
+        privacy: "Data Privacy",
     }
 }
