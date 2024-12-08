@@ -30,10 +30,10 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
+          output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
         env:
-          REACT_APP_BACKEND_BASE_URL: ${{ vars.REACT_APP_BACKEND_BASE_URL }}
+          VITE_BACKEND_BASE_URL: ${{ vars.VITE_BACKEND_BASE_URL }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
