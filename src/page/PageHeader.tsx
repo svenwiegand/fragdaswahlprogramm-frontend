@@ -9,7 +9,7 @@ const barStyle = css`
 `
 
 const logoStyle = css`
-    font-family: Outfit;
+    font-family: Outfit, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 600;

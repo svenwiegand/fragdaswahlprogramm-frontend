@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 export const Link = styled.a`
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;

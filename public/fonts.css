@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900; /* Variable Font deckt diesen Bereich ab */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('./assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* Variable Font deckt diesen Bereich ab */
+    font-style: normal;
+}
