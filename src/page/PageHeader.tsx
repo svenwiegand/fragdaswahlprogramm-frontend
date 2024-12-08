@@ -11,7 +11,7 @@ const headerStyle = css`
 
 const logoStyle = css`
     font-family: Outfit, sans-serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -23,7 +23,7 @@ const logoLightStyle = css`
 `
 
 const spacerStyle = css`
-    height: 8px;
+    height: 1rem;
     flex: 1 0 0;
 `
 

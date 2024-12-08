@@ -7,7 +7,7 @@ const footerStyle = css`
     display: flex;
     justify-content: center;
     align-items: baseline;
-    gap: 16px;
+    gap: 1rem;
     align-self: stretch;
 `
 

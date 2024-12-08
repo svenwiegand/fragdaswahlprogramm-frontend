@@ -1,4 +1,3 @@
-import './App.css'
 import {Chat} from "./Chat"
 import {PageHeader} from "./page/PageHeader.tsx"
 import {css} from "@emotion/react"
@@ -12,7 +11,7 @@ const messages = getMessages(userLocales)
 const appStyle = css`
     height: 100vh;
     box-sizing: border-box;
-    padding: 16px 32px;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
