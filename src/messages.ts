@@ -25,6 +25,6 @@ const messages: Record<string, MessagesById> = {
     en: {
         about: "Help",
         imprint: "Imprint",
-        privacy: "Data Privacy",
+        privacy: "Privacy Policy",
     }
 }

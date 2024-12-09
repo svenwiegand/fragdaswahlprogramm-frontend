@@ -15,7 +15,7 @@ const footerStyle = css`
 export function PageFooter() {
     return (
         <div css={footerStyle}>
-            <Link href="#"><FormattedMessage id={"imprint"}/></Link>
+            <Link href="/imprint"><FormattedMessage id={"imprint"}/></Link>
             <Link href="#"><FormattedMessage id={"privacy"}/></Link>
         </div>
     )

@@ -11,6 +11,10 @@ const headerStyle = css`
     align-self: stretch;
 `
 
+const logoLinkStyle = css`
+    text-decoration: none;
+`
+
 const logoStyle = css`
     font-family: Outfit, sans-serif;
     font-size: ${rempx(24)};
@@ -30,9 +34,11 @@ const LogoText = styled.span(logoStyle)
 export function PageHeader() {
     return (
         <div css={headerStyle}>
-            <LogoText>frag</LogoText>
-            <LogoText css={css`color: #888`}>das</LogoText>
-            <LogoText>wahlprogramm</LogoText>
+            <a href="/" css={logoLinkStyle}>
+                <LogoText>frag</LogoText>
+                <LogoText css={css`color: #888`}>das</LogoText>
+                <LogoText>wahlprogramm</LogoText>
+            </a>
             <div aria-hidden={true} css={spacerStyle}></div>
             <Link href="#"><FormattedMessage id={"about"}/></Link>
         </div>
