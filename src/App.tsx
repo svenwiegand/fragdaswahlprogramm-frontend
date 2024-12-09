@@ -4,6 +4,7 @@ import {css} from "@emotion/react"
 import {IntlProvider} from "react-intl"
 import {getBrowserLocales, getMessages} from "./messages.ts"
 import {PageFooter} from "./page/PageFooter.tsx"
+import {rempx} from "./style/styles.ts"
 
 const userLocales = getBrowserLocales()
 const messages = getMessages(userLocales)
@@ -11,7 +12,7 @@ const messages = getMessages(userLocales)
 const appStyle = css`
     height: 100vh;
     box-sizing: border-box;
-    padding: 1rem 2rem;
+    padding: ${rempx(16)} ${rempx(32)};
     display: flex;
     flex-direction: column;
     align-items: center;

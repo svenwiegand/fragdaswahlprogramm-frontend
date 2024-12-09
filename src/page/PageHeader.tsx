@@ -1,7 +1,8 @@
 import {css} from '@emotion/react'
-import {Link} from "../styled-compontents.tsx"
+import {Link} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 import styled from "@emotion/styled"
+import {rempx} from "../style/styles.ts"
 
 const headerStyle = css`
     flex-shrink: 0;
@@ -12,7 +13,7 @@ const headerStyle = css`
 
 const logoStyle = css`
     font-family: Outfit, sans-serif;
-    font-size: 1.5rem;
+    font-size: ${rempx(24)};
     font-style: normal;
     font-weight: 600;
     line-height: normal;
