@@ -1,4 +1,4 @@
-import {Chat} from "./Chat"
+import {Chat} from "./chat/Chat"
 import {IntlProvider} from "react-intl"
 import {getBrowserLocales, getMessages} from "./messages.ts"
 import {Page} from "./page/Page.tsx"

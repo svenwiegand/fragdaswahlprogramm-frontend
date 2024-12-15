@@ -2,9 +2,10 @@ import {css} from '@emotion/react'
 import {Link} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 import styled from "@emotion/styled"
-import {rempx} from "../style/styles.ts"
+import {dimensions, rempx} from "../style/styles.ts"
 
 const headerStyle = css`
+    padding: 0 ${dimensions.pagePaddingHorizontal};
     flex-shrink: 0;
     display: flex;
     align-items: baseline;

@@ -6,7 +6,7 @@ import {PageFooter} from "./PageFooter.tsx"
 const pageStyle = css`
     height: 100vh;
     box-sizing: border-box;
-    padding: ${rempx(16)} ${rempx(32)};
+    padding: ${rempx(16)} 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +16,9 @@ const contentStyle = css`
     flex-grow: 1;
     width: 100%;
     padding: ${rempx(16)} 0;
-    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 `
 
 interface PageProps {

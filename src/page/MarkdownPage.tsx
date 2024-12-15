@@ -2,7 +2,14 @@ import {Page} from "./Page.tsx"
 import {useEffect, useState} from "react"
 import {useIntl} from "react-intl"
 import Markdown from "react-markdown"
+import {css} from "@emotion/react"
+import {dimensions} from "../style/styles.ts"
 
+const contentStyle = css`
+    width: 100%;
+    padding: 0 ${dimensions.pagePaddingHorizontal};
+    overflow-y: auto;
+`
 
 interface MarkdownPageProps {
     contentName: string
@@ -22,6 +29,6 @@ export function MarkdownPage({ contentName }: MarkdownPageProps) {
     }, [contentName, locale])
     return (
         <Page>
-            <Markdown>{content}</Markdown>
+            <Markdown css={contentStyle}>{content}</Markdown>
         </Page>)
 }
