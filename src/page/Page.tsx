@@ -4,7 +4,7 @@ import {PageHeader} from "./PageHeader.tsx"
 import {PageFooter} from "./PageFooter.tsx"
 
 const pageStyle = css`
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
     padding: ${rempx(16)} 0;
     display: flex;
