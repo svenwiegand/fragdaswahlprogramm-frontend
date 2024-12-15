@@ -1,5 +1,5 @@
 import {css} from '@emotion/react'
-import {Link} from "../style/styled-compontents.tsx"
+import {NavbarLink} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 import {dimensions, rempx} from "../style/styles.ts"
 
@@ -16,8 +16,8 @@ const footerStyle = css`
 export function PageFooter() {
     return (
         <div css={footerStyle}>
-            <Link href="/imprint"><FormattedMessage id={"imprint"}/></Link>
-            <Link href="#"><FormattedMessage id={"privacy"}/></Link>
+            <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
+            <NavbarLink to="#"><FormattedMessage id={"privacy"}/></NavbarLink>
         </div>
     )
 }

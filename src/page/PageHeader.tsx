@@ -1,5 +1,5 @@
 import {css} from '@emotion/react'
-import {Link} from "../style/styled-compontents.tsx"
+import {NavbarLink} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 import styled from "@emotion/styled"
 import {dimensions, rempx} from "../style/styles.ts"
@@ -35,13 +35,13 @@ const LogoText = styled.span(logoStyle)
 export function PageHeader() {
     return (
         <div css={headerStyle}>
-            <a href="/" css={logoLinkStyle}>
+            <NavbarLink to="/" css={logoLinkStyle}>
                 <LogoText>frag</LogoText>
                 <LogoText css={css`color: #888`}>das</LogoText>
                 <LogoText>wahlprogramm</LogoText>
-            </a>
+            </NavbarLink>
             <div aria-hidden={true} css={spacerStyle}></div>
-            <Link href="#"><FormattedMessage id={"about"}/></Link>
+            <NavbarLink to="#"><FormattedMessage id={"about"}/></NavbarLink>
         </div>
     )
 }
