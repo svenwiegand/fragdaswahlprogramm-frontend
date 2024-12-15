@@ -20,11 +20,17 @@ const messages: Record<string, MessagesById> = {
         about: "Hilfe",
         imprint: "Impressum",
         privacy: "Datenschutz",
+
+        inputPlaceholder: "Deine Frage an die Wahlprogramme",
+        send: "Senden",
     },
 
     en: {
         about: "Help",
         imprint: "Imprint",
         privacy: "Privacy Policy",
+
+        inputPlaceholder: "Your question to the election programs",
+        send: "Send",
     }
 }

@@ -5,3 +5,7 @@ export function rempx(px: number): string {
 export const dimensions = {
     pagePaddingHorizontal: rempx(32)
 }
+
+export const fontFamily = `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif`

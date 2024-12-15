@@ -3,6 +3,7 @@ import {PostEventSource} from "../util/event-source"
 import {backendBaseUrl} from "../environment"
 import {css} from "@emotion/react"
 import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
+import {ChatTextField} from "./ChatTextField.tsx"
 
 const chatStyle = css`
     flex-grow: 1;
@@ -14,14 +15,13 @@ const chatStyle = css`
 `
 
 export function Chat() {
-    const [question, setQuestion] = React.useState('')
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
 
-    const send = () => {
+    const onSend = (question: string) => {
         addMessage("question", question)
         setAnswer("")
 
@@ -30,15 +30,13 @@ export function Chat() {
             setAnswer("")
         }
         sendQuestion(question, setAnswer, onDone)
-        setQuestion("")
     }
 
     return (
         <div css={chatStyle}>
             {messages.length > 0 || answer ? <ChatHistory messages={messages} generatingAnswer={answer} /> : null}
 
-            <textarea value={question} onChange={(e) => setQuestion(e.target.value)} />
-            <button onClick={send}>Senden</button>
+            <ChatTextField onSend={onSend} />
         </div>
     )
 }
