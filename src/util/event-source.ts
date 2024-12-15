@@ -61,7 +61,7 @@ export class PostEventSource {
                     break
                 }
                 this.buffer += this.decoder.decode(value, {stream: true})
-                let lines = this.buffer.split('\n')
+                const lines = this.buffer.split('\n')
                 this.buffer = lines.pop()! // Behalte das letzte unvollständige Zeilenfragment
 
                 let eventData = ''
