@@ -87,15 +87,13 @@ export function ChatTextField({onSend}: ChatTextFieldProps) {
                 rows={1}
                 css={textareaStyle}
             />
-            {value ?
-                <button
-                    onClick={sendIfNotEmpty}
-                    aria-label={intl.formatMessage({id: "send"})}
-                    css={buttonStyle}>
-                    <SendIcon width={32} height={32} />
-                </button>
-                : null
-            }
+            <button
+                onClick={sendIfNotEmpty}
+                aria-label={intl.formatMessage({id: "send"})}
+                css={buttonStyle}
+                disabled={!value}>
+                <SendIcon width={32} height={32} />
+            </button>
         </div>
     )
 }
