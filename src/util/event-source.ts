@@ -7,7 +7,7 @@ export class PostEventSource {
     public onmessage: ((event: MessageEvent) => void) | null = null
     public ondone: (() => void) | null = null
     public onerror: ((event: Event) => void) | null = null
-    public onopen: ((event: Event) => void) | null = null
+    public onopen: ((event: Event, response: Response) => void) | null = null
     public readyState: number = 0
 
     constructor(url: string, init?: RequestInit) {
@@ -27,7 +27,7 @@ export class PostEventSource {
             }
 
             if (this.onopen) {
-                this.onopen(new Event('open'))
+                this.onopen(new Event('open'), response)
             }
 
             if (!response.body) {
@@ -66,7 +66,6 @@ export class PostEventSource {
 
                 let eventData = ''
                 for (const line of lines) {
-                    console.log(`"${line}"`)
                     if (line.startsWith('data: ')) {
                         if (this.prevLineWasDataLine) {
                             eventData += "\n"
