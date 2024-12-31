@@ -64,9 +64,13 @@ export class PostEventSource {
                 const lines = this.buffer.split('\n')
                 this.buffer = lines.pop()! // Behalte das letzte unvollständige Zeilenfragment
 
+                let eventType: string | undefined = undefined
                 let eventData = ''
                 for (const line of lines) {
-                    if (line.startsWith('data: ')) {
+                    if (line.startsWith('event: ')) {
+                        eventType = line.substring(7)
+                        this.prevLineWasDataLine = false
+                    } else if (line.startsWith('data: ')) {
                         if (this.prevLineWasDataLine) {
                             eventData += "\n"
                         }
@@ -75,9 +79,10 @@ export class PostEventSource {
                     } else if (line === '') {
                         // Leere Zeile signalisiert das Ende eines Events
                         if (this.onmessage) {
-                            this.onmessage({data: eventData} as MessageEvent)
+                            this.onmessage({type: eventType, data: eventData} as MessageEvent)
                         }
                         this.prevLineWasDataLine = false
+                        eventType = undefined
                         eventData = ''
                     }
                 }

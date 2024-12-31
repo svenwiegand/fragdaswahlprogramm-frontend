@@ -18,6 +18,7 @@ export function Chat() {
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
     const [threadId, setThreadId] = React.useState<string>()
+    const [followUpQuestions, setFollowUpQuestions] = React.useState<string[]>([])
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
@@ -25,18 +26,19 @@ export function Chat() {
     const onSend = (question: string) => {
         addMessage("question", question)
         setAnswer("")
+        setFollowUpQuestions([])
 
         const onDone = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
         }
-        sendQuestion(question, threadId, setThreadId, setAnswer, onDone)
+        sendQuestion(question, threadId, setThreadId, setAnswer, setFollowUpQuestions, onDone)
     }
 
     return (
         <div css={chatStyle}>
             {messages.length > 0 || answer ? <ChatHistory messages={messages} generatingAnswer={answer} /> : null}
-
+            {followUpQuestions.map((question, index) => <p key={index}>{question}</p>)}
             <ChatTextField onSend={onSend} />
         </div>
     )
@@ -47,6 +49,7 @@ function sendQuestion(
     threadId: string | undefined,
     setThreadId: (threadId: string | undefined) => void,
     updateAnswer: (answer: string) => void,
+    updateFollowUpQuestions: (set: (pref: string[]) => string[]) => void,
     onDone: (answer: string) => void
 ) {
     const url = threadId ? `${backendBaseUrl}/api/thread/${threadId}` : `${backendBaseUrl}/api/thread`
@@ -60,8 +63,12 @@ function sendQuestion(
 
     eventSource.onmessage = (event) => {
         const token = event.data
-        answer = answer + token
-        updateAnswer(answer)
+        if (event.type === "message") {
+            answer = answer + token
+            updateAnswer(answer)
+        } else if (event.type === "followUpQuestion") {
+            updateFollowUpQuestions(prev => prev.concat(token))
+        }
     }
 
     eventSource.ondone = () => onDone(answer)
