@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react"
 import {css} from "@emotion/react"
 import {dimensions, fontFamily, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
-import SendIcon from "./icon-send.svg?react"
+import SendIcon from "../icons/icon-send.svg?react"
 
 const containerStyle = css`
     width: 100%;

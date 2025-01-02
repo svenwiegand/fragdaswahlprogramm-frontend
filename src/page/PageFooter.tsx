@@ -1,5 +1,5 @@
 import {css} from '@emotion/react'
-import {NavbarLink} from "../style/styled-compontents.tsx"
+import {NavbarLink} from "../common/NavbarLink.tsx"
 import {FormattedMessage} from "react-intl"
 import {rempx, responsiveHPadding} from "../style/styles.ts"
 

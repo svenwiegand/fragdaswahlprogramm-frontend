@@ -17,6 +17,7 @@ export function getBrowserLocales(): readonly string[] {
 
 const messages: Record<string, MessagesById> = {
     de: {
+        home: "Startseite",
         about: "Über „fragdaswahlprogramm”",
         parties: "Parteien",
         imprint: "Impressum",
@@ -26,10 +27,12 @@ const messages: Record<string, MessagesById> = {
         send: "Senden",
 
         chatGenerating: "Ich durchsuche die Wahlprogramme…",
+        chatNew: "Neues Thema",
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
     },
 
     en: {
+        home: "Home",
         about: "About “fragdaswahlprogramm”",
         parties: "Parties",
         imprint: "Imprint",
@@ -39,6 +42,7 @@ const messages: Record<string, MessagesById> = {
         send: "Send",
 
         chatGenerating: "I'm searching the election programs…",
+        chatNew: "New topic",
         chatError: "An error occurred. Please try again later.",
     }
 }

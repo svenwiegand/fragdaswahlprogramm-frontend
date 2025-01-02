@@ -1,7 +1,8 @@
 import {css} from "@emotion/react"
 import {rempx} from "../style/styles.ts"
-import {PageHeader} from "./PageHeader.tsx"
+import {Action, PageHeader} from "./PageHeader.tsx"
 import {PageFooter} from "./PageFooter.tsx"
+import {ReactNode} from "react"
 
 const pageStyle = css`
     height: 100%;
@@ -22,18 +23,21 @@ const contentStyle = css`
 `
 
 interface PageProps {
-    hideHeaderAndFooter?: boolean
-    children: React.ReactNode
+    isSubPage?: boolean
+    onBack?: () => void
+    headerAction?: Action
+    hideFooter?: boolean
+    children: ReactNode
 }
 
-export function Page({ hideHeaderAndFooter, children }: PageProps) {
+export function Page({ isSubPage, onBack, headerAction, hideFooter, children }: PageProps) {
     return (
         <div css={pageStyle}>
-            {hideHeaderAndFooter ? null : <PageHeader/>}
+            <PageHeader isSubPage={isSubPage} onBack={onBack} action={headerAction}/>
             <article css={contentStyle}>
                 {children}
             </article>
-            {hideHeaderAndFooter ? null : <PageFooter/>}
+            {hideFooter ? null : <PageFooter/>}
         </div>
     )
 }

@@ -3,12 +3,17 @@ import {useEffect, useState} from "react"
 import {useIntl} from "react-intl"
 import Markdown from "react-markdown"
 import {css} from "@emotion/react"
-import {responsiveHPadding} from "../style/styles.ts"
+import {dimensions, responsiveHPadding} from "../style/styles.ts"
 
-const contentStyle = css`
+const contentContainerStyle = css`
     width: 100%;
     overflow-y: auto;
     ${responsiveHPadding}
+`
+
+const contentStyle = css`
+    max-width: ${dimensions.maxContentWidth};
+    margin: 0 auto;
 `
 
 interface MarkdownPageProps {
@@ -28,7 +33,9 @@ export function MarkdownPage({ contentName }: MarkdownPageProps) {
         fetchData()
     }, [contentName, locale])
     return (
-        <Page>
-            <Markdown css={contentStyle}>{content}</Markdown>
+        <Page isSubPage={true}>
+            <div css={contentContainerStyle}>
+                <Markdown css={contentStyle}>{content}</Markdown>
+            </div>
         </Page>)
 }

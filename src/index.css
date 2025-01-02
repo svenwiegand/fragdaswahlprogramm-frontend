@@ -1,35 +1,44 @@
 html, body, #root {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 pre, code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-  max-width: 100%;
-  overflow: auto;
-  padding: 16px;
-  background-color: #eee;
-  border-radius: 8px;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    max-width: 100%;
+    overflow: auto;
+    padding: 16px;
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+a {
+    color: #616161;
+    font-weight: 500;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 
 .message {
-  line-height: 1.8;
+    line-height: 1.8;
 }
 
 .message > :first-child {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .message > :last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .message.generating blockquote,
@@ -42,8 +51,8 @@ pre, code {
 .message.generating li,
 .message.generating p,
 .message.generating pre {
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
 }
 
 @keyframes fadeIn {

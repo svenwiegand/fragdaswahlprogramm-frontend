@@ -9,6 +9,9 @@ import {createReferenceMarkdownLink, Reference} from "./ReferenceLink.tsx"
 import {Page} from "../page/Page.tsx"
 import {FlexSpacer} from "../common/Spacer.tsx"
 import {Logo} from "./Logo.tsx"
+import {Action} from "../page/PageHeader.tsx"
+import NewChatIcon from "../icons/icon-new-chat.svg?react"
+import {useIntl} from "react-intl"
 
 const chatStyle = css`
     flex-grow: 1;
@@ -51,20 +54,35 @@ export function ChatPage() {
         sendQuestion(question, threadId, setThreadId, setAnswer, setFollowUpQuestions, onDone, onError)
     }
 
-    const showChatHistory = messages.length > 0 || !!answer || isGenerating
+    const reset = () => {
+        setMessages([])
+        setThreadId(undefined)
+        setAnswer("")
+        setIsGenerating(false)
+        setIsError(false)
+        setFollowUpQuestions([])
+    }
+
+    const intl = useIntl()
+    const newChatAction: Action = {
+        icon:  NewChatIcon,
+        title: intl.formatMessage({id: "chatNew"}),
+        onClick: reset
+    }
+    const hasChat = messages.length > 0 || !!answer || isGenerating
     const showFollowUpQuestions = !isGenerating && followUpQuestions.length > 0
 
     return (
-        <Page hideHeaderAndFooter={showChatHistory}>
+        <Page isSubPage={hasChat} onBack={reset} headerAction={newChatAction} hideFooter={hasChat}>
             <div css={chatStyle}>
-                {!showChatHistory ? <><FlexSpacer grow={1} portraitGrow={1}/><Logo/></> : null}
-                {showChatHistory
+                {!hasChat ? <><FlexSpacer grow={1} portraitGrow={1}/><Logo/></> : null}
+                {hasChat
                     ? <ChatHistory messages={messages} generatingAnswer={answer} isGenerating={isGenerating} isError={isError} />
                     : null
                 }
                 {showFollowUpQuestions ? followUpQuestions.map((question, index) => <p key={index}>{question}</p>) : null}
-                <ChatTextField expanded={showChatHistory} onSend={onSend} />
-                {!showChatHistory ? <FlexSpacer grow={4}/> : null}
+                <ChatTextField expanded={hasChat} onSend={onSend} />
+                {!hasChat ? <FlexSpacer grow={4}/> : null}
             </div>
         </Page>
     )
