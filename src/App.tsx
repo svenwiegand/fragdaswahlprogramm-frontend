@@ -10,7 +10,7 @@ const messages = getMessages(userLocales)
 
 function App() {
     return (
-        <IntlProvider messages={messages} locale={userLocales[0]}>
+        <IntlProvider messages={messages} locale={"de-de"}>
             <BrowserRouter>
                 <Routes>
                     <Route index element={<Page><Chat/></Page>}/>

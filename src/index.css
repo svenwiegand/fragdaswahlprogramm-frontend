@@ -20,6 +20,10 @@ pre, code {
   border-radius: 8px;
 }
 
+.message {
+  line-height: 1.8;
+}
+
 .message > :first-child {
   margin-top: 0;
 }

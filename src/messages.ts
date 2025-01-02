@@ -23,6 +23,8 @@ const messages: Record<string, MessagesById> = {
 
         inputPlaceholder: "Deine Frage an die Wahlprogramme",
         send: "Senden",
+
+        chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
     },
 
     en: {
@@ -32,5 +34,7 @@ const messages: Record<string, MessagesById> = {
 
         inputPlaceholder: "Your question to the election programs",
         send: "Send",
+
+        chatError: "An error occurred. Please try again later.",
     }
 }

@@ -1,6 +1,8 @@
-import Markdown from "react-markdown"
+import Markdown, {Components} from "react-markdown"
 import {css} from "@emotion/react"
-import {dimensions} from "../style/styles.ts"
+import {color, dimensions} from "../style/styles.ts"
+import {useIntl} from "react-intl"
+import {EventualReferenceLink} from "./ReferenceLink.tsx"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -16,9 +18,11 @@ const chatHistoryStyle = css`
 export interface ChatHistoryProps {
     messages: ChatMessageProps[]
     generatingAnswer: string
+    isError: boolean
 }
 
-export function ChatHistory({messages, generatingAnswer}: ChatHistoryProps) {
+export function ChatHistory({messages, generatingAnswer, isError}: ChatHistoryProps) {
+    const intl = useIntl()
     return (
         <div css={chatHistoryStyle}>
             {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
@@ -26,6 +30,7 @@ export function ChatHistory({messages, generatingAnswer}: ChatHistoryProps) {
                 <ChatMessage msgType={"answer"} message={generatingAnswer}/>
                 <span>…</span>
             </> : null}
+            {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
         </div>
     )
 }
@@ -46,12 +51,35 @@ const answerStyle = css`
     ${chatMessageStyle};
 `
 
+const errorStyle = css`
+    ${questionStyle};
+    background-color: ${color.error.background};
+    color: ${color.error.text};
+`
+
+const msgStyle: Record<ChatMessageProps['msgType'], ReturnType<typeof css>> = {
+    question: questionStyle,
+    answer: answerStyle,
+    error: errorStyle,
+}
+
 export interface ChatMessageProps {
-    msgType: "question" | "answer"
+    msgType: "question" | "answer" | "error"
     message: string
 }
 
 function ChatMessage({msgType, message}: ChatMessageProps) {
-    const style = msgType === "question" ? questionStyle : answerStyle
-    return <Markdown css={style} className={`message ${msgType}`}>{message}</Markdown>
+    return (
+        <Markdown
+            css={msgStyle[msgType]}
+            className={`message ${msgType}`}
+            components={markdownComponents}
+        >
+            {message}
+        </Markdown>
+    )
+}
+
+const markdownComponents: Components = {
+    a: ({href, target, children}) => <EventualReferenceLink href={href} target={target}>{children}</EventualReferenceLink>
 }
