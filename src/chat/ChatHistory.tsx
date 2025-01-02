@@ -38,7 +38,7 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError}:
                 {generatingAnswer ? <>
                     <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
                 </> : null}
-                {isGenerating ? <GeneratingIndicator/> : null}
+                {isGenerating ? <GeneratingIndicator alreadyReceivedText={!!generatingAnswer}/> : null}
                 {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
             </div>
         </div>
