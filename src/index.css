@@ -31,3 +31,26 @@ pre, code {
 .message > :last-child {
   margin-bottom: 0;
 }
+
+.message.generating blockquote,
+.message.generating h1,
+.message.generating h2,
+.message.generating h3,
+.message.generating h4,
+.message.generating h5,
+.message.generating h6,
+.message.generating li,
+.message.generating p,
+.message.generating pre {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

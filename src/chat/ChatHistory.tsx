@@ -3,6 +3,7 @@ import {css} from "@emotion/react"
 import {color, dimensions} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
+import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -18,18 +19,19 @@ const chatHistoryStyle = css`
 export interface ChatHistoryProps {
     messages: ChatMessageProps[]
     generatingAnswer: string
+    isGenerating: boolean
     isError: boolean
 }
 
-export function ChatHistory({messages, generatingAnswer, isError}: ChatHistoryProps) {
+export function ChatHistory({messages, generatingAnswer, isGenerating, isError}: ChatHistoryProps) {
     const intl = useIntl()
     return (
         <div css={chatHistoryStyle}>
             {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
             {generatingAnswer ? <>
-                <ChatMessage msgType={"answer"} message={generatingAnswer}/>
-                <span>…</span>
+                <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
             </> : null}
+            {isGenerating ? <GeneratingIndicator/> : null}
             {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
         </div>
     )
@@ -66,13 +68,14 @@ const msgStyle: Record<ChatMessageProps['msgType'], ReturnType<typeof css>> = {
 export interface ChatMessageProps {
     msgType: "question" | "answer" | "error"
     message: string
+    isGenerating?: boolean
 }
 
-function ChatMessage({msgType, message}: ChatMessageProps) {
+function ChatMessage({msgType, message, isGenerating}: ChatMessageProps) {
     return (
         <Markdown
             css={msgStyle[msgType]}
-            className={`message ${msgType}`}
+            className={`message ${msgType} ${isGenerating ? "generating" : ""}`}
             components={markdownComponents}
         >
             {message}

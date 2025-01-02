@@ -19,6 +19,7 @@ const chatStyle = css`
 export function Chat() {
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
+    const [isGenerating, setIsGenerating] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
     const [threadId, setThreadId] = React.useState<string>()
     const [followUpQuestions, setFollowUpQuestions] = React.useState<string[]>([])
@@ -29,24 +30,30 @@ export function Chat() {
     const onSend = (question: string) => {
         addMessage("question", question)
         setIsError(false)
+        setIsGenerating(true)
         setAnswer("")
         setFollowUpQuestions([])
 
         const onDone = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
+            setIsGenerating(false)
         }
         const onError = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
             setIsError(true)
+            setIsGenerating(false)
         }
         sendQuestion(question, threadId, setThreadId, setAnswer, setFollowUpQuestions, onDone, onError)
     }
 
     return (
         <div css={chatStyle}>
-            {messages.length > 0 || answer ? <ChatHistory messages={messages} generatingAnswer={answer} isError={isError} /> : null}
+            {messages.length > 0 || answer || isGenerating
+                ? <ChatHistory messages={messages} generatingAnswer={answer} isGenerating={isGenerating} isError={isError} />
+                : null
+            }
             {followUpQuestions.map((question, index) => <p key={index}>{question}</p>)}
             <ChatTextField onSend={onSend} />
         </div>

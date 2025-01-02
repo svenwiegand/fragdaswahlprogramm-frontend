@@ -11,6 +11,9 @@ export const fontFamily = `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif`
 
 export const color = {
+    neutral: {
+        neutral900: "#424242",
+    },
     error: {
         background: '#FFE8EA', // red-100
         text: '#66141c', // red-990 / text
