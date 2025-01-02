@@ -17,7 +17,8 @@ export function getBrowserLocales(): readonly string[] {
 
 const messages: Record<string, MessagesById> = {
     de: {
-        about: "Hilfe",
+        about: "Über „fragdaswahlprogramm”",
+        parties: "Parteien",
         imprint: "Impressum",
         privacy: "Datenschutz",
 
@@ -29,7 +30,8 @@ const messages: Record<string, MessagesById> = {
     },
 
     en: {
-        about: "Help",
+        about: "About “fragdaswahlprogramm”",
+        parties: "Parties",
         imprint: "Imprint",
         privacy: "Privacy Policy",
 

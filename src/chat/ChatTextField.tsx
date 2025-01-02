@@ -16,7 +16,7 @@ const containerStyle = css`
 
 const inputContainerStyle = css`
     flex-grow: 1;
-    max-width: ${dimensions.maxContentWidth};
+    max-width: ${rempx(580)};
     min-height: ${rempx(52)};
     padding: ${rempx(0)} ${rempx(13)} ${rempx(0)} ${rempx(16)};
     border: 1px #000 solid;
@@ -26,6 +26,11 @@ const inputContainerStyle = css`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+`
+
+const expandedInputContainerStyle = css`
+    ${inputContainerStyle};
+    max-width: ${dimensions.maxContentWidth};
 `
 
 const textareaStyle = css`
@@ -51,10 +56,11 @@ const buttonStyle = css`
 `
 
 type ChatTextFieldProps = {
+    expanded?: boolean
     onSend: (value: string) => void
 };
 
-export function ChatTextField({onSend}: ChatTextFieldProps) {
+export function ChatTextField({expanded, onSend}: ChatTextFieldProps) {
     const [value, setValue] = useState("")
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     useEffect(() => {
@@ -88,7 +94,7 @@ export function ChatTextField({onSend}: ChatTextFieldProps) {
     const intl = useIntl()
     return (
         <div css={containerStyle}>
-            <div css={inputContainerStyle}>
+            <div css={expanded ? expandedInputContainerStyle : inputContainerStyle}>
                 <textarea
                     ref={textareaRef}
                     placeholder={intl.formatMessage({id: "inputPlaceholder"})}

@@ -5,6 +5,7 @@ export function rempx(px: number): string {
 }
 
 export const dimensions = {
+    mobileMaxWidth: rempx(820),
     maxContentWidth: rempx(720),
 
     desktop: {
@@ -17,7 +18,7 @@ export const dimensions = {
 
 export const responsiveHPadding = css`
     padding: 0 ${dimensions.desktop.pagePaddingHorizontal};
-    @media (max-width: 820px) {
+    @media (max-width: ${dimensions.mobileMaxWidth}) {
         padding: 0 ${dimensions.mobile.pagePaddingHorizontal};
     }
 `

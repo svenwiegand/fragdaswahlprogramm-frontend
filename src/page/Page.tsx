@@ -22,17 +22,18 @@ const contentStyle = css`
 `
 
 interface PageProps {
+    hideHeaderAndFooter?: boolean
     children: React.ReactNode
 }
 
-export function Page({ children }: PageProps) {
+export function Page({ hideHeaderAndFooter, children }: PageProps) {
     return (
         <div css={pageStyle}>
-            <PageHeader/>
+            {hideHeaderAndFooter ? null : <PageHeader/>}
             <article css={contentStyle}>
                 {children}
             </article>
-            <PageFooter/>
+            {hideHeaderAndFooter ? null : <PageFooter/>}
         </div>
     )
 }

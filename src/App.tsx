@@ -1,7 +1,6 @@
-import {Chat} from "./chat/Chat"
+import {ChatPage} from "./chat/ChatPage.tsx"
 import {IntlProvider} from "react-intl"
 import {getBrowserLocales, getMessages} from "./messages.ts"
-import {Page} from "./page/Page.tsx"
 import {MarkdownPage} from "./page/MarkdownPage.tsx"
 import {BrowserRouter, Route, Routes} from "react-router"
 
@@ -13,7 +12,7 @@ function App() {
         <IntlProvider messages={messages} locale={"de-de"}>
             <BrowserRouter>
                 <Routes>
-                    <Route index element={<Page><Chat/></Page>}/>
+                    <Route index element={<ChatPage/>}/>
                     <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
                 </Routes>
             </BrowserRouter>

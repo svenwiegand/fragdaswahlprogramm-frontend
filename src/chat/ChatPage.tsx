@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {PostEventSource} from "../util/event-source"
 import {backendBaseUrl} from "../environment"
 import {css} from "@emotion/react"
@@ -6,6 +6,9 @@ import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
 import {ChatTextField} from "./ChatTextField.tsx"
 import {regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./ReferenceLink.tsx"
+import {Page} from "../page/Page.tsx"
+import {FlexSpacer} from "../common/Spacer.tsx"
+import {Logo} from "./Logo.tsx"
 
 const chatStyle = css`
     flex-grow: 1;
@@ -16,7 +19,7 @@ const chatStyle = css`
     overflow: hidden;
 `
 
-export function Chat() {
+export function ChatPage() {
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
     const [isGenerating, setIsGenerating] = React.useState(false)
@@ -48,15 +51,22 @@ export function Chat() {
         sendQuestion(question, threadId, setThreadId, setAnswer, setFollowUpQuestions, onDone, onError)
     }
 
+    const showChatHistory = messages.length > 0 || !!answer || isGenerating
+    const showFollowUpQuestions = !isGenerating && followUpQuestions.length > 0
+
     return (
-        <div css={chatStyle}>
-            {messages.length > 0 || answer || isGenerating
-                ? <ChatHistory messages={messages} generatingAnswer={answer} isGenerating={isGenerating} isError={isError} />
-                : null
-            }
-            {followUpQuestions.map((question, index) => <p key={index}>{question}</p>)}
-            <ChatTextField onSend={onSend} />
-        </div>
+        <Page hideHeaderAndFooter={showChatHistory}>
+            <div css={chatStyle}>
+                {!showChatHistory ? <><FlexSpacer grow={1} portraitGrow={1}/><Logo/></> : null}
+                {showChatHistory
+                    ? <ChatHistory messages={messages} generatingAnswer={answer} isGenerating={isGenerating} isError={isError} />
+                    : null
+                }
+                {showFollowUpQuestions ? followUpQuestions.map((question, index) => <p key={index}>{question}</p>) : null}
+                <ChatTextField expanded={showChatHistory} onSend={onSend} />
+                {!showChatHistory ? <FlexSpacer grow={4}/> : null}
+            </div>
+        </Page>
     )
 }
 
