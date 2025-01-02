@@ -1,21 +1,31 @@
-import React, {useState, useRef, useEffect} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {css} from "@emotion/react"
-import {dimensions, fontFamily, rempx} from "../style/styles.ts"
+import {dimensions, fontFamily, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import SendIcon from "./icon-send.svg?react"
 
 const containerStyle = css`
-    margin: 0 ${dimensions.pagePaddingHorizontal};
     width: 100%;
-    max-width: 740px;
-    min-height: 52px;
+    ${responsiveHPadding};
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+`
+
+const inputContainerStyle = css`
+    flex-grow: 1;
+    max-width: ${dimensions.maxContentWidth};
+    min-height: ${rempx(52)};
+    padding: ${rempx(0)} ${rempx(13)} ${rempx(0)} ${rempx(16)};
+    border: 1px #000 solid;
+    border-radius: ${rempx(26)};
+    
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 0 ${rempx(13)};
-    border: 1px #000 solid;
-    border-radius: ${rempx(26)};
 `
 
 const textareaStyle = css`
@@ -78,22 +88,24 @@ export function ChatTextField({onSend}: ChatTextFieldProps) {
     const intl = useIntl()
     return (
         <div css={containerStyle}>
-            <textarea
-                ref={textareaRef}
-                placeholder={intl.formatMessage({id: "inputPlaceholder"})}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                rows={1}
-                css={textareaStyle}
-            />
-            <button
-                onClick={sendIfNotEmpty}
-                aria-label={intl.formatMessage({id: "send"})}
-                css={buttonStyle}
-                disabled={!value}>
-                <SendIcon width={32} height={32} />
-            </button>
+            <div css={inputContainerStyle}>
+                <textarea
+                    ref={textareaRef}
+                    placeholder={intl.formatMessage({id: "inputPlaceholder"})}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    rows={1}
+                    css={textareaStyle}
+                />
+                <button
+                    onClick={sendIfNotEmpty}
+                    aria-label={intl.formatMessage({id: "send"})}
+                    css={buttonStyle}
+                    disabled={!value}>
+                    <SendIcon width={32} height={32} />
+                </button>
+            </div>
         </div>
     )
 }

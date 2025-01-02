@@ -2,10 +2,10 @@ import {css} from '@emotion/react'
 import {NavbarLink} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
 import styled from "@emotion/styled"
-import {dimensions, rempx} from "../style/styles.ts"
+import {rempx, responsiveHPadding} from "../style/styles.ts"
 
 const headerStyle = css`
-    padding: 0 ${dimensions.pagePaddingHorizontal};
+    ${responsiveHPadding};
     flex-shrink: 0;
     display: flex;
     align-items: baseline;

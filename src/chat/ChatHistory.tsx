@@ -1,6 +1,6 @@
 import Markdown, {Components} from "react-markdown"
 import {css} from "@emotion/react"
-import {color, dimensions} from "../style/styles.ts"
+import {color, dimensions, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
 import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
@@ -8,12 +8,18 @@ import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
 const chatHistoryStyle = css`
     width: 100%;
     box-sizing: border-box;
-    padding: 0 ${dimensions.pagePaddingHorizontal};
     flex-grow: 1;
+    overflow-y: auto;
+    ${responsiveHPadding}
+`
+
+const chatHistoryContentStyle = css`
+    width: 100%;
+    max-width: ${dimensions.maxContentWidth};
+    margin: 0 auto;
+    display: flex;
     flex-direction: column;
     gap: 1rem;
-    display: flex;
-    overflow-y: auto;
 `
 
 export interface ChatHistoryProps {
@@ -27,12 +33,14 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError}:
     const intl = useIntl()
     return (
         <div css={chatHistoryStyle}>
-            {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
-            {generatingAnswer ? <>
-                <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
-            </> : null}
-            {isGenerating ? <GeneratingIndicator/> : null}
-            {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
+            <div css={chatHistoryContentStyle}>
+                {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
+                {generatingAnswer ? <>
+                    <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
+                </> : null}
+                {isGenerating ? <GeneratingIndicator/> : null}
+                {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
+            </div>
         </div>
     )
 }

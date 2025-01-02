@@ -3,12 +3,12 @@ import {useEffect, useState} from "react"
 import {useIntl} from "react-intl"
 import Markdown from "react-markdown"
 import {css} from "@emotion/react"
-import {dimensions} from "../style/styles.ts"
+import {responsiveHPadding} from "../style/styles.ts"
 
 const contentStyle = css`
     width: 100%;
-    padding: 0 ${dimensions.pagePaddingHorizontal};
     overflow-y: auto;
+    ${responsiveHPadding}
 `
 
 interface MarkdownPageProps {

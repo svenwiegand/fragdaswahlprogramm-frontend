@@ -1,10 +1,10 @@
 import {css} from '@emotion/react'
 import {NavbarLink} from "../style/styled-compontents.tsx"
 import {FormattedMessage} from "react-intl"
-import {dimensions, rempx} from "../style/styles.ts"
+import {rempx, responsiveHPadding} from "../style/styles.ts"
 
 const footerStyle = css`
-    padding: 0 ${dimensions.pagePaddingHorizontal};
+    ${responsiveHPadding};
     flex-shrink: 0;
     display: flex;
     justify-content: center;
