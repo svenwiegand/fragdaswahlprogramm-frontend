@@ -57,10 +57,11 @@ export function EventualReferenceLink({href, ...props}: ReferenceLinkProps) {
 }
 
 function ReferenceLink({party, section, shortSection, page}: Reference) {
-    const title = `${parties[party].manifestoTitle}\n${section}\nSeite ${page}`
+    const title = `${parties[party].manifesto.title}\n${section}\nSeite ${page}`
+    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
     return (
         <a
-            href={parties[party].manifestoLink}
+            href={href}
             target={"_blank"}
             title={title}
             css={css`
