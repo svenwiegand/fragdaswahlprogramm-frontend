@@ -5,6 +5,7 @@ import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
 import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
 import {useEffect, useRef} from "react"
+import {Suggestions} from "./Suggestion.tsx"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -17,7 +18,7 @@ const chatHistoryStyle = css`
 const chatHistoryContentStyle = css`
     width: 100%;
     max-width: ${dimensions.maxContentWidth};
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -28,9 +29,11 @@ export interface ChatHistoryProps {
     generatingAnswer: string
     isGenerating: boolean
     isError: boolean
+    suggestions: string[]
+    onSuggestionClick: (suggestion: string) => void
 }
 
-export function ChatHistory({messages, generatingAnswer, isGenerating, isError}: ChatHistoryProps) {
+export function ChatHistory({messages, generatingAnswer, isGenerating, isError, suggestions, onSuggestionClick}: ChatHistoryProps) {
     const intl = useIntl()
     const indicatorRef = useRef<HTMLDivElement>(null)
 
@@ -49,6 +52,10 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError}:
                 </> : null}
                 {isGenerating ? <GeneratingIndicator alreadyReceivedText={!!generatingAnswer} ref={indicatorRef}/> : null}
                 {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
+                {suggestions.length > 0 && !isGenerating
+                    ? <Suggestions suggestions={suggestions} onClick={onSuggestionClick}/>
+                    : null
+                }
             </div>
         </div>
     )

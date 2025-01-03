@@ -28,7 +28,7 @@ export function ChatPage() {
     const [isGenerating, setIsGenerating] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
     const [threadId, setThreadId] = React.useState<string>()
-    const [followUpQuestions, setFollowUpQuestions] = React.useState<string[]>([])
+    const [suggestions, setSuggestions] = React.useState<string[]>([])
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
@@ -38,7 +38,7 @@ export function ChatPage() {
         setIsError(false)
         setIsGenerating(true)
         setAnswer("")
-        setFollowUpQuestions([])
+        setSuggestions([])
 
         const onDone = (answer: string) => {
             addMessage("answer", answer)
@@ -51,7 +51,7 @@ export function ChatPage() {
             setIsError(true)
             setIsGenerating(false)
         }
-        sendQuestion(question, threadId, setThreadId, setAnswer, setFollowUpQuestions, onDone, onError)
+        sendQuestion(question, threadId, setThreadId, setAnswer, setSuggestions, onDone, onError)
     }
 
     const reset = () => {
@@ -60,7 +60,7 @@ export function ChatPage() {
         setAnswer("")
         setIsGenerating(false)
         setIsError(false)
-        setFollowUpQuestions([])
+        setSuggestions([])
     }
 
     const intl = useIntl()
@@ -70,17 +70,22 @@ export function ChatPage() {
         onClick: reset
     }
     const hasChat = messages.length > 0 || !!answer || isGenerating
-    const showFollowUpQuestions = !isGenerating && followUpQuestions.length > 0
 
     return (
         <Page isSubPage={hasChat} onBack={reset} headerAction={newChatAction} hideFooter={hasChat}>
             <div css={chatStyle}>
                 {!hasChat ? <><FlexSpacer grow={1} portraitGrow={1}/><Logo/></> : null}
                 {hasChat
-                    ? <ChatHistory messages={messages} generatingAnswer={answer} isGenerating={isGenerating} isError={isError} />
+                    ? <ChatHistory
+                        messages={messages}
+                        generatingAnswer={answer}
+                        isGenerating={isGenerating}
+                        isError={isError}
+                        suggestions={suggestions}
+                        onSuggestionClick={onSend}
+                    />
                     : null
                 }
-                {showFollowUpQuestions ? followUpQuestions.map((question, index) => <p key={index}>{question}</p>) : null}
                 <ChatTextField expanded={hasChat} onSend={onSend} />
                 {!hasChat ? <FlexSpacer grow={4}/> : null}
             </div>
@@ -93,7 +98,7 @@ function sendQuestion(
     threadId: string | undefined,
     setThreadId: (threadId: string | undefined) => void,
     updateAnswer: (answer: string) => void,
-    updateFollowUpQuestions: (set: (pref: string[]) => string[]) => void,
+    updateSuggestions: (set: (pref: string[]) => string[]) => void,
     onDone: (answer: string) => void,
     onError: (answer: string) => void
 ) {
@@ -113,7 +118,7 @@ function sendQuestion(
         if (event.type === "message") {
             updateAnswer(answer.push(token))
         } else if (event.type === "followUpQuestion") {
-            updateFollowUpQuestions(prev => prev.concat(token))
+            updateSuggestions(prev => prev.concat(token))
         }
     }
 
