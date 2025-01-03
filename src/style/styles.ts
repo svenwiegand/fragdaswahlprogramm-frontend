@@ -35,6 +35,9 @@ export const color = {
         neutral600: "#9e9e9e",
         neutral500: "#bdbdbd",
         neutral400: "#cfcfcf",
+        neutral300: "#e0e0e0",
+        neutral200: "#eeeeee", //background
+        neutral100: "#f5f5f5",
     },
     error: {
         background: '#FFE8EA', // red-100

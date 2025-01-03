@@ -1,6 +1,6 @@
 import Markdown, {Components} from "react-markdown"
 import {css} from "@emotion/react"
-import {color, dimensions, responsiveHPadding} from "../style/styles.ts"
+import {color, dimensions, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
 import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
@@ -46,15 +46,16 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError}:
 }
 
 const chatMessageStyle = css`
+    line-height: ${rempx(28)}
 `
 
 const questionStyle = css`
     ${chatMessageStyle};
     max-width: 70%;
     margin-left: auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: #eee;
+    padding: ${rempx(10)} ${rempx(20)};
+    border-radius: ${rempx(24)};
+    background-color: ${color.neutral.neutral200};
 `
 
 const answerStyle = css`

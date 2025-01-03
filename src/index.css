@@ -29,10 +29,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.message {
-    line-height: 1.8;
-}
-
 .message > :first-child {
     margin-top: 0;
 }
