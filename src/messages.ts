@@ -26,7 +26,7 @@ const messages: Record<string, MessagesById> = {
         inputPlaceholder: "Deine Frage an die Wahlprogramme",
         send: "Senden",
 
-        chatGenerating: "Ich durchsuche die Wahlprogramme…",
+        chatGenerating: "Einen Moment bitte…",
         chatNew: "Neues Thema",
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
     },
@@ -41,7 +41,7 @@ const messages: Record<string, MessagesById> = {
         inputPlaceholder: "Your question to the election programs",
         send: "Send",
 
-        chatGenerating: "I'm searching the election programs…",
+        chatGenerating: "One moment please…",
         chatNew: "New topic",
         chatError: "An error occurred. Please try again later.",
     }

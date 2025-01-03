@@ -35,7 +35,6 @@ const indicatorStyle = css`
 `
 
 const indicatorTextStyle = css`
-    margin-left: 0.5rem;
     background: linear-gradient(
             to left,
             ${color.neutral.neutral700} 0%,
@@ -67,9 +66,9 @@ export const GeneratingIndicator = forwardRef<HTMLDivElement, GeneratingIndicato
     const intl = useIntl()
     return (
         <div ref={ref} css={containerStyle}>
-            <div css={indicatorStyle}/>
-            {alreadyReceivedText ? null :
-                <span css={indicatorTextStyle}>{intl.formatMessage({id: "chatGenerating"})}</span>}
+            {alreadyReceivedText
+                ? <div css={indicatorStyle}/>
+                : <span css={indicatorTextStyle}>{intl.formatMessage({id: "chatGenerating"})}</span>}
         </div>
     )
 })
