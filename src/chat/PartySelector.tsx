@@ -73,6 +73,7 @@ export function PartySelector({onSelect}: PartySelectorProps) {
             }
         })
     }
+    const allowSelectIfNotAlready = selectedParties.length < maxNumberOfPartiesPerQuestion
     const send = useCallback(() => onSelect(selectedParties), [onSelect, selectedParties])
     const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfPartiesPerQuestion
 
@@ -80,8 +81,13 @@ export function PartySelector({onSelect}: PartySelectorProps) {
         <div css={selectorContainerStyle}>
             <div css={selectorStyle}>
                 {partySymbols.map((party) =>
-                    <PartyToggleButton key={parties[party].symbol} party={party} onSelect={onSelectParty}/>)
-                }
+                    <PartyToggleButton
+                        key={parties[party].symbol}
+                        party={party}
+                        allowSelectIfNotAlready={allowSelectIfNotAlready}
+                        onSelect={onSelectParty}
+                    />
+                )}
                 <div css={buttonContainerStyle}>
                     <SendButton disabled={!canSend} onClick={send}/>
                 </div>
@@ -92,10 +98,11 @@ export function PartySelector({onSelect}: PartySelectorProps) {
 
 export type PartyToggleButtonProps = {
     party: Party
+    allowSelectIfNotAlready: boolean
     onSelect: (party: Party, isSelected: boolean) => void
 }
 
-function PartyToggleButton({party, onSelect}: PartyToggleButtonProps) {
+function PartyToggleButton({party, onSelect, allowSelectIfNotAlready}: PartyToggleButtonProps) {
     const [isSelected, setIsSelected] = useState(false)
     const onClick = useCallback(() => {
         const select = !isSelected
@@ -106,7 +113,12 @@ function PartyToggleButton({party, onSelect}: PartyToggleButtonProps) {
     const logoStyle = isSelected ? logoSelectedStyle : logoUnselectedStyle
 
     return (
-        <button css={partyButtonStyle} onClick={onClick} aria-pressed={isSelected}>
+        <button
+            css={partyButtonStyle}
+            onClick={onClick}
+            aria-pressed={isSelected}
+            disabled={!isSelected && !allowSelectIfNotAlready}
+        >
             <img css={logoStyle} src={`/logos/${parties[party].symbol}.png`} alt={parties[party].name}/>
         </button>
     )
