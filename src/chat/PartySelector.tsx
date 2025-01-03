@@ -101,7 +101,7 @@ function PartyToggleButton({party, onSelect}: PartyToggleButtonProps) {
         const select = !isSelected
         setIsSelected(select)
         onSelect(party, select)
-    }, [party, onSelect])
+    }, [party, onSelect, isSelected])
     const partyButtonStyle = isSelected ? partyButtonSelectedStyle : partyButtonUnselectedStyle
     const logoStyle = isSelected ? logoSelectedStyle : logoUnselectedStyle
 
