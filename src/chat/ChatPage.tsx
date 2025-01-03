@@ -12,6 +12,7 @@ import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
+import {sessionHeaders} from "../common/session-id.ts"
 
 type Command = "selectParties"
 
@@ -117,7 +118,7 @@ function sendQuestion(
     onError: (answer: string) => void
 ) {
     const url = threadId ? `${backendBaseUrl}/api/thread/${threadId}` : `${backendBaseUrl}/api/thread`
-    const eventSource = new PostEventSource(url, {body: message})
+    const eventSource = new PostEventSource(url, {body: message, headers: sessionHeaders})
     const answer = new StreamingText(
         regexLineParser(referenceParser),
     )
