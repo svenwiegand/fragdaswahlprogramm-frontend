@@ -13,6 +13,8 @@ import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 
+type Command = "selectParties"
+
 const chatStyle = css`
     flex-grow: 1;
     flex-direction: column;
@@ -23,23 +25,32 @@ const chatStyle = css`
 `
 
 export function ChatPage() {
+    const [threadId, setThreadId] = React.useState<string>()
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
     const [isGenerating, setIsGenerating] = React.useState(false)
-    const [isError, setIsError] = React.useState(false)
-    const [threadId, setThreadId] = React.useState<string>()
     const [suggestions, setSuggestions] = React.useState<string[]>([])
+    const [showPartySelector, setShowPartySelector] = React.useState(false)
+    const [isError, setIsError] = React.useState(false)
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
 
-    const onSend = (question: string) => {
-        addMessage("question", question)
+    const send = (question: string, hideQuestion: boolean) => {
+        if (!hideQuestion) {
+            addMessage("question", question)
+        }
         setIsError(false)
         setIsGenerating(true)
         setAnswer("")
         setSuggestions([])
+        setShowPartySelector(false)
 
+        const onCommand = (command: Command) => {
+            if (command === "selectParties") {
+                setShowPartySelector(true)
+            }
+        }
         const onDone = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
@@ -51,8 +62,9 @@ export function ChatPage() {
             setIsError(true)
             setIsGenerating(false)
         }
-        sendQuestion(question, threadId, setThreadId, setAnswer, setSuggestions, onDone, onError)
+        sendQuestion(question, threadId, setThreadId, setAnswer, setSuggestions, onCommand, onDone, onError)
     }
+    const simpleSend = (question: string) => send(question, false)
 
     const reset = () => {
         setMessages([])
@@ -81,12 +93,13 @@ export function ChatPage() {
                         generatingAnswer={answer}
                         isGenerating={isGenerating}
                         isError={isError}
+                        showPartySelector={showPartySelector}
                         suggestions={suggestions}
-                        onSuggestionClick={onSend}
+                        sendQuestion={send}
                     />
                     : null
                 }
-                <ChatTextField expanded={hasChat} onSend={onSend} />
+                <ChatTextField expanded={hasChat} onSend={simpleSend} />
                 {!hasChat ? <FlexSpacer grow={4}/> : null}
             </div>
         </Page>
@@ -99,6 +112,7 @@ function sendQuestion(
     setThreadId: (threadId: string | undefined) => void,
     updateAnswer: (answer: string) => void,
     updateSuggestions: (set: (pref: string[]) => string[]) => void,
+    onCommand: (command: Command) => void,
     onDone: (answer: string) => void,
     onError: (answer: string) => void
 ) {
@@ -117,6 +131,8 @@ function sendQuestion(
         const token = event.data
         if (event.type === "message") {
             updateAnswer(answer.push(token))
+        } else if (event.type === "command") {
+            onCommand(token as Command)
         } else if (event.type === "followUpQuestion") {
             updateSuggestions(prev => prev.concat(token))
         }

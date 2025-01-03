@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react"
 import {css} from "@emotion/react"
 import {dimensions, fontFamily, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
-import SendIcon from "../icons/icon-send.svg?react"
+import {SendButton} from "./SendButton.tsx"
 
 const containerStyle = css`
     width: 100%;
@@ -45,14 +45,6 @@ const textareaStyle = css`
     border: none;
     outline: none;
     background: none;
-`
-
-const buttonStyle = css`
-    margin: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
 `
 
 type ChatTextFieldProps = {
@@ -104,13 +96,7 @@ export function ChatTextField({expanded, onSend}: ChatTextFieldProps) {
                     rows={1}
                     css={textareaStyle}
                 />
-                <button
-                    onClick={sendIfNotEmpty}
-                    aria-label={intl.formatMessage({id: "send"})}
-                    css={buttonStyle}
-                    disabled={!value}>
-                    <SendIcon width={32} height={32} />
-                </button>
+                <SendButton onClick={sendIfNotEmpty} disabled={!value} iconOnly={true} />
             </div>
         </div>
     )

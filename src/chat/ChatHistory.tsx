@@ -4,8 +4,10 @@ import {color, dimensions, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
 import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
-import {useEffect, useRef} from "react"
+import {useCallback, useEffect, useRef} from "react"
 import {Suggestions} from "./Suggestion.tsx"
+import {PartySelector} from "./PartySelector.tsx"
+import {Party, parties} from "../common/parties.ts"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -29,13 +31,20 @@ export interface ChatHistoryProps {
     generatingAnswer: string
     isGenerating: boolean
     isError: boolean
+    showPartySelector: boolean
     suggestions: string[]
-    onSuggestionClick: (suggestion: string) => void
+    sendQuestion: (question: string, hideQuestion: boolean) => void
 }
 
-export function ChatHistory({messages, generatingAnswer, isGenerating, isError, suggestions, onSuggestionClick}: ChatHistoryProps) {
+export function ChatHistory(
+    {messages, generatingAnswer, isGenerating, isError, showPartySelector, suggestions, sendQuestion}: ChatHistoryProps
+) {
     const intl = useIntl()
     const indicatorRef = useRef<HTMLDivElement>(null)
+    const send = useCallback((question: string) => sendQuestion(question, false), [sendQuestion])
+    const onPartiesSelected = useCallback((selectedParties: Party[]) => {
+        sendQuestion(`${selectedParties.map(p => parties[p].name).join(", ")}`, true)
+    }, [sendQuestion])
 
     useEffect(() => {
         if (isGenerating && indicatorRef.current) {
@@ -47,13 +56,14 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError, 
         <div css={chatHistoryStyle}>
             <div css={chatHistoryContentStyle}>
                 {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
+                {showPartySelector && !isGenerating ? <PartySelector onSelect={onPartiesSelected}/> : null}
                 {generatingAnswer ? <>
                     <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
                 </> : null}
                 {isGenerating ? <GeneratingIndicator alreadyReceivedText={!!generatingAnswer} ref={indicatorRef}/> : null}
                 {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
                 {suggestions.length > 0 && !isGenerating
-                    ? <Suggestions suggestions={suggestions} onClick={onSuggestionClick}/>
+                    ? <Suggestions suggestions={suggestions} onClick={send}/>
                     : null
                 }
             </div>
