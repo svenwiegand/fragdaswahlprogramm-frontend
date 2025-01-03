@@ -17,7 +17,7 @@ export function PageFooter() {
     return (
         <div css={footerStyle}>
             <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
-            <NavbarLink to="#"><FormattedMessage id={"privacy"}/></NavbarLink>
+            <NavbarLink to="/privacy"><FormattedMessage id={"privacy"}/></NavbarLink>
         </div>
     )
 }

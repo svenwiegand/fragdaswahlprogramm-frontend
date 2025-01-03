@@ -13,7 +13,10 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<ChatPage/>}/>
+                    <Route path={"about"} element={<MarkdownPage contentName={"about"}/>}/>
+                    <Route path={"parties"} element={<MarkdownPage contentName={"parties"}/>}/>
                     <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
+                    <Route path={"privacy"} element={<MarkdownPage contentName={"privacy"}/>}/>
                 </Routes>
             </BrowserRouter>
         </IntlProvider>

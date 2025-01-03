@@ -37,12 +37,12 @@ export function PageHeader({isSubPage, onBack, action}: PageHeaderProps) {
         <div css={headerStyle}>
             {isSubPage
                 ? <NavbarAction to="/" onClick={onBack}><BackIcon width={24} height={24}/><FormattedMessage id={"home"}/></NavbarAction>
-                : <NavbarLink to="#"><FormattedMessage id={"about"}/></NavbarLink>
+                : <NavbarLink to="/about"><FormattedMessage id={"about"}/></NavbarLink>
             }
             <div aria-hidden={true} css={spacerStyle}></div>
             {isSubPage
                 ? action ? <ActionButton {...action}/>: null
-                : <NavbarLink to="#"><FormattedMessage id={"parties"}/></NavbarLink>
+                : <NavbarLink to="/parties"><FormattedMessage id={"parties"}/></NavbarLink>
             }
         </div>
     )

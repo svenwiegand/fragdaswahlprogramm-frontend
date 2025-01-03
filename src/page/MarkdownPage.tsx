@@ -33,7 +33,7 @@ export function MarkdownPage({ contentName }: MarkdownPageProps) {
         fetchData()
     }, [contentName, locale])
     return (
-        <Page isSubPage={true}>
+        <Page isSubPage={true} hideFooter={true}>
             <div css={contentContainerStyle}>
                 <Markdown css={contentStyle}>{content}</Markdown>
             </div>
