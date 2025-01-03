@@ -1,8 +1,10 @@
 import {css} from "@emotion/react"
 import {color} from "../style/styles.ts"
 import {useIntl} from "react-intl"
+import {forwardRef} from "react"
 
 const containerStyle = css`
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -15,7 +17,7 @@ const indicatorStyle = css`
     background-color: ${color.neutral.neutral700};
     border-radius: 50%;
     animation: pulse 1.5s infinite;
-    
+
     @keyframes pulse {
         0% {
             transform: scale(1);
@@ -58,12 +60,16 @@ export type GeneratingIndicatorProps = {
     alreadyReceivedText: boolean
 }
 
-export function GeneratingIndicator({alreadyReceivedText}: GeneratingIndicatorProps) {
+export const GeneratingIndicator = forwardRef<HTMLDivElement, GeneratingIndicatorProps>((
+    {alreadyReceivedText}: GeneratingIndicatorProps,
+    ref
+) => {
     const intl = useIntl()
     return (
-        <div css={containerStyle}>
+        <div ref={ref} css={containerStyle}>
             <div css={indicatorStyle}/>
-            {alreadyReceivedText ? null : <span css={indicatorTextStyle}>{intl.formatMessage({id: "chatGenerating"})}</span>}
+            {alreadyReceivedText ? null :
+                <span css={indicatorTextStyle}>{intl.formatMessage({id: "chatGenerating"})}</span>}
         </div>
     )
-}
+})

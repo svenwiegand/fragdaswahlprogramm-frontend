@@ -4,6 +4,7 @@ import {color, dimensions, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {EventualReferenceLink} from "./ReferenceLink.tsx"
 import {GeneratingIndicator} from "./GeneratingIndicator.tsx"
+import {useEffect, useRef} from "react"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -31,6 +32,14 @@ export interface ChatHistoryProps {
 
 export function ChatHistory({messages, generatingAnswer, isGenerating, isError}: ChatHistoryProps) {
     const intl = useIntl()
+    const indicatorRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (isGenerating && indicatorRef.current) {
+            indicatorRef.current.scrollIntoView({block: "start", behavior: "smooth"})
+        }
+    }, [isGenerating, generatingAnswer])
+
     return (
         <div css={chatHistoryStyle}>
             <div css={chatHistoryContentStyle}>
@@ -38,7 +47,7 @@ export function ChatHistory({messages, generatingAnswer, isGenerating, isError}:
                 {generatingAnswer ? <>
                     <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
                 </> : null}
-                {isGenerating ? <GeneratingIndicator alreadyReceivedText={!!generatingAnswer}/> : null}
+                {isGenerating ? <GeneratingIndicator alreadyReceivedText={!!generatingAnswer} ref={indicatorRef}/> : null}
                 {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
             </div>
         </div>
