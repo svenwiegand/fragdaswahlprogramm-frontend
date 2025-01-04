@@ -16,7 +16,7 @@ function App() {
             trackHello()
             setTrackedHello(true)
         }
-    }, [])
+    }, [trackedHello])
 
     return (
         <IntlProvider messages={messages} locale={"de-de"}>
@@ -38,13 +38,13 @@ function AppRoutes() {
                 trackPage(path)
             }
         }
-    }, [location])
+    }, [location, lastPath])
 
     return (
         <Routes>
             <Route index element={<ChatPage/>}/>
             <Route path={"about"} element={<MarkdownPage contentName={"about"}/>}/>
-            <Route path={"parties"} element={<MarkdownPage contentName={"parties"}/>}/>
+            <Route path={"qna"} element={<MarkdownPage contentName={"qna"}/>}/>
             <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
             <Route path={"privacy"} element={<MarkdownPage contentName={"privacy"}/>}/>
         </Routes>

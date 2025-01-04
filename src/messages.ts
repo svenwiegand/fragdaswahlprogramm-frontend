@@ -19,6 +19,8 @@ const messages: Record<string, MessagesById> = {
     de: {
         home: "Startseite",
         about: "Über „fragdaswahlprogramm”",
+        qna: "Fragen & Antworten",
+        qnaShort: "Q&A",
         parties: "Parteien",
         imprint: "Impressum",
         privacy: "Datenschutz",
@@ -34,6 +36,8 @@ const messages: Record<string, MessagesById> = {
     en: {
         home: "Home",
         about: "About “fragdaswahlprogramm”",
+        qna: "Questions & Answers",
+        qnaShort: "Q&A",
         parties: "Parties",
         imprint: "Imprint",
         privacy: "Privacy Policy",
