@@ -8,7 +8,6 @@ import {useCallback, useEffect, useRef} from "react"
 import {Suggestions} from "./Suggestion.tsx"
 import {PartySelector} from "./PartySelector.tsx"
 import {Party, parties} from "../common/parties.ts"
-import {EventualLogoImage} from "./LogoImage.tsx"
 
 const chatHistoryStyle = css`
     width: 100%;
@@ -120,6 +119,5 @@ function ChatMessage({msgType, message, isGenerating}: ChatMessageProps) {
 }
 
 const markdownComponents: Components = {
-    a: ({href, target, children}) => <EventualReferenceLink href={href} target={target}>{children}</EventualReferenceLink>,
-    img: ({src, alt}) => <EventualLogoImage src={src} alt={alt}/>,
+    a: ({href, target, children}) => <EventualReferenceLink href={href} target={target}>{children}</EventualReferenceLink>
 }

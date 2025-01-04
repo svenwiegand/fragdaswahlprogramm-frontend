@@ -36,10 +36,6 @@ button {
     font-size: 1rem;
 }
 
-.message ul {
-    padding-left: 1rem;
-}
-
 .message > :first-child {
     margin-top: 0;
 }

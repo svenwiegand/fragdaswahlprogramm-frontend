@@ -4,7 +4,7 @@ import {backendBaseUrl} from "../environment"
 import {css} from "@emotion/react"
 import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
 import {ChatTextField} from "./ChatTextField.tsx"
-import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
+import {regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
 import {FlexSpacer} from "../common/Spacer.tsx"
@@ -13,7 +13,6 @@ import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 import {sessionHeaders} from "../common/track.ts"
-import {parties, partySymbols} from "../common/parties.ts"
 
 type Command = "selectParties"
 
@@ -122,7 +121,6 @@ function sendQuestion(
     const eventSource = new PostEventSource(url, {body: message, headers: sessionHeaders})
     const answer = new StreamingText(
         regexLineParser(referenceParser),
-        ...partyHeaderParsers(),
     )
 
     eventSource.onopen = (_, response) => {
@@ -160,21 +158,5 @@ const referenceParser: RegexLineParserSpec = {
             console.error(e)
             return match
         }
-    }
-}
-
-function partyHeaderParsers(): LineParser[] {
-    return partySymbols.map(party => regexLineParser({
-        regex: new RegExp(`# (${parties[party].name})`, "g"),
-        replacer: partyHeaderReplacer
-    }))
-}
-
-function partyHeaderReplacer(match: string, [partyName]: string[]) {
-    const party = partySymbols.find(p => parties[p].name === partyName)
-    if (party) {
-        return `# ![${partyName}](/logos/${party}.png)`
-    } else {
-        return match
     }
 }
