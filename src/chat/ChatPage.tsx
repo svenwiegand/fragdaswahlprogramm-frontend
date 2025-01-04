@@ -12,7 +12,7 @@ import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
-import {sessionHeaders} from "../common/session-id.ts"
+import {sessionHeaders} from "../common/track.ts"
 
 type Command = "selectParties"
 
