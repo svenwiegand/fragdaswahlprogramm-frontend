@@ -1,46 +1,8 @@
-import {parties, Party} from "../common/parties.ts"
+import {parties} from "../common/parties.ts"
 import {ReactNode} from "react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
-
-export type Reference = {
-    party: Party
-    section: string
-    shortSection: string
-    page: number
-}
-
-export function createReferenceMarkdownLink({party, page, shortSection, section}: Reference): string {
-    const encodedSection = encodeURIComponent(section)
-    const encodedShortSection = encodeURIComponent(shortSection)
-    return `[${shortSection}](https://fragdaswahlprogramm.de/reference?party=${party}&section=${encodedSection}&shortSection=${encodedShortSection}&page=${page})`
-}
-
-function parseReferenceUrl(link: string): Reference | undefined {
-    if (!link.startsWith("https://fragdaswahlprogramm.de/reference")) {
-        return undefined
-    }
-
-    const extractParam = (url: URL, name: string) => {
-        const value = url.searchParams.get(name)
-        if (!value) {
-            throw new Error(`Missing parameter ${name} in reference link ${link}`)
-        }
-        return decodeURIComponent(value)
-    }
-
-    try {
-        const url = new URL(link)
-        const party = extractParam(url, "party") as Party
-        const section = extractParam(url, "section")
-        const shortSection = extractParam(url, "shortSection")
-        const page = Number(extractParam(url, "page"))
-        return {party, section, shortSection, page}
-    } catch (e) {
-        console.error(`Error parsing reference link ${link}: ${e}`)
-        return undefined
-    }
-}
+import {parseReferenceUrl, Reference} from "./reference-link.ts"
 
 export type ReferenceLinkProps = {
     href?: string
@@ -51,7 +13,7 @@ export type ReferenceLinkProps = {
 export function EventualReferenceLink({href, ...props}: ReferenceLinkProps) {
     const ref = href ? parseReferenceUrl(href) : undefined
     if (ref) {
-        return <ReferenceLink {...ref}/>
+        return ref.party in parties ? <ReferenceLink {...ref} /> : null
     } else {
         return <a href={href} {...props}>{props.children}</a>
     }
@@ -84,9 +46,9 @@ const referenceLinkStyle = css`
     }
 `
 
-function ReferenceLink({party, section, shortSection, page}: Reference) {
-    const title = `${parties[party].manifesto.title}\n${section}\nSeite ${page}`
-    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
+function ReferenceLink({party, section, shortSection, page, quote}: Reference) {
+    const title = `${parties[party].manifesto.title}\n${section}\nSeite ${page}\n„${quote}”`
+    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}&search=${encodeURIComponent(quote)}`
     return (
         <a
             href={href}
