@@ -47,6 +47,7 @@ function AppRoutes() {
             <Route path={"qna"} element={<MarkdownPage contentName={"qna"}/>}/>
             <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
             <Route path={"privacy"} element={<MarkdownPage contentName={"privacy"}/>}/>
+            <Route path={"parties"} element={<MarkdownPage contentName={"parties"}/>}/>
         </Routes>
     )
 }

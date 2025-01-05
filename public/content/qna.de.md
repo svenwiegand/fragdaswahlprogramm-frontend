@@ -2,14 +2,14 @@
 Hier einige häufige Fragen und die zugehörigen Antworten.
 
 ### Welche Parteien sind auf fragdaswahlprogramm vertreten?
-fragdaswahlprogramm unterstützt alle Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder zumindest einen Entwurf veröffentlicht haben.
+fragdaswahlprogramm beantwortet Fragen an die Wahlprogramme aller Parteien, die zum aktuellen Zeitpunkt ein Wahlprogramm oder zumindest einen Entwurf veröffentlicht haben.
 
 Aktuell können Fragen zu folgenden Parteien beantwortet werden:
 
 {{parties}}
 
 ### Warum taucht Partei _XY_ nicht auf?
-fragdaswahlprogramm unterstützt ausschließlich Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder mindestens einen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme reichen nicht für die Teilnahme. 
+fragdaswahlprogramm beantwortet ausschließlich Fragen zu Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder mindestens einen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme reichen nicht für die Teilnahme.
 
 ### Warum erscheint die AfD an erster Stelle der Auswahl?
 Ich habe versucht, fragdaswahlprogramm möglichst neutral zu gestalten und meine persönlichen Überzeugungen außen vorzulassen. Dazu gehört, dass die Parteien in alphabetischer Reihenfolge aufgeführt werden.
@@ -26,6 +26,4 @@ Dass nach der Wahl häufig andere Politik gemacht wird, liegt hauptsächlich dar
 
 Im Rahmen der Koalitionsbildung wird ein Koalitionsvertrag erstellt und hier kann eine einzelne Partei natürlich nicht alle Punkte ihres Wahlprogramms durchsetzen, sondern muss sich mit den Koalitionspartnern auf ein gemeinsames Programm einigen, dem alle zustimmen können. Das ist kein Manko, sondern ein schlaues Konstrukt, um Extreme zu vermeiden.
 
-Das Einlassen auf Kompromisse gehört also zum Kern des Regierens. Parteien, die nicht kompromissfähig sind, sind folglich auch nicht regierungsfähig.# Fragen und Antworten
-
-Hier einige häufige Fragen und die zugehörigen Antworten.
+Das Einlassen auf Kompromisse gehört also zum Kern des Regierens. Parteien, die nicht kompromissfähig sind, sind folglich auch nicht regierungsfähig.
