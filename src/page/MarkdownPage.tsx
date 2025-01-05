@@ -4,6 +4,7 @@ import {useIntl} from "react-intl"
 import Markdown from "react-markdown"
 import {css} from "@emotion/react"
 import {dimensions, responsiveHPadding} from "../style/styles.ts"
+import {ParagraphWithDynamicContent} from "./ParagraphWithDynamicContent.tsx"
 
 const contentContainerStyle = css`
     width: 100%;
@@ -35,7 +36,14 @@ export function MarkdownPage({ contentName }: MarkdownPageProps) {
     return (
         <Page isSubPage={true} hideFooter={true}>
             <div css={contentContainerStyle}>
-                <Markdown css={contentStyle}>{content}</Markdown>
+                <Markdown
+                    css={contentStyle}
+                    components={{
+                        p: ({children}) => <ParagraphWithDynamicContent>{children}</ParagraphWithDynamicContent>
+                    }}
+                >
+                    {content}
+                </Markdown>
             </div>
         </Page>)
 }

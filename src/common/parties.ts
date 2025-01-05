@@ -18,6 +18,15 @@ export const parties: Record<Party, PartyProps> = {
             pageOffset: 0,
         },
     },
+    gruene: {
+        name: "Bündnis 90/Die Grünen",
+        symbol: "gruene",
+        manifesto: {
+            title: "Wahlprogramm von Bündnis 90/Die Grünen",
+            url: "https://cms.gruene.de/uploads/assets/20241216_BTW25_Programmentwurf_DINA4_digital.pdf",
+            pageOffset: 0,
+        },
+    },
     "cdu-csu": {
         name: "CDU/CSU",
         symbol: "cdu-csu",
@@ -34,15 +43,6 @@ export const parties: Record<Party, PartyProps> = {
             title: "Wahlprogramm der FDP",
             url: "https://www.fdp.de/sites/default/files/2024-12/fdp-wahlprogramm_2025.pdf",
             pageOffset: 1,
-        },
-    },
-    gruene: {
-        name: "Bündnis 90/Die Grünen",
-        symbol: "gruene",
-        manifesto: {
-            title: "Wahlprogramm von Bündnis 90/Die Grünen",
-            url: "https://cms.gruene.de/uploads/assets/20241216_BTW25_Programmentwurf_DINA4_digital.pdf",
-            pageOffset: 0,
         },
     },
     linke: {

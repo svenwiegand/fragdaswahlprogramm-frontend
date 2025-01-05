@@ -6,18 +6,11 @@ import {SendButton} from "./SendButton.tsx"
 
 const gap = rempx(16)
 
-// todo: only required as long as there are only five parties to get not more than three in a row
-const selectorContainerStyle = css`
-    display: flex;
-    justify-content: center;
-`
-
 const selectorStyle = css`
     display: flex;
     flex-wrap: wrap;
     gap: ${gap};
     justify-content: center;
-    max-width: 520px; // todo: as long as there are only five parties supported
 `
 
 const buttonContainerStyle = css`
@@ -45,6 +38,10 @@ const partyButtonUnselectedStyle = css`
     ${partyButtonSelectedStyle};
     border-color: ${color.neutral.neutral400}
 `
+const partyButtonReadOnlyStyle = css`
+    ${partyButtonSelectedStyle};
+    cursor: default;
+`
 
 const logoSelectedStyle = css`
     max-width: 100%;
@@ -59,10 +56,11 @@ const logoUnselectedStyle = css`
 `
 
 export type PartySelectorProps = {
-    onSelect: (parties: Party[]) => void
+    onSelect?: (parties: Party[]) => void
+    readonly?: boolean
 }
 
-export function PartySelector({onSelect}: PartySelectorProps) {
+export function PartySelector({onSelect, readonly}: PartySelectorProps) {
     const [selectedParties, setSelectedParties] = useState<Party[]>([])
     const onSelectParty = (party: Party, isSelected: boolean) => {
         setSelectedParties(prevState => {
@@ -74,24 +72,26 @@ export function PartySelector({onSelect}: PartySelectorProps) {
         })
     }
     const allowSelectIfNotAlready = selectedParties.length < maxNumberOfPartiesPerQuestion
-    const send = useCallback(() => onSelect(selectedParties), [onSelect, selectedParties])
+    const send = useCallback(() => onSelect ? onSelect(selectedParties) : {}, [onSelect, selectedParties])
     const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfPartiesPerQuestion
 
     return (
-        <div css={selectorContainerStyle}>
-            <div css={selectorStyle}>
-                {partySymbols.map((party) =>
-                    <PartyToggleButton
-                        key={parties[party].symbol}
-                        party={party}
-                        allowSelectIfNotAlready={allowSelectIfNotAlready}
-                        onSelect={onSelectParty}
-                    />
-                )}
+        <div css={selectorStyle}>
+            {partySymbols.map((party) =>
+                <PartyToggleButton
+                    key={parties[party].symbol}
+                    party={party}
+                    allowSelectIfNotAlready={allowSelectIfNotAlready}
+                    onSelect={onSelectParty}
+                    readonly={readonly ?? false}
+                />,
+            )}
+            {!readonly ?
                 <div css={buttonContainerStyle}>
                     <SendButton disabled={!canSend} onClick={send}/>
                 </div>
-            </div>
+                : null
+            }
         </div>
     )
 }
@@ -99,27 +99,25 @@ export function PartySelector({onSelect}: PartySelectorProps) {
 export type PartyToggleButtonProps = {
     party: Party
     allowSelectIfNotAlready: boolean
-    onSelect: (party: Party, isSelected: boolean) => void
+    onSelect?: (party: Party, isSelected: boolean) => void
+    readonly: boolean
 }
 
-function PartyToggleButton({party, onSelect, allowSelectIfNotAlready}: PartyToggleButtonProps) {
+function PartyToggleButton({party, onSelect, allowSelectIfNotAlready, readonly}: PartyToggleButtonProps) {
     const [isSelected, setIsSelected] = useState(false)
     const onClick = useCallback(() => {
         const select = !isSelected
         setIsSelected(select)
-        onSelect(party, select)
+        if (onSelect) {
+            onSelect(party, select)
+        }
     }, [party, onSelect, isSelected])
     const partyButtonStyle = isSelected ? partyButtonSelectedStyle : partyButtonUnselectedStyle
-    const logoStyle = isSelected ? logoSelectedStyle : logoUnselectedStyle
+    const logoStyle = isSelected || readonly ? logoSelectedStyle : logoUnselectedStyle
+    const img = <img css={logoStyle} src={`/logos/${parties[party].symbol}.png`} alt={parties[party].name}/>
 
-    return (
-        <button
-            css={partyButtonStyle}
-            onClick={onClick}
-            aria-pressed={isSelected}
-            disabled={!isSelected && !allowSelectIfNotAlready}
-        >
-            <img css={logoStyle} src={`/logos/${parties[party].symbol}.png`} alt={parties[party].name}/>
-        </button>
-    )
+    return readonly
+        ? <span css={partyButtonReadOnlyStyle}>{img}</span>
+        : <button css={partyButtonStyle} onClick={onClick} aria-pressed={isSelected}
+                  disabled={!isSelected && !allowSelectIfNotAlready}>{img}</button>
 }

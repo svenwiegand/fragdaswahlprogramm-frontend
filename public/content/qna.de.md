@@ -1,8 +1,15 @@
 # Fragen und Antworten
 Hier einige häufige Fragen und die zugehörigen Antworten.
 
+### Welche Parteien sind auf fragdaswahlprogramm vertreten?
+fragdaswahlprogramm unterstützt alle Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder zumindest einen Entwurf veröffentlicht haben.
+
+Aktuell können Fragen zu folgenden Parteien beantwortet werden:
+
+{{parties}}
+
 ### Warum taucht Partei _XY_ nicht auf?
-fragdaswahlprogramm unterstützt ausschließlich Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder mindestens einen Entwurf veröffentlicht haben.
+fragdaswahlprogramm unterstützt ausschließlich Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder mindestens einen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme reichen nicht für die Teilnahme. 
 
 ### Warum erscheint die AfD an erster Stelle der Auswahl?
 Ich habe versucht, fragdaswahlprogramm möglichst neutral zu gestalten und meine persönlichen Überzeugungen außen vorzulassen. Dazu gehört, dass die Parteien in alphabetischer Reihenfolge aufgeführt werden.
