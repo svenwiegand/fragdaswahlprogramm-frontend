@@ -1,4 +1,4 @@
-export type Party = "afd" | "cdu-csu" | "fdp" | "gruene" | "spd"
+export type Party = "afd" | "cdu-csu" | "fdp" | "gruene" | "linke" | "spd"
 type PartyProps = {
     name: string
     symbol: string
@@ -44,6 +44,15 @@ export const parties: Record<Party, PartyProps> = {
             url: "https://cms.gruene.de/uploads/assets/20241216_BTW25_Programmentwurf_DINA4_digital.pdf",
             pageOffset: 0,
         },
+    },
+    linke: {
+        name: "Die Linke",
+        symbol: "linke",
+        manifesto: {
+            title: "Wahlprogramm der Linken",
+            url: "https://www.die-linke.de/fileadmin/1_Partei/parteitage/Au%C3%9Ferordentlicher_Parteitag_25/Wahlprogramm_Entwurf.pdf",
+            pageOffset: 0,
+        }
     },
     spd: {
         name: "SPD",
