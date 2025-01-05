@@ -4,7 +4,7 @@ import {backendBaseUrl} from "../environment"
 import {css} from "@emotion/react"
 import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
 import {ChatTextField} from "./ChatTextField.tsx"
-import {regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
+import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
 import {FlexSpacer} from "../common/Spacer.tsx"
@@ -119,9 +119,7 @@ function sendQuestion(
 ) {
     const url = threadId ? `${backendBaseUrl}/api/thread/${threadId}` : `${backendBaseUrl}/api/thread`
     const eventSource = new PostEventSource(url, {body: message, headers: sessionHeaders})
-    const answer = new StreamingText(
-        regexLineParser(referenceParser),
-    )
+    const answer = new StreamingText(...lineParsers)
 
     eventSource.onopen = (_, response) => {
         const threadId = response.headers.get("Thread-Id")
@@ -160,3 +158,13 @@ const referenceParser: RegexLineParserSpec = {
         }
     }
 }
+
+const suppressNativeReferenceParser: RegexLineParserSpec = {
+    regex: /【([^】]+)】/g,
+    replacer: () => ""
+}
+
+const lineParsers: LineParser[] = [
+    regexLineParser(suppressNativeReferenceParser),
+    regexLineParser(referenceParser),
+]
