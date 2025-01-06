@@ -8,6 +8,7 @@ import {trackHello, trackPage} from "./common/track.ts"
 
 const userLocales = getBrowserLocales()
 const messages = getMessages(userLocales)
+const locale = "de"
 
 function App() {
     const [trackedHello, setTrackedHello] = useState(false)
@@ -17,9 +18,12 @@ function App() {
             setTrackedHello(true)
         }
     }, [trackedHello])
+    useEffect(() => {
+        document.documentElement.lang = locale
+    }, [])
 
     return (
-        <IntlProvider messages={messages} locale={"de-de"}>
+        <IntlProvider messages={messages} locale={locale}>
             <BrowserRouter>
                 <AppRoutes/>
             </BrowserRouter>

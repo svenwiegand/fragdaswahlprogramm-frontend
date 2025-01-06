@@ -12,6 +12,10 @@ body {
     line-height: 1.75rem;
 }
 
+p, li, blockquote, figcaption, td {
+    hyphens: auto;
+}
+
 pre, code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
     max-width: 100%;
