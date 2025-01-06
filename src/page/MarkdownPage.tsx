@@ -7,7 +7,6 @@ import {dimensions, responsiveHPadding} from "../style/styles.ts"
 import {ParagraphWithDynamicContent} from "./ParagraphWithDynamicContent.tsx"
 
 const contentContainerStyle = css`
-    width: 100%;
     overflow-y: auto;
     ${responsiveHPadding}
 `
