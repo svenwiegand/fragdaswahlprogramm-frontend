@@ -2,5 +2,12 @@
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": ["*.{css,html,js,json,md,ttf,txt}"]
-  }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://fragdaswahlprogramm.de",
+      "statusCode": 301
+    }
+  ]
 }
