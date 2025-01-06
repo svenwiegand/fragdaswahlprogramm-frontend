@@ -133,7 +133,10 @@ function sendQuestion(
         } else if (event.type === "command") {
             onCommand(token as Command)
         } else if (event.type === "followUpQuestion") {
-            updateSuggestions(prev => prev.concat(token))
+            updateSuggestions(prev => {
+                const suggestions = [...prev, token]
+                return Array.from(new Set(suggestions))
+            })
         }
     }
 
