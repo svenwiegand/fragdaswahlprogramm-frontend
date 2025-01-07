@@ -3,6 +3,7 @@ import {css} from "@emotion/react"
 import {dimensions, fontFamily, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
 import {SendButton} from "./SendButton.tsx"
+import {useLocation} from "react-router"
 
 const containerStyle = css`
     width: 100%;
@@ -55,6 +56,14 @@ type ChatTextFieldProps = {
 export function ChatTextField({expanded, onSend}: ChatTextFieldProps) {
     const [value, setValue] = useState("")
     const textareaRef = useRef<HTMLTextAreaElement>(null)
+    const location = useLocation()
+
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.focus()
+        }
+    }, [location])
+
     useEffect(() => {
         const ref = textareaRef.current
         if (ref) {
