@@ -5,13 +5,13 @@ export type Reference = {
     section: string
     shortSection: string
     page: number
-    quote: string
+    quote?: string
 }
 
 export function createReferenceMarkdownLink({party, page, shortSection, section, quote}: Reference): string {
     const encodedSection = encodeURIComponent(section)
     const encodedShortSection = encodeURIComponent(shortSection)
-    const encodedQuote = encodeURIComponent(quote)
+    const encodedQuote = quote ? encodeURIComponent(quote) : ""
     return `[${shortSection}](https://fragdaswahlprogramm.de/reference?party=${party}&section=${encodedSection}&shortSection=${encodedShortSection}&page=${page}&quote=${encodedQuote})`
 }
 
@@ -20,10 +20,14 @@ export function parseReferenceUrl(link: string): Reference | undefined {
         return undefined
     }
 
-    const extractParam = (url: URL, name: string) => {
+    const extractParam = (url: URL, name: string, optional: boolean = false) => {
         const value = url.searchParams.get(name)
         if (!value) {
-            throw new Error(`Missing parameter ${name} in reference link ${link}`)
+            if (optional) {
+                return ""
+            } else {
+                throw new Error(`Missing parameter ${name} in reference link ${link}`)
+            }
         }
         return decodeURIComponent(value)
     }
@@ -34,7 +38,7 @@ export function parseReferenceUrl(link: string): Reference | undefined {
         const section = extractParam(url, "section")
         const shortSection = extractParam(url, "shortSection")
         const page = Number(extractParam(url, "page"))
-        const quote = extractParam(url, "quote")
+        const quote = extractParam(url, "quote", true)
         return {party, section, shortSection, page, quote}
     } catch (e) {
         console.error(`Error parsing reference link ${link}: ${e}`)

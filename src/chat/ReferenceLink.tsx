@@ -48,7 +48,7 @@ const referenceLinkStyle = css`
 
 function ReferenceLink({party, section, shortSection, page, quote}: Reference) {
     const title = `${parties[party].manifesto.title}\n${section}\nSeite ${page}\n„${quote}”`
-    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}&search=${encodeURIComponent(quote)}`
+    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
     return (
         <a
             href={href}
