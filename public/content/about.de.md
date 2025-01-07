@@ -1,25 +1,21 @@
 # Über "fragdaswahlprogramm"
-Herzlich willkommen bei fragdaswahlprogramm! Ich bin Sven Wiegand und halte unsere Demokratie für eine große Errungenschaft. Und da ich gleichzeitig auch noch leidenschaftlich gerne Software entwickle, habe ich mich entschieden, diese Web-Seite zu erschaffen (auch wenn ich gehofft hatte, etwas mehr Zeit dafür zu haben).
 
-Ich bin davon überzeugt, dass Demokratie dann am besten funktioniert, wenn jede/jeder von uns gut informiert ist. Genau deshalb habe ich fragdaswahlprogramm ins Leben gerufen. Hier kannst du ganz einfach Fragen zu den Wahlprogrammen der Parteien zur Bundestagswahl 2025 stellen – und bekommst, dank moderner KI, schnell klare Antworten.
+Willkommen bei fragdaswahlprogramm, einer Plattform zur Förderung politischer Bildung und Transparenz. Mein Ziel ist es, die Inhalte der Wahlprogramme der Parteien zur Bundestagswahl 2025 verständlich und zugänglich zu machen. Hier kannst du gezielt Fragen zu den Programmen stellen und klare, neutrale Antworten erhalten – unterstützt durch moderne KI-Technologie.
 
-## Warum ist das wichtig?
-In mehr und mehr Staaten, sowohl in Europa als auch zuletzt in den USA, gewinnen Populisten an Einfluss. Sie bieten scheinbar einfache Lösungen für komplexe Probleme und wer mag keine einfachen Lösungen? Nur leider sind die Probleme unserer Zeit komplex und meist gibt es nicht _die_ eine einfache Lösung. Um das zu erkennen, müssen wir uns gut informieren – je besser wir die Positionen und Hintergründe verstehen, desto weniger Raum bleibt für einfache Parolen.
+## Meine Mission
+Eine informierte Gesellschaft ist die Grundlage einer starken Demokratie. In einer Zeit, in der populistische Strömungen an Einfluss gewinnen und einfache Lösungen für komplexe Probleme versprechen, wird es immer wichtiger, fundierte Entscheidungen zu treffen. Mit fragdaswahlprogramm möchte ich dich dabei unterstützen, die Positionen und Hintergründe der Parteien besser zu verstehen und so eine qualifizierte Wahlentscheidung zu treffen.
 
-Mein Ziel ist es, dir dabei zu helfen, die Inhalte der Parteien besser zu verstehen, damit du bei der nächsten Wahl eine informierte Entscheidung treffen kannst. So trägst du aktiv dazu bei, unsere Demokratie lebendig und stark zu halten.
+## Was bietet fragdaswahlprogramm?
+- **Einfacher Zugang:** Stelle deine Fragen, und die Plattform liefert dir direkte Antworten – ohne aufwendiges Suchen in langen Dokumenten.
+- **Neutralität:** Alle Antworten basieren ausschließlich auf den Inhalten der Wahlprogramme, um eine unabhängige Meinungsbildung zu gewährleisten.
+- **Offenheit:** Die Nutzung ist kostenfrei, anonym und erfordert keine Registrierung. Politische Bildung soll allen zugänglich sein.
 
-## Was macht „fragdaswahlprogramm“ besonders?
-- **Einfach und direkt:** Du fragst, die Wahlprogramme antworten. Ohne langwieriges Blättern in langen Dokumenten.
-- **Neutral und fair:** Die Antworten sind neutral und basieren ausschließlich auf den Inhalten der Wahlprogramme, damit du dir selbst eine Meinung bilden kannst.
-- **Für alle zugänglich:** Kostenlos, unverbindlich und ohne Anmeldung – weil Informationen für alle da sein sollten.
-
-fragdaswahlprogramm beantwortet deine Fragen an die Wahlprogramme aller Parteien, die aktuell ein Wahlprogramm oder zumindest einen Entwurf zur Bundestagswahl 2025 veröffentlicht haben. Aktuell sind das die folgenden Parteien:
+fragdaswahlprogramm berücksichtig die Wahlprogramme aller Parteien, die zur Bundestagswahl 2025 ein Programm oder einen Entwurf veröffentlicht haben:
 
 {{parties}}
 
-Mach mit und entdecke, wie spannend Demokratie sein kann, wenn du deine Wahlentscheidung qualifiziert triffst. Deine Fragen zählen – für eine starke Demokratie und eine bessere Zukunft.
+## Warum ist das wichtig?
+Politische Entscheidungen beeinflussen unser aller Leben. Gut informierte Wählerinnen und Wähler tragen dazu bei, dass Demokratie lebendig bleibt und langfristig Bestand hat. Mit fragdaswahlprogramm leiste ich einen Beitrag dazu, die politische Debatte zu bereichern und die Bedeutung von Vielfalt und Komplexität in der Politik zu vermitteln.
 
-Viel Spaß beim Entdecken und Fragenstellen!
+Ich lade dich ein, fragdaswahlprogramm zu entdecken und deine Fragen zu stellen. Gemeinsam können wir den Wert von politischer Bildung stärken – für eine lebendige Demokratie und eine bessere Zukunft.
 
-Sven Wiegand  
-Berlin, 5. Januar 2025

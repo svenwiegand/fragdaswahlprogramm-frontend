@@ -1,29 +1,26 @@
 # Fragen und Antworten
-Hier einige häufige Fragen und die zugehörigen Antworten.
+Hier findest du Antworten auf häufig gestellte Fragen zu fragdaswahlprogramm.
 
 ### Welche Parteien sind auf fragdaswahlprogramm vertreten?
-fragdaswahlprogramm beantwortet Fragen an die Wahlprogramme aller Parteien, die zum aktuellen Zeitpunkt ein Wahlprogramm oder zumindest einen Entwurf veröffentlicht haben.
+fragdaswahlprogramm bietet Informationen zu den Wahlprogrammen aller Parteien, die aktuell ein Wahlprogramm oder einen Entwurf dazu veröffentlicht haben.
 
-Aktuell können Fragen zu folgenden Parteien beantwortet werden:
+Derzeit werden Fragen zu den folgenden Parteien beantwortet:
 
 {{parties}}
 
-### Warum taucht Partei _XY_ nicht auf?
-fragdaswahlprogramm beantwortet ausschließlich Fragen zu Parteien, die an der Bundestagswahl 2025 teilnehmen und zum aktuellen Zeitpunkt ein Wahlprogramm oder mindestens einen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme reichen nicht für die Teilnahme.
+### Warum wird eine bestimmte Partei nicht angezeigt?
+fragdaswahlprogramm berücksichtigt nur Parteien, die an der Bundestagswahl 2025 teilnehmen und ein vollständiges Wahlprogramm oder zumindest einen offiziellen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme genügen nicht, um in die Auswahl aufgenommen zu werden.
 
 ### Warum erscheint die AfD an erster Stelle der Auswahl?
-Ich habe versucht, fragdaswahlprogramm möglichst neutral zu gestalten und meine persönlichen Überzeugungen außen vorzulassen. Dazu gehört, dass die Parteien in alphabetischer Reihenfolge aufgeführt werden.
+Die Reihenfolge der Parteien auf fragdaswahlprogramm ist alphabetisch sortiert, um Neutralität und Objektivität zu gewährleisten.
 
-### Warum soll ich mich mit Wahlprogrammen auseinandersetzen? Die enthalten doch ohnehin nur Propaganda.
-Das stimmt teilweise. Natürlich sind Wahlprogramme Marketing-Dokumente, die dafür sorgen sollen, Wähler für eine Partei zu gewinnen. Da werden dann schon mal viele Versprechen gemacht, die sich entweder aus rechtlichen oder finanziellen Gründen so gar nicht umsetzen ließen. So machen die fünf großen Parteien nachgewiesenermaßen Versprechen für finanzielle Erleichterungen für Bürger und Wirtschaft, ohne aufzuzeigen, wie diese Fehleinnahmen auf Staatsseite gegenfinanziert werden sollen.
+### Warum ist es sinnvoll, sich mit Wahlprogrammen zu beschäftigen?
+Wahlprogramme dienen zwar als Mittel zur Wählergewinnung und enthalten oft ambitionierte Versprechen, die sich aus finanziellen oder rechtlichen Gründen nicht immer umsetzen lassen. Dennoch bieten sie wertvolle Einblicke in die Grundüberzeugungen und Prioritäten der Parteien.
 
-Gleichzeitig bilden Wahlprogramme aber auch die Überzeugungen der jeweiligen Partei ab. Und auch wenn diese in überzeichneten Maßnahmen dargestellt werden, zeigen sie dennoch klar, was der Partei wichtig ist.
+Ein besseres Verständnis der Inhalte von Wahlprogrammen hilft dir, eine fundiertere Wahlentscheidung zu treffen als ausschließlich auf Basis von Wahlplakaten oder Interviews einzelner Politiker.
 
-In jedem Falle wirst Du _nach_ dem Verständnis der Wahlprogramme eine qualifiziertere Entscheidung treffen können als ausschließlich auf Basis von Wahlplakaten oder Interviews von Einzelpersonen.
+### Warum entsprechen die Handlungen der Parteien nach der Wahl nicht immer den Wahlprogrammen?
+Nach der Wahl müssen Parteien in der Regel Koalitionen bilden, um eine regierungsfähige Mehrheit zu erreichen. Im Zuge dieser Koalitionsbildung wird ein Koalitionsvertrag ausgehandelt, der die Interessen aller beteiligten Parteien berücksichtigt. Dabei können nicht alle Punkte aus den jeweiligen Wahlprogrammen eins zu eins umgesetzt werden.
 
-### Warum soll ich mich mit Wahlprogrammen auseinandersetzen? Regieren die Parteien erst einmal, machen sie doch ohnehin etwas anderes.
-Dass nach der Wahl häufig andere Politik gemacht wird, liegt hauptsächlich daran, dass in der Regel (zum Glück) nicht eine einzelne Partei die absolute Mehrheit erlangt. Somit müssen sich zwei oder sogar drei Parteien zusammenschließen und eine Koalition bilden, um eine regierungsfähige Mehrheit zu erlangen.
+Dieses Prinzip der Kompromissfindung ist ein wesentlicher Bestandteil demokratischer Prozesse und trägt dazu bei, extreme Positionen zu vermeiden. Parteien, die keine Kompromisse eingehen können, sind in der Regel auch nicht regierungsfähig.
 
-Im Rahmen der Koalitionsbildung wird ein Koalitionsvertrag erstellt und hier kann eine einzelne Partei natürlich nicht alle Punkte ihres Wahlprogramms durchsetzen, sondern muss sich mit den Koalitionspartnern auf ein gemeinsames Programm einigen, dem alle zustimmen können. Das ist kein Manko, sondern ein schlaues Konstrukt, um Extreme zu vermeiden.
-
-Das Einlassen auf Kompromisse gehört also zum Kern des Regierens. Parteien, die nicht kompromissfähig sind, sind folglich auch nicht regierungsfähig.
