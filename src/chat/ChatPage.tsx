@@ -13,6 +13,7 @@ import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 import {sessionHeaders} from "../common/track.ts"
+import {GenerationStatus} from "./GeneratingIndicator.tsx"
 
 type Command = "selectParties"
 
@@ -29,7 +30,7 @@ export function ChatPage() {
     const [threadId, setThreadId] = React.useState<string>()
     const [answer, setAnswer] = React.useState('')
     const [messages, setMessages] = React.useState<ChatMessageProps[]>([])
-    const [isGenerating, setIsGenerating] = React.useState(false)
+    const [generationStatus, setGenerationStatus] = React.useState<GenerationStatus>("idle")
     const [suggestions, setSuggestions] = React.useState<string[]>([])
     const [showPartySelector, setShowPartySelector] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
@@ -42,7 +43,7 @@ export function ChatPage() {
             addMessage("question", question)
         }
         setIsError(false)
-        setIsGenerating(true)
+        setGenerationStatus("thinking")
         setAnswer("")
         setSuggestions([])
         setShowPartySelector(false)
@@ -55,15 +56,15 @@ export function ChatPage() {
         const onDone = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
-            setIsGenerating(false)
+            setGenerationStatus("idle")
         }
         const onError = (answer: string) => {
             addMessage("answer", answer)
             setAnswer("")
             setIsError(true)
-            setIsGenerating(false)
+            setGenerationStatus("idle")
         }
-        sendQuestion(question, threadId, setThreadId, setAnswer, setSuggestions, onCommand, onDone, onError)
+        sendQuestion(question, threadId, setThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError)
     }
     const simpleSend = (question: string) => send(question, false)
 
@@ -71,7 +72,7 @@ export function ChatPage() {
         setMessages([])
         setThreadId(undefined)
         setAnswer("")
-        setIsGenerating(false)
+        setGenerationStatus("idle")
         setIsError(false)
         setSuggestions([])
     }
@@ -82,7 +83,7 @@ export function ChatPage() {
         title: intl.formatMessage({id: "chatNew"}),
         onClick: reset
     }
-    const hasChat = messages.length > 0 || !!answer || isGenerating
+    const hasChat = messages.length > 0 || !!answer || generationStatus !== "idle"
 
     return (
         <Page isSubPage={hasChat} onBack={reset} headerAction={newChatAction} hideFooter={hasChat}>
@@ -91,8 +92,8 @@ export function ChatPage() {
                 {hasChat
                     ? <ChatHistory
                         messages={messages}
+                        generationStatus={generationStatus}
                         generatingAnswer={answer}
-                        isGenerating={isGenerating}
                         isError={isError}
                         showPartySelector={showPartySelector}
                         suggestions={suggestions}
@@ -111,6 +112,7 @@ function sendQuestion(
     message: string,
     threadId: string | undefined,
     setThreadId: (threadId: string | undefined) => void,
+    updateStatus: (status: GenerationStatus) => void,
     updateAnswer: (answer: string) => void,
     updateSuggestions: (set: (pref: string[]) => string[]) => void,
     onCommand: (command: Command) => void,
@@ -129,6 +131,7 @@ function sendQuestion(
     eventSource.onmessage = (event) => {
         const token = event.data
         if (event.type === "message") {
+            updateStatus("generating")
             updateAnswer(answer.push(token))
         } else if (event.type === "command") {
             onCommand(token as Command)
@@ -137,6 +140,8 @@ function sendQuestion(
                 const suggestions = [...prev, token]
                 return Array.from(new Set(suggestions))
             })
+        } else if (event.type === "status") {
+            updateStatus(token)
         }
     }
 

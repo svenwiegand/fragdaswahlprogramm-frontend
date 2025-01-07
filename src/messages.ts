@@ -29,6 +29,7 @@ const messages: Record<string, MessagesById> = {
         send: "Senden",
 
         chatGenerating: "Einen Moment bitte…",
+        chatSearching: "Ich durchsuche die Wahlprogramme…",
         chatNew: "Neues Thema",
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
     },
@@ -46,6 +47,7 @@ const messages: Record<string, MessagesById> = {
         send: "Send",
 
         chatGenerating: "One moment please…",
+        chatSearching: "I'm searching the election programs…",
         chatNew: "New topic",
         chatError: "An error occurred. Please try again later.",
     }

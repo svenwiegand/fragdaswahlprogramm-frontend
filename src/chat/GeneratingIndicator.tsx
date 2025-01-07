@@ -55,20 +55,23 @@ const indicatorTextStyle = css`
     }
 `
 
+export type GenerationStatus = "idle" | "thinking" | "searching" | "generating"
+
 export type GeneratingIndicatorProps = {
-    alreadyReceivedText: boolean
+    status: GenerationStatus
 }
 
 export const GeneratingIndicator = forwardRef<HTMLDivElement, GeneratingIndicatorProps>((
-    {alreadyReceivedText}: GeneratingIndicatorProps,
+    {status}: GeneratingIndicatorProps,
     ref
 ) => {
     const intl = useIntl()
     return (
+        status !== "idle" &&
         <div ref={ref} css={containerStyle}>
-            {alreadyReceivedText
+            {status ===  "generating"
                 ? <div css={indicatorStyle}/>
-                : <span css={indicatorTextStyle}>{intl.formatMessage({id: "chatGenerating"})}</span>}
+                : <span css={indicatorTextStyle}>{intl.formatMessage({id: status === "searching" ? "chatSearching" : "chatGenerating"})}</span>}
         </div>
     )
 })
