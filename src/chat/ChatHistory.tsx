@@ -41,9 +41,9 @@ export function ChatHistory(
 ) {
     const intl = useIntl()
     const indicatorRef = useRef<HTMLDivElement>(null)
-    const send = useCallback((question: string) => sendQuestion(question, true), [sendQuestion])
+    const send = useCallback((question: string) => sendQuestion(question, false), [sendQuestion])
     const onPartiesSelected = useCallback((selectedParties: Party[]) => {
-        sendQuestion(`${selectedParties.map(p => parties[p].name).join(", ")}`, true)
+        sendQuestion(`${selectedParties.map(p => parties[p].name).join(", ")}`, false)
     }, [sendQuestion])
 
     useEffect(() => {
