@@ -32,6 +32,8 @@ const messages: Record<string, MessagesById> = {
         chatSearching: "Ich durchsuche die Wahlprogramme…",
         chatNew: "Neues Thema",
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
+
+        refPage: "Seite {page, number}"
     },
 
     en: {
@@ -50,5 +52,7 @@ const messages: Record<string, MessagesById> = {
         chatSearching: "I'm searching the election programs…",
         chatNew: "New topic",
         chatError: "An error occurred. Please try again later.",
+
+        refPage: "Page {page, number}"
     }
 }

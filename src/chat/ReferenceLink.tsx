@@ -3,6 +3,8 @@ import {ReactNode} from "react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
 import {parseReferenceUrl, Reference} from "./reference-link.ts"
+import {Tooltip, TooltipContent, TooltipTrigger} from "../common/Tooltip.tsx"
+import {FormattedMessage} from "react-intl"
 
 export type ReferenceLinkProps = {
     href?: string
@@ -46,18 +48,34 @@ const referenceLinkStyle = css`
     }
 `
 
-function ReferenceLink({party, section, shortSection, page, quote}: Reference) {
-    const quoteText = quote ? `\n„${quote}”` : ""
-    const title = `${parties[party].manifesto.title}\n${section}\nSeite ${page}${quoteText}`
+const tooltipTitleStyle = css`
+    font-size: ${rempx(12)};
+`
+const tooltipSectionStyle = css`
+    font-weight: bold;
+`
+const tooltipPageStyle = css`
+    color: ${color.neutral.neutral300};
+`
+
+function ReferenceLink({party, section, shortSection, page}: Reference) {
     const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
     return (
-        <a
-            href={href}
-            target={"_blank"}
-            title={title}
-            css={referenceLinkStyle}
-        >
-            <span>{shortSection}</span>
-        </a>
+        <Tooltip placement={"bottom-start"}>
+            <TooltipTrigger>
+                <a
+                    href={href}
+                    target={"_blank"}
+                    css={referenceLinkStyle}
+                >
+                    <span>{shortSection}</span>
+                </a>
+            </TooltipTrigger>
+            <TooltipContent>
+                <div css={tooltipTitleStyle}>{parties[party].manifesto.title}</div>
+                <div css={tooltipSectionStyle}>{section}</div>
+                <div css={tooltipPageStyle}><FormattedMessage id={"refPage"} values={{page}}/></div>
+            </TooltipContent>
+        </Tooltip>
     )
 }
