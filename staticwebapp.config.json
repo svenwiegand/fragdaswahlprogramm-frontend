@@ -15,10 +15,8 @@
   "routes": [
     {
       "route": "/*",
-      "methods": [
-        "get"
-      ],
-      "rewrite": "/content/maintenance.html"
+      "serve": "/public/content/maintenance.html",
+      "statusCode": 200
     }
   ]
 }
