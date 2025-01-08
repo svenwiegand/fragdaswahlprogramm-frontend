@@ -32,8 +32,10 @@ const messages: Record<string, MessagesById> = {
         chatSearching: "Ich durchsuche die Wahlprogramme…",
         chatNew: "Neues Thema",
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
+        chatDisclaimer: "KI-generierte Antwort kann fehlerhaft sein",
 
-        refPage: "Seite {page, number}"
+        refPage: "Seite {page, number}",
+        refDisclaimer: "häufig fehlerhaft",
     },
 
     en: {
@@ -52,7 +54,9 @@ const messages: Record<string, MessagesById> = {
         chatSearching: "I'm searching the election programs…",
         chatNew: "New topic",
         chatError: "An error occurred. Please try again later.",
+        chatDisclaimer: "AI-generated answer may be incorrect",
 
-        refPage: "Page {page, number}"
+        refPage: "Page {page, number}",
+        refDisclaimer: "often incorrect",
     }
 }

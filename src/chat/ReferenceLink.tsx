@@ -54,8 +54,17 @@ const tooltipTitleStyle = css`
 const tooltipSectionStyle = css`
     font-weight: bold;
 `
+const tooltipBottomLineStyle = css`
+    display: flex;
+    align-items: center;
+`
 const tooltipPageStyle = css`
     color: ${color.neutral.neutral300};
+`
+const tooltipDisclaimerStyle = css`
+    font-size: 0.8em;
+    margin-left: 0.6em;
+    color: ${color.neutral.neutral500};
 `
 
 function ReferenceLink({party, section, shortSection, page}: Reference) {
@@ -74,7 +83,10 @@ function ReferenceLink({party, section, shortSection, page}: Reference) {
             <TooltipContent>
                 <div css={tooltipTitleStyle}>{parties[party].manifesto.title}</div>
                 <div css={tooltipSectionStyle}>{section}</div>
-                <div css={tooltipPageStyle}><FormattedMessage id={"refPage"} values={{page}}/></div>
+                <div css={tooltipBottomLineStyle}>
+                    <div css={tooltipPageStyle}><FormattedMessage id={"refPage"} values={{page}}/></div>
+                    <div css={tooltipDisclaimerStyle}>(<FormattedMessage id={"refDisclaimer"}/>)</div>
+                </div>
             </TooltipContent>
         </Tooltip>
     )

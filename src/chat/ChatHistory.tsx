@@ -70,6 +70,7 @@ export function ChatHistory(
                     ? <Suggestions suggestions={suggestions} onClick={send}/>
                     : null
                 }
+                {!isGenerating && !showPartySelector && !isError ? <Disclaimer/> : null}
             </div>
         </div>
     )
@@ -124,4 +125,18 @@ function ChatMessage({msgType, message, isGenerating}: ChatMessageProps) {
 
 const markdownComponents: Components = {
     a: ({href, target, children}) => <EventualReferenceLink href={href} target={target}>{children}</EventualReferenceLink>
+}
+
+function Disclaimer() {
+    const intl = useIntl()
+    return (
+        <div css={css`
+            text-align: center;
+            font-size: ${rempx(12)};
+            line-height: ${rempx(16)};
+            color: ${color.neutral.neutral700};
+        `}>
+            {intl.formatMessage({id: "chatDisclaimer"})}
+        </div>
+    )
 }
