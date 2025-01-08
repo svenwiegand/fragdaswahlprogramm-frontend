@@ -7,13 +7,14 @@ import {ChatTextField} from "./ChatTextField.tsx"
 import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
-import {FlexSpacer} from "../common/Spacer.tsx"
+import {AbsoluteSpacer, FlexSpacer} from "../common/Spacer.tsx"
 import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 import {sessionHeaders} from "../common/track.ts"
 import {GenerationStatus} from "./GeneratingIndicator.tsx"
+import {ReferenceLink} from "./ReferenceLink.tsx"
 
 type Command = "selectParties"
 
@@ -102,7 +103,7 @@ export function ChatPage() {
                     : null
                 }
                 <ChatTextField expanded={hasChat} onSend={simpleSend} />
-                {!hasChat ? <FlexSpacer grow={4}/> : null}
+                {!hasChat ? <><AbsoluteSpacer space={32}/><ReferenceLink party={"spd"} section={"Wir kämpfen für faire Löhne"} shortSection={"Faire Löhne"} page={42}/><FlexSpacer grow={4}/></> : null}
             </div>
         </Page>
     )

@@ -5,6 +5,7 @@ import {color, rempx} from "../style/styles.ts"
 import {parseReferenceUrl, Reference} from "./reference-link.ts"
 import {Tooltip, TooltipContent, TooltipTrigger} from "../common/Tooltip.tsx"
 import {FormattedMessage} from "react-intl"
+import {PdfViewer} from "./PdfViewer.tsx"
 
 export type ReferenceLinkProps = {
     href?: string
@@ -67,19 +68,16 @@ const tooltipDisclaimerStyle = css`
     color: ${color.neutral.neutral500};
 `
 
-function ReferenceLink({party, section, shortSection, page}: Reference) {
-    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
+export function ReferenceLink({party, section, shortSection, page}: Reference) { //todo: Remove export
     return (
         <Tooltip placement={"bottom-start"}>
-            <TooltipTrigger>
-                <a
-                    href={href}
-                    target={"_blank"}
-                    css={referenceLinkStyle}
-                >
-                    <span>{shortSection}</span>
-                </a>
-            </TooltipTrigger>
+            <PdfViewer>
+                <TooltipTrigger>
+                    <span css={referenceLinkStyle}>
+                        {shortSection}
+                    </span>
+                </TooltipTrigger>
+            </PdfViewer>
             <TooltipContent>
                 <div css={tooltipTitleStyle}>{parties[party].manifesto.title}</div>
                 <div css={tooltipSectionStyle}>{section}</div>
