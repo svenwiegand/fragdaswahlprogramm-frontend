@@ -17,14 +17,15 @@ export function FlexSpacer({grow, portraitGrow}: FlexSpacerProps) {
 }
 
 type AbsoluteSpacerProps = {
-    direction: "vertical" | "horizontal"
+    /** Defaults to vertical */
+    direction?: "vertical" | "horizontal"
     space: number
     portraitSpace?: number
 }
 
 export function AbsoluteSpacer({direction, space, portraitSpace}: AbsoluteSpacerProps) {
     const style = css`
-        ${direction === "vertical" ? "height" : "width"}: ${rempx(space)};
+        ${!direction || direction === "vertical" ? "height" : "width"}: ${rempx(space)};
         @media (orientation: portrait) {
             ${direction === "vertical" ? "height" : "width"}: ${rempx(portraitSpace ?? space)};
         }
