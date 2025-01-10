@@ -103,7 +103,7 @@ export function ChatPage() {
                     : null
                 }
                 <ChatTextField expanded={hasChat} onSend={simpleSend} />
-                {!hasChat ? <><AbsoluteSpacer space={32}/><ReferenceLink party={"spd"} section={"Wir kämpfen für faire Löhne"} shortSection={"Faire Löhne"} page={42}/><FlexSpacer grow={4}/></> : null}
+                {!hasChat ? <><AbsoluteSpacer space={32}/><ReferenceLink party={"spd"} section={"Wir kämpfen für faire Löhne"} shortSection={"Faire Löhne"} page={42} quote={"Rechtsanspruch stellen wir sicher"}/><FlexSpacer grow={4}/></> : null}
             </div>
         </Page>
     )

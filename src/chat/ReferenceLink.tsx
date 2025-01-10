@@ -68,10 +68,10 @@ const tooltipDisclaimerStyle = css`
     color: ${color.neutral.neutral500};
 `
 
-export function ReferenceLink({party, section, shortSection, page}: Reference) { //todo: Remove export
+export function ReferenceLink({party, section, shortSection, page, quote}: Reference) { //todo: Remove export
     return (
         <Tooltip placement={"bottom-start"}>
-            <PdfViewer>
+            <PdfViewer file={`/programs/${party}.pdf`} page={page + parties[party].manifesto.pageOffset} highlight={quote}>
                 <TooltipTrigger>
                     <span css={referenceLinkStyle}>
                         {shortSection}
