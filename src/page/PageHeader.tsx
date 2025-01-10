@@ -45,7 +45,7 @@ export type PageHeaderProps = {
 
 export function PageHeader({isSubPage, onBack, action}: PageHeaderProps) {
     return (
-        <div css={headerStyle}>
+        <nav css={headerStyle}>
             {isSubPage
                 ? <NavbarAction to="/" onClick={onBack}><BackIcon width={24} height={24}/><FormattedMessage id={"home"}/></NavbarAction>
                 : <NavbarLink to="/about"><FormattedMessage id={"about"}/></NavbarLink>
@@ -58,7 +58,7 @@ export function PageHeader({isSubPage, onBack, action}: PageHeaderProps) {
                     <span css={qnaShortStyle}><FormattedMessage id={"qnaShort"}/></span>
                 </NavbarLink>
             }
-        </div>
+        </nav>
     )
 }
 

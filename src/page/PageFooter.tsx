@@ -3,22 +3,31 @@ import {NavbarLink} from "../common/NavbarLink.tsx"
 import {FormattedMessage} from "react-intl"
 import {rempx, responsiveHPadding} from "../style/styles.ts"
 
-const footerStyle = css`
-    ${responsiveHPadding};
+const baseStyle = css`
     flex-shrink: 0;
     display: flex;
-    justify-content: center;
     align-items: baseline;
-    gap: ${rempx(16)};
     align-self: stretch;
+`
+const footerStyle = css`
+    ${baseStyle};
+    ${responsiveHPadding};
+`
+const navStyle = css`
+    ${baseStyle};
+    flex-grow: 1;
+    justify-content: center;
+    gap: ${rempx(16)};
 `
 
 export function PageFooter() {
     return (
-        <div css={footerStyle}>
-            <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
-            <NavbarLink to="/privacy"><FormattedMessage id={"privacy"}/></NavbarLink>
-            <NavbarLink to="/parties"><FormattedMessage id={"parties"}/></NavbarLink>
-        </div>
+        <footer css={footerStyle}>
+            <nav css={navStyle}>
+                <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
+                <NavbarLink to="/privacy"><FormattedMessage id={"privacy"}/></NavbarLink>
+                <NavbarLink to="/parties"><FormattedMessage id={"parties"}/></NavbarLink>
+            </nav>
+        </footer>
     )
 }

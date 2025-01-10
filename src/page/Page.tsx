@@ -34,9 +34,9 @@ export function Page({ isSubPage, onBack, headerAction, hideFooter, children }: 
     return (
         <div css={pageStyle}>
             <PageHeader isSubPage={isSubPage} onBack={onBack} action={headerAction}/>
-            <article css={contentStyle}>
+            <main css={contentStyle}>
                 {children}
-            </article>
+            </main>
             {hideFooter ? null : <PageFooter/>}
         </div>
     )
