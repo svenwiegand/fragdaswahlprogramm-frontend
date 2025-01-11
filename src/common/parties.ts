@@ -1,4 +1,4 @@
-export type Party = "afd" | "cdu-csu" | "fdp" | "gruene" | "linke" | "spd"
+export type Party = "afd" | "cdu-csu" | "fdp" | "gruene" | "linke" | "spd" | "volt"
 type PartyProps = {
     name: string
     symbol: string
@@ -63,6 +63,15 @@ export const parties: Record<Party, PartyProps> = {
             pageOffset: 2,
         },
     },
+    volt: {
+        name: "Volt",
+        symbol: "volt",
+        manifesto: {
+            title: "Wahlprogramm von Volt",
+            url: "https://voltdeutschland.org/storage/assets-btw25/volt-programm-bundestagswahl-2025.pdf",
+            pageOffset: -4,
+        },
+    }
 }
 export const partySymbols: Party[] = Object.keys(parties) as Party[]
 export const maxNumberOfPartiesPerQuestion = 3

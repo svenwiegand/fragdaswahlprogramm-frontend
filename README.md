@@ -1,5 +1,8 @@
-To make this work create a `env.development.local` with the following content:
+# fragdaswahlprogramm Frontend
+Frontend für [fragdaswahlprogramm](https://fragdaswahlprogramm.de) – eine Plattform zur Förderung politischer Bildung und Transparenz.
 
-```
-REACT_APP_BACKEND_BASE_URL=http://localhost:7071
-```
+## Hinzufügen einer neuen Partei
+1. Partei im Backend hinzufügen
+2. Partei-Logo von Wikipedia in der Breite 320 herunterladen und unter `public/logos/<symbol>.png` ablegen
+3. Partei unter `src/common/parties.ts` hinzufügen
+4. Frontend deployen
