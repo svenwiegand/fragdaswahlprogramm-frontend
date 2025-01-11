@@ -98,8 +98,8 @@ function ReferenceLink({party, section, shortSection, page, quote}: Reference) {
     const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}${quote ? `search=${encodeURIComponent(quote)}` : ""}`
     return (
         <Tooltip placement={"bottom-start"} containsClickableContent={true}>
-            <TooltipTrigger>
-                <span css={referenceLinkStyle}>{shortSection}</span>
+            <TooltipTrigger asChild={true}>
+                <button css={referenceLinkStyle}>{shortSection}</button>
             </TooltipTrigger>
             <TooltipContent>
                 <div css={tooltipTitleStyle}>{parties[party].manifesto.title}</div>
