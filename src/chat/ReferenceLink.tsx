@@ -48,44 +48,66 @@ const referenceLinkStyle = css`
     }
 `
 
+const tooltipTextStyle = css`
+    hyphens: auto;
+`
 const tooltipTitleStyle = css`
     font-size: ${rempx(12)};
+    ${tooltipTextStyle};
 `
 const tooltipSectionStyle = css`
     font-weight: bold;
+    ${tooltipTextStyle};
+`
+const tooltipQuoteStyle = css`
+    font-style: italic;
+    ${tooltipTextStyle};
+    ::before {
+        content: "„";
+        position: relative;
+        margin-left: -0.5em;
+        display: inline-block;
+    }
+    ::after {
+        content: "“";
+    }
 `
 const tooltipBottomLineStyle = css`
+    margin-top: 0.4em;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    ${tooltipTextStyle};
 `
 const tooltipPageStyle = css`
+    ${tooltipTextStyle};
     color: ${color.neutral.neutral300};
 `
-const tooltipDisclaimerStyle = css`
-    font-size: 0.8em;
-    margin-left: 0.6em;
-    color: ${color.neutral.neutral500};
+const tooltipLinkStyle = css`
+    margin-left: 2em;
+    ${tooltipTextStyle};
+    color: ${color.neutral.neutral400};
+    
+    &:hover {
+        color: ${color.neutral.neutral100};
+        text-decoration: none;
+    }
 `
 
-function ReferenceLink({party, section, shortSection, page}: Reference) {
-    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}`
+function ReferenceLink({party, section, shortSection, page, quote}: Reference) {
+    const href = `${parties[party].manifesto.url}#page=${page + parties[party].manifesto.pageOffset}${quote ? `search=${encodeURIComponent(quote)}` : ""}`
     return (
-        <Tooltip placement={"bottom-start"}>
+        <Tooltip placement={"bottom-start"} containsClickableContent={true}>
             <TooltipTrigger>
-                <a
-                    href={href}
-                    target={"_blank"}
-                    css={referenceLinkStyle}
-                >
-                    <span>{shortSection}</span>
-                </a>
+                <span css={referenceLinkStyle}>{shortSection}</span>
             </TooltipTrigger>
             <TooltipContent>
                 <div css={tooltipTitleStyle}>{parties[party].manifesto.title}</div>
                 <div css={tooltipSectionStyle}>{section}</div>
+                {quote && <div css={tooltipQuoteStyle}>{quote}</div>}
                 <div css={tooltipBottomLineStyle}>
                     <div css={tooltipPageStyle}><FormattedMessage id={"refPage"} values={{page}}/></div>
-                    <div css={tooltipDisclaimerStyle}>(<FormattedMessage id={"refDisclaimer"}/>)</div>
+                    <a href={href} target={"_blank"} css={tooltipLinkStyle}><FormattedMessage id={"refOpenProgram"}/> ↗</a>
                 </div>
             </TooltipContent>
         </Tooltip>

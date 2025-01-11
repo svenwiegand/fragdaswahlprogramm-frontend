@@ -1,20 +1,20 @@
 // This was mainly copied from https://floating-ui.com/docs/tooltip
 import * as React from "react"
+import {Placement} from "@floating-ui/react"
 import {
-    useFloating,
     autoUpdate,
-    offset,
     flip,
+    FloatingPortal,
+    offset,
     shift,
-    useHover,
-    useFocus,
     useDismiss,
-    useRole,
+    useFloating,
+    useFocus,
+    useHover,
     useInteractions,
     useMergeRefs,
-    FloatingPortal,
+    useRole,
 } from "@floating-ui/react"
-import type {Placement} from "@floating-ui/react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
 
@@ -22,6 +22,7 @@ interface TooltipOptions {
     initialOpen?: boolean;
     placement?: Placement;
     open?: boolean;
+    containsClickableContent?: boolean;
     onOpenChange?: (open: boolean) => void;
 }
 
@@ -29,6 +30,7 @@ function useTooltip({
                         initialOpen = false,
                         placement = "top",
                         open: controlledOpen,
+                        containsClickableContent = false,
                         onOpenChange: setControlledOpen,
                     }: TooltipOptions = {}) {
     const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen)
@@ -57,6 +59,9 @@ function useTooltip({
     const hover = useHover(context, {
         move: false,
         enabled: controlledOpen == null,
+        delay: {
+            close: containsClickableContent ? 300 : 0
+        },
     })
     const focus = useFocus(context, {
         enabled: controlledOpen == null,
@@ -141,10 +146,11 @@ export const TooltipTrigger = React.forwardRef<
 const tooltipStyle = css`
     background-color: ${color.neutral.neutral900};
     color: white;
-    padding: ${rempx(8)} ${rempx(12)};
+    padding: ${rempx(12)} ${rempx(16)};
     border-radius: ${rempx(8)};
+    max-width: 32em;
     font-size: ${rempx(14)};
-    line-height: 1.75;
+    line-height: 1.5;
 `
 
 export const TooltipContent = React.forwardRef<
