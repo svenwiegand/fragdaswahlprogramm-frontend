@@ -1,6 +1,6 @@
 import {ChatPage} from "./chat/ChatPage.tsx"
 import {IntlProvider} from "react-intl"
-import {getBrowserLocales, getMessages} from "./messages.ts"
+import {getBrowserLocales, getMessages} from "./content/messages.ts"
 import {MarkdownPage} from "./page/MarkdownPage.tsx"
 import {BrowserRouter, Route, Routes, useLocation} from "react-router"
 import {useEffect, useState} from "react"

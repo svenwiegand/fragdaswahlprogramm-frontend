@@ -1,4 +1,4 @@
-import {useCallback} from "react"
+import {CSSProperties, useCallback} from "react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
 
@@ -32,11 +32,12 @@ const suggestionStyle = css`
 export type SuggestionContainerProps = {
     suggestions: string[]
     onClick: (suggestion: string) => void
+    style?: CSSProperties
 }
 
-export function Suggestions({suggestions, onClick}: SuggestionContainerProps) {
+export function Suggestions({suggestions, onClick, style}: SuggestionContainerProps) {
     return (
-        <div css={containerStyle}>
+        <div css={containerStyle} style={style}>
             {suggestions.map((suggestion, index) =>
                 <SuggestionButton key={index} suggestion={suggestion} onClick={onClick}/>)
             }

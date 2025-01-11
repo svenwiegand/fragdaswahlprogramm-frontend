@@ -7,13 +7,14 @@ import {ChatTextField} from "./ChatTextField.tsx"
 import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
-import {FlexSpacer} from "../common/Spacer.tsx"
+import {AbsoluteSpacer, FlexSpacer} from "../common/Spacer.tsx"
 import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 import {sessionHeaders} from "../common/track.ts"
 import {GenerationStatus} from "./GeneratingIndicator.tsx"
+import {InitialSuggestions} from "./InitialSuggestions.tsx"
 
 type Command = "selectParties"
 
@@ -102,7 +103,11 @@ export function ChatPage() {
                     : null
                 }
                 <ChatTextField expanded={hasChat} onSend={simpleSend} />
-                {!hasChat ? <FlexSpacer grow={4}/> : null}
+                {!hasChat && <>
+                    <AbsoluteSpacer space={32}/>
+                    <InitialSuggestions onClick={simpleSend}/>
+                    <FlexSpacer grow={2}/>
+                </>}
             </div>
         </Page>
     )
