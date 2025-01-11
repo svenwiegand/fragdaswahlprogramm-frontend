@@ -1,4 +1,4 @@
-export type Party = "afd" | "cdu-csu" | "fdp" | "gruene" | "linke" | "spd" | "volt"
+export type Party = "afd" | "gruene" | "bsw" | "cdu-csu" | "fdp" | "linke" | "spd" | "volt"
 type PartyProps = {
     name: string
     symbol: string
@@ -29,6 +29,16 @@ export const parties: Record<Party, PartyProps> = {
             pageOffset: 0,
             draft: true,
         },
+    },
+    bsw: {
+        name: "Bündnis Sarah Wagenknecht",
+        symbol: "bsw",
+        manifesto: {
+            title: "Wahlprogramm vom Bündnis Sarah Wagenknecht",
+            url: "https://www.bundestagswahl-bw.de/fileadmin/bundestagswahl-bw/2025/Wahlprogramme/BSW_Wahlprogramm_2025__Entwurf_.pdf",
+            pageOffset: 0,
+            draft: true,
+        }
     },
     "cdu-csu": {
         name: "CDU/CSU",
