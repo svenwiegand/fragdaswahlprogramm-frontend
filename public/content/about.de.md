@@ -1,4 +1,4 @@
-# Über "fragdaswahlprogramm"
+# Über „frag&shy;das&shy;wahl&shy;pro&shy;gramm“
 
 Willkommen bei fragdaswahlprogramm, einer Plattform zur Förderung politischer Bildung und Transparenz. Mein Ziel ist es, die Inhalte der Wahlprogramme der Parteien zur Bundestagswahl 2025 verständlich und zugänglich zu machen. Hier kannst du gezielt Fragen zu den Programmen stellen und klare, neutrale Antworten erhalten – unterstützt durch moderne KI-Technologie.
 

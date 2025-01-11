@@ -19,7 +19,7 @@ Aus Gründen der Transparenz führe ich hier dennoch auf, welche Unternehmen zur
 ## Diese Daten erfasse ich
 Hier eine Liste der Daten, die bei der Nutzung von fragdaswahlprogramm erfasst werden.
 
-- Eingegebene **Fragen** und die daraus generierten Antworten werden für eine gewisse Zeit auf den Servern von Microsoft gespeichert, um die Unterhaltung ("Chat") technisch zu ermöglichen.
+- Eingegebene **Fragen** und die daraus generierten Antworten werden für eine gewisse Zeit auf den Servern von Microsoft gespeichert, um die Unterhaltung („Chat“) technisch zu ermöglichen.
 - **Metadaten** zu eingegebenen Fragen (etwa angefragte Themen und Parteien) und Informationen etwa darüber, wie viele Fragen in einer Sitzung gestellt werden. Diese Daten dienen der Analyse der Nutzung und Optimierung von fragdaswahlprogramm.
 - **Typ und Version deines Browsers**, deines Betriebssystems, auf dem du fragdaswahlprogramm nutzt und weitere Browser-Einstellungen wie deine bevorzugte Sprache, um fragdaswahlprogramm für die meistgenutzten Plattformen weiter zu optimieren.
 - **Stadt** aus der die Aufrufe erfolgen auf Basis der IP-Adresse deines Geräts zur Analyse der Nutzung.
@@ -28,7 +28,7 @@ Hier eine Liste der Daten, die bei der Nutzung von fragdaswahlprogramm erfasst w
 ## Diese Daten erfasse ich _nicht_
 Hier eine unvollständige Liste von Daten, die bei der Nutzung von fragdaswahlprogramm **nicht** gespeichert werden.
 
-- Das wichtigste zuerst: Ich "tracke" dich nicht! fragdaswahlprogramm speichert **keinerlei** Daten auf deinem Rechner (etwa via Cookies oder Browser-Speicher). Auch binde ich **keine** Dienste ein, die dich via 3rd-Party-Cookies tracken. Wenn du fragdaswahlprogramm mehrfach aufrufst, ist für mich somit **nicht** nachvollziehbar, dass es sich um ein und dieselbe Person handelt.
+- Das wichtigste zuerst: Ich „tracke“ dich nicht! fragdaswahlprogramm speichert **keinerlei** Daten auf deinem Rechner (etwa via Cookies oder Browser-Speicher). Auch binde ich **keine** Dienste ein, die dich via 3rd-Party-Cookies tracken. Wenn du fragdaswahlprogramm mehrfach aufrufst, ist für mich somit **nicht** nachvollziehbar, dass es sich um ein und dieselbe Person handelt.
 - Ich speichere keine Informationen, die dich oder dein Gerät eindeutig identifizieren (etwa Seriennummern).
 - Ich speichere keine IP-Adressen. Die IP-Adresse wird für statistische Zwecke zur ungefähren Bestimmung des Orts eines Aufrufs genutzt und dann verworfen.
 
