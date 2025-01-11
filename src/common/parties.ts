@@ -65,8 +65,8 @@ export const parties: Record<Party, PartyProps> = {
         symbol: "spd",
         manifesto: {
             title: "Wahlprogramm der SPD",
-            url: "https://www.spd.de/fileadmin/Dokumente/Beschluesse/Programm/Entwurf_Regierungsprogramm_2025.pdf",
-            pageOffset: 2,
+            url: "https://mehr.spd.de/custom-static-assets/documents/Regierungsprogramm.pdf",
+            pageOffset: 0,
             draft: true,
         },
     },
