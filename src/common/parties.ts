@@ -69,7 +69,7 @@ export const parties: Record<Party, PartyProps> = {
         manifesto: {
             title: "Wahlprogramm von Volt",
             url: "https://voltdeutschland.org/storage/assets-btw25/volt-programm-bundestagswahl-2025.pdf",
-            pageOffset: -4,
+            pageOffset: 0,
         },
     }
 }
