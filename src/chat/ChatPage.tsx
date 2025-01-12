@@ -7,7 +7,6 @@ import {ChatTextField} from "./ChatTextField.tsx"
 import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
-import {AbsoluteSpacer, FlexSpacer} from "../common/Spacer.tsx"
 import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
@@ -87,9 +86,9 @@ export function ChatPage() {
     return (
         <Page isSubPage={hasChat} onBack={reset} headerAction={newChatAction} hideFooter={hasChat}>
             <div css={chatStyle}>
-                {!hasChat ? <><FlexSpacer grow={1} portraitGrow={1}/><Logo/></> : null}
-                {hasChat
-                    ? <ChatHistory
+                {!hasChat && <Logo/>}
+                {hasChat &&
+                    <ChatHistory
                         messages={messages}
                         generationStatus={generationStatus}
                         generatingAnswer={answer}
@@ -98,13 +97,10 @@ export function ChatPage() {
                         suggestions={suggestions}
                         sendQuestion={send}
                     />
-                    : null
                 }
                 <ChatTextField fixed={hasChat} onSend={simpleSend} />
                 {!hasChat && <>
-                    <AbsoluteSpacer space={32}/>
                     <InitialSuggestions onClick={simpleSend}/>
-                    <FlexSpacer grow={2}/>
                 </>}
             </div>
         </Page>

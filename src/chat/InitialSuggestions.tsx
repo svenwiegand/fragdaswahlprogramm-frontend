@@ -5,6 +5,13 @@ import {
 } from "../content/suggestions.ts"
 import {Suggestions} from "./Suggestion.tsx"
 import {useEffect, useState} from "react"
+import {css} from "@emotion/react"
+import {rempx} from "../style/styles.ts"
+
+const suggestionsStyle = css`
+    max-width: ${rempx(640)};
+    margin-top: ${rempx(32)};
+`
 
 export function InitialSuggestions({reload, onClick}: {reload?: boolean, onClick: (suggestion: string) => void}) {
     const [suggestions, setSuggestions] = useState(getSuggestions())
@@ -15,7 +22,9 @@ export function InitialSuggestions({reload, onClick}: {reload?: boolean, onClick
     }, [reload])
 
     return (
-        <Suggestions suggestions={suggestions} onClick={onClick} style={{maxWidth: 640}}/>
+        <div css={suggestionsStyle}>
+            <Suggestions suggestions={suggestions} onClick={onClick}/>
+        </div>
     )
 
 }
