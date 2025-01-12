@@ -2,6 +2,7 @@ import {css} from '@emotion/react'
 import {NavbarLink} from "../common/NavbarLink.tsx"
 import {FormattedMessage} from "react-intl"
 import {rempx, responsiveHPadding} from "../style/styles.ts"
+import {forwardRef} from "react"
 
 const footerStyle = css`
     position: fixed;
@@ -22,9 +23,11 @@ const navStyle = css`
     gap: ${rempx(16)};
 `
 
-export function PageFooter() {
+type PageFooterProps = object
+
+export const PageFooter = forwardRef<HTMLDivElement, PageFooterProps>((_, ref) => {
     return (
-        <footer css={footerStyle}>
+        <footer css={footerStyle} ref={ref}>
             <nav css={navStyle}>
                 <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
                 <NavbarLink to="/privacy"><FormattedMessage id={"privacy"}/></NavbarLink>
@@ -32,4 +35,4 @@ export function PageFooter() {
             </nav>
         </footer>
     )
-}
+})

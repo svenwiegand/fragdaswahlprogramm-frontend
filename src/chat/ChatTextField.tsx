@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {forwardRef, useEffect, useRef, useState} from "react"
 import {css} from "@emotion/react"
 import {dimensions, fontFamily, rempx, responsiveHPadding} from "../style/styles.ts"
 import {useIntl} from "react-intl"
@@ -62,7 +62,7 @@ type ChatTextFieldProps = {
     onSend: (value: string) => void
 };
 
-export function ChatTextField({fixed, onSend}: ChatTextFieldProps) {
+export const ChatTextField = forwardRef<HTMLDivElement, ChatTextFieldProps>(({fixed, onSend}: ChatTextFieldProps, ref) => {
     const [value, setValue] = useState("")
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const location = useLocation()
@@ -103,7 +103,7 @@ export function ChatTextField({fixed, onSend}: ChatTextFieldProps) {
 
     const intl = useIntl()
     return (
-        <div css={fixed ? fixedContainerStyle : containerStyle}>
+        <div css={fixed ? fixedContainerStyle : containerStyle} ref={ref}>
             <div css={fixed ? expandedInputContainerStyle : inputContainerStyle}>
                 <textarea
                     ref={textareaRef}
@@ -118,4 +118,4 @@ export function ChatTextField({fixed, onSend}: ChatTextFieldProps) {
             </div>
         </div>
     )
-}
+})

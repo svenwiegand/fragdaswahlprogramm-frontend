@@ -3,6 +3,7 @@ import {NavbarAction, NavbarLink} from "../common/NavbarLink.tsx"
 import {FormattedMessage} from "react-intl"
 import {responsiveHPadding} from "../style/styles.ts"
 import BackIcon from "../icons/icon-back.svg?react"
+import {forwardRef} from "react"
 
 const headerStyle = css`
     position: fixed;
@@ -49,9 +50,9 @@ export type PageHeaderProps = {
     onHeaderAction?: () => void
 }
 
-export function PageHeader({isSubPage, onBack, action}: PageHeaderProps) {
+export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(({isSubPage, onBack, action}: PageHeaderProps, ref) => {
     return (
-        <nav css={headerStyle}>
+        <nav css={headerStyle} ref={ref}>
             {isSubPage
                 ? <NavbarAction to="/" onClick={onBack}><BackIcon width={24} height={24}/><FormattedMessage id={"home"}/></NavbarAction>
                 : <NavbarLink to="/about"><FormattedMessage id={"about"}/></NavbarLink>
@@ -66,7 +67,7 @@ export function PageHeader({isSubPage, onBack, action}: PageHeaderProps) {
             }
         </nav>
     )
-}
+})
 
 const actionButtonStyle = css`
     margin: 0;

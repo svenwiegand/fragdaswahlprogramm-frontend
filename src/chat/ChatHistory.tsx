@@ -46,10 +46,12 @@ export function ChatHistory(
     const isGenerating = generationStatus !== "idle"
 
     useEffect(() => {
-        if (isGenerating && indicatorRef.current) {
+        if (isGenerating && messages.length <= 1) {
+            scrollTo(0, 0)
+        } else if (isGenerating && indicatorRef.current) {
             indicatorRef.current.scrollIntoView({block: "start", behavior: "smooth"})
         }
-    }, [isGenerating, generatingAnswer])
+    }, [isGenerating, messages, indicatorRef])
 
     const send = useCallback((question: string) => sendQuestion(question, false), [sendQuestion])
     const onPartiesSelected = useCallback((selectedParties: Party[]) => {
