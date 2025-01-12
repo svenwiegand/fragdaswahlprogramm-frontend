@@ -33,7 +33,7 @@ export function ChatPage() {
     const [suggestions, setSuggestions] = React.useState<string[]>([])
     const [showPartySelector, setShowPartySelector] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
-    const [inputFieldRef, inputFieldHeight] = useElementHeight()
+    const [inputFieldRef, inputFieldHeight] = useElementHeight<HTMLDivElement>()
     const additionalChatStyle = css`
         padding-bottom: ${inputFieldHeight}px;
     `
