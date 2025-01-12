@@ -37,6 +37,7 @@ export function ChatPage() {
     const additionalChatStyle = css`
         padding-bottom: ${inputFieldHeight}px;
     `
+    const eventSourceRef = React.useRef<PostEventSource>()
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
@@ -67,11 +68,14 @@ export function ChatPage() {
             setIsError(true)
             setGenerationStatus("idle")
         }
-        sendQuestion(question, threadId, setThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError)
+        sendQuestion(question, threadId, setThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError, eventSourceRef)
     }
     const simpleSend = (question: string) => send(question, false)
 
     const reset = () => {
+        if (eventSourceRef.current) {
+            eventSourceRef.current.close()
+        }
         setMessages([])
         setThreadId(undefined)
         setAnswer("")
@@ -121,10 +125,12 @@ function sendQuestion(
     updateSuggestions: (set: (pref: string[]) => string[]) => void,
     onCommand: (command: Command) => void,
     onDone: (answer: string) => void,
-    onError: (answer: string) => void
+    onError: (answer: string) => void,
+    eventSourceRef: React.MutableRefObject<PostEventSource | undefined>
 ) {
     const url = threadId ? `${backendBaseUrl}/api/thread/${threadId}` : `${backendBaseUrl}/api/thread`
     const eventSource = new PostEventSource(url, {body: message, headers: sessionHeaders})
+    eventSourceRef.current = eventSource
     const answer = new StreamingText(...lineParsers)
 
     eventSource.onopen = (_, response) => {

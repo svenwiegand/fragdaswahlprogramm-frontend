@@ -88,17 +88,26 @@ export class PostEventSource {
                 }
             }
         } catch (error) {
-            if (this.onerror) {
-                this.onerror(error as Event)
-            }
+            this.handleError(error)
         }
     }
 
     close() {
-        this.controller.abort()
-        if (this.reader) {
-            this.reader.cancel()
+        try {
+            this.controller.abort()
+            this.readyState = 2 // CLOSED
+        } catch (error) {
+            this.handleError(error)
         }
-        this.readyState = 2 // CLOSED
+    }
+
+    private handleError(error: unknown) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+            console.log('Stream wurde durch Abbruch geschlossen.')
+        } else if (this.onerror) {
+            this.onerror(error as Event)
+        } else {
+            console.error('Fehler:', error)
+        }
     }
 }
