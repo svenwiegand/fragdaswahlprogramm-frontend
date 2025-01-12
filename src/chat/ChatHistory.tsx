@@ -62,17 +62,16 @@ export function ChatHistory(
         <div css={chatHistoryStyle}>
             <div css={chatHistoryContentStyle}>
                 {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
-                {showPartySelector && !isGenerating ? <PartySelector onSelect={onPartiesSelected}/> : null}
-                {generatingAnswer ? <>
+                {showPartySelector && !isGenerating && <PartySelector onSelect={onPartiesSelected}/>}
+                {generatingAnswer &&
                     <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>
-                </> : null}
-                {isGenerating ? <GeneratingIndicator status={generationStatus} ref={indicatorRef}/> : null}
-                {isError ? <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/> : null}
-                {suggestions.length > 0 && !isGenerating
-                    ? <Suggestions suggestions={suggestions} onClick={send}/>
-                    : null
                 }
-                {!isGenerating && !showPartySelector && !isError ? <Disclaimer/> : null}
+                {isGenerating ? <GeneratingIndicator status={generationStatus} ref={indicatorRef}/> : null}
+                {isError && <ChatMessage msgType={"error"} message={intl.formatMessage({id: "chatError"})}/>}
+                {suggestions.length > 0 && !isGenerating && !isError &&
+                    <Suggestions suggestions={suggestions} onClick={send}/>
+                }
+                {!isGenerating && !showPartySelector && !isError && <Disclaimer/>}
             </div>
         </div>
     )
@@ -96,9 +95,11 @@ const answerStyle = css`
 `
 
 const errorStyle = css`
-    ${questionStyle};
+    ${answerStyle};
     background-color: ${color.error.background};
     color: ${color.error.text};
+    border-radius: ${rempx(8)};
+    padding: ${rempx(8)} ${rempx(16)};
 `
 
 const msgStyle: Record<ChatMessageProps['msgType'], ReturnType<typeof css>> = {
