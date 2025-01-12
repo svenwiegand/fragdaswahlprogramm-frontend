@@ -17,9 +17,11 @@ export const dimensions = {
 }
 
 export const responsiveHPadding = css`
-    padding: 0 ${dimensions.desktop.pagePaddingHorizontal};
+    padding-left: ${dimensions.desktop.pagePaddingHorizontal};
+    padding-right: ${dimensions.desktop.pagePaddingHorizontal};
     @media (max-width: ${dimensions.mobileMaxWidth}) {
-        padding: 0 ${dimensions.mobile.pagePaddingHorizontal};
+        padding-left: ${dimensions.mobile.pagePaddingHorizontal};
+        padding-right: ${dimensions.mobile.pagePaddingHorizontal};
     }
 `
 

@@ -5,11 +5,17 @@ import {responsiveHPadding} from "../style/styles.ts"
 import BackIcon from "../icons/icon-back.svg?react"
 
 const headerStyle = css`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     ${responsiveHPadding};
-    flex-shrink: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
     display: flex;
     align-items: center;
-    align-self: stretch;
+    background-color: white;
 `
 
 const spacerStyle = css`

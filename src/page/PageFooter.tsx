@@ -3,19 +3,21 @@ import {NavbarLink} from "../common/NavbarLink.tsx"
 import {FormattedMessage} from "react-intl"
 import {rempx, responsiveHPadding} from "../style/styles.ts"
 
-const baseStyle = css`
-    flex-shrink: 0;
-    display: flex;
-    align-items: baseline;
-    align-self: stretch;
-`
 const footerStyle = css`
-    ${baseStyle};
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     ${responsiveHPadding};
+    padding-top: ${rempx(16)};
+    padding-bottom: ${rempx(16)};
 `
 const navStyle = css`
-    ${baseStyle};
     flex-grow: 1;
+    flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: baseline;
     justify-content: center;
     gap: ${rempx(16)};
 `

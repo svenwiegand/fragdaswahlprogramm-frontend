@@ -14,6 +14,15 @@ const containerStyle = css`
     flex-direction: row; 
     justify-content: center;
 `
+const fixedContainerStyle = css`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 1rem;
+    background-color: white;
+    ${containerStyle}
+`
 
 const inputContainerStyle = css`
     flex-grow: 1;
@@ -49,11 +58,11 @@ const textareaStyle = css`
 `
 
 type ChatTextFieldProps = {
-    expanded?: boolean
+    fixed?: boolean
     onSend: (value: string) => void
 };
 
-export function ChatTextField({expanded, onSend}: ChatTextFieldProps) {
+export function ChatTextField({fixed, onSend}: ChatTextFieldProps) {
     const [value, setValue] = useState("")
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const location = useLocation()
@@ -94,8 +103,8 @@ export function ChatTextField({expanded, onSend}: ChatTextFieldProps) {
 
     const intl = useIntl()
     return (
-        <div css={containerStyle}>
-            <div css={expanded ? expandedInputContainerStyle : inputContainerStyle}>
+        <div css={fixed ? fixedContainerStyle : containerStyle}>
+            <div css={fixed ? expandedInputContainerStyle : inputContainerStyle}>
                 <textarea
                     ref={textareaRef}
                     placeholder={intl.formatMessage({id: "inputPlaceholder"})}

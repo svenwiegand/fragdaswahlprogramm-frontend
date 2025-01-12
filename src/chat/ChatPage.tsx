@@ -19,12 +19,10 @@ import {InitialSuggestions} from "./InitialSuggestions.tsx"
 type Command = "selectParties"
 
 const chatStyle = css`
-    flex-grow: 1;
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 `
 
 export function ChatPage() {
@@ -102,7 +100,7 @@ export function ChatPage() {
                     />
                     : null
                 }
-                <ChatTextField expanded={hasChat} onSend={simpleSend} />
+                <ChatTextField fixed={hasChat} onSend={simpleSend} />
                 {!hasChat && <>
                     <AbsoluteSpacer space={32}/>
                     <InitialSuggestions onClick={simpleSend}/>

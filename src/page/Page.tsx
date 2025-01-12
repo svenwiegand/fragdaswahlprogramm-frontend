@@ -2,24 +2,15 @@ import {css} from "@emotion/react"
 import {rempx} from "../style/styles.ts"
 import {Action, PageHeader} from "./PageHeader.tsx"
 import {PageFooter} from "./PageFooter.tsx"
-import {ReactNode} from "react"
-
-const pageStyle = css`
-    height: 100%;
-    box-sizing: border-box;
-    padding: ${rempx(16)} 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
+import {ReactNode, useEffect} from "react"
+import {useLocation} from "react-router"
 
 const contentStyle = css`
-    flex-grow: 1;
     width: 100%;
-    padding: ${rempx(16)} 0;
+    min-height: 100vh;
+    padding: ${rempx(16+1.75*16+16)} 0;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 `
 
 interface PageProps {
@@ -31,13 +22,17 @@ interface PageProps {
 }
 
 export function Page({ isSubPage, onBack, headerAction, hideFooter, children }: PageProps) {
+    const location = useLocation()
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [location])
     return (
-        <div css={pageStyle}>
+        <>
             <PageHeader isSubPage={isSubPage} onBack={onBack} action={headerAction}/>
             <main css={contentStyle}>
                 {children}
             </main>
             {hideFooter ? null : <PageFooter/>}
-        </div>
+        </>
     )
 }
