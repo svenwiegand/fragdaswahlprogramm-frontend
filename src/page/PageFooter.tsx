@@ -11,7 +11,7 @@ const footerStyle = css`
     right: 0;
     ${responsiveHPadding};
     padding-top: ${rempx(16)};
-    padding-bottom: ${rempx(16)};
+    padding-bottom: max(env(safe-area-inset-bottom, 0), ${rempx(16)});
 `
 const navStyle = css`
     flex-grow: 1;

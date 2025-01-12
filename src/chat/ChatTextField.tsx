@@ -19,7 +19,7 @@ const fixedContainerStyle = css`
     bottom: 0;
     left: 0;
     right: 0;
-    padding-bottom: 1rem;
+    padding-bottom: max(env(safe-area-inset-bottom, 0), ${rempx(16)});
     background-color: white;
     ${containerStyle}
 `
