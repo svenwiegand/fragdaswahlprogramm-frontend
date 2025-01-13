@@ -6,7 +6,7 @@ export const sessionHeaders = {
     "Session-ID": sessionId,
 }
 
-function track(path: "hello" | "page", event: Object): void {
+function track(path: "hello" | "page", event: object): void {
     const headers = new Headers(sessionHeaders)
     fetch(`${backendBaseUrl}/api/${path}`, {
         method: "POST",
