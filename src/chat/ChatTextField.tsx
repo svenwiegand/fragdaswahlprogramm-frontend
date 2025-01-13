@@ -108,6 +108,7 @@ export const ChatTextField = forwardRef<HTMLDivElement, ChatTextFieldProps>(({fi
                 <textarea
                     ref={textareaRef}
                     placeholder={intl.formatMessage({id: "inputPlaceholder"})}
+                    enterKeyHint={"send"}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     onKeyDown={handleKeyDown}
