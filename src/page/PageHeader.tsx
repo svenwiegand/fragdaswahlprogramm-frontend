@@ -17,6 +17,7 @@ const headerStyle = css`
     display: flex;
     align-items: center;
     background-color: white;
+    z-index: 100;
 `
 
 const spacerStyle = css`

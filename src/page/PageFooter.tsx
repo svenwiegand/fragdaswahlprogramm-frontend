@@ -9,6 +9,7 @@ const footerStyle = css`
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 100;
     ${responsiveHPadding};
     padding-top: ${rempx(16)};
     padding-bottom: max(env(safe-area-inset-bottom, 0), ${rempx(16)});
