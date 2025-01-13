@@ -87,8 +87,12 @@ export async function sendQuestion(
         console.error("Error parsing event source message", error)
         onErrorCallback()
     }
-    const parser = createParser({onEvent, onError})
+    const onRetry = (retry: number) => {
+        console.warn(`Server requested retry in ${retry}ms`)
+    }
+    const parser = createParser({onEvent, onError, onRetry})
     const reader: ReadableStreamDefaultReader<Uint8Array> = response.body.getReader()
+    reader.closed.then(() => console.log("reader closed")).catch(e => console.error("Error closing reader", e))
     for await (const chunk of readerToAsyncIterator(reader)) {
         if (cancelController.isCancelled) {
             console.log("Cancelling request")
@@ -129,15 +133,39 @@ const lineParsers: LineParser[] = [
     regexLineParser(referenceParser),
 ]
 
-async function* readerToAsyncIterator(reader: ReadableStreamDefaultReader<Uint8Array>): AsyncGenerator<string, void, unknown> {
-    const decoder = new TextDecoder()
+const timeout = 60 * 1000
+
+async function* readerToAsyncIterator(
+    reader: ReadableStreamDefaultReader<Uint8Array>
+): AsyncGenerator<string, void, unknown> {
+    const decoder = new TextDecoder();
+
     try {
         while (true) {
-            const {done, value} = await reader.read()
-            if (done) break
-            yield decoder.decode(value)
+            // Lese Daten aus dem Stream mit Timeout
+            const { done, value } = await readWithTimeout(reader.read(), timeout);
+
+            if (done) {
+                console.debug("Stream reader finished");
+                break;
+            }
+
+            yield decoder.decode(value);
         }
+    } catch (e) {
+        console.error("Error or timeout while reading stream:", e);
+        throw e;
     } finally {
-        reader.releaseLock()
+        reader.releaseLock();
     }
+}
+
+async function readWithTimeout<T>(
+    readerPromise: Promise<T>,
+    timeoutMs: number
+): Promise<T> {
+    const timeout = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Stream timeout")), timeoutMs)
+    );
+    return Promise.race([readerPromise, timeout]);
 }
