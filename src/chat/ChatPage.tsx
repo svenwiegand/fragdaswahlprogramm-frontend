@@ -14,7 +14,6 @@ import {useIntl} from "react-intl"
 import {sessionHeaders} from "../common/track.ts"
 import {GenerationStatus} from "./GeneratingIndicator.tsx"
 import {InitialSuggestions} from "./InitialSuggestions.tsx"
-import {useElementHeight} from "../common/react-utils.ts"
 
 type Command = "selectParties"
 
@@ -33,10 +32,6 @@ export function ChatPage() {
     const [suggestions, setSuggestions] = React.useState<string[]>([])
     const [showPartySelector, setShowPartySelector] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
-    const [inputFieldRef, inputFieldHeight] = useElementHeight<HTMLDivElement>()
-    const additionalChatStyle = css`
-        padding-bottom: ${inputFieldHeight}px;
-    `
     const eventSourceRef = React.useRef<PostEventSource>()
 
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
@@ -94,7 +89,7 @@ export function ChatPage() {
 
     return (
         <Page isSubPage={hasChat} onBack={reset} headerAction={newChatAction} hideFooter={hasChat}>
-            <div css={[chatStyle, additionalChatStyle]}>
+            <div css={chatStyle}>
                 {!hasChat && <Logo/>}
                 {hasChat &&
                     <ChatHistory
@@ -107,7 +102,7 @@ export function ChatPage() {
                         sendQuestion={send}
                     />
                 }
-                <ChatTextField fixed={hasChat} onSend={simpleSend} ref={inputFieldRef} />
+                <ChatTextField fixed={hasChat} onSend={simpleSend} />
                 {!hasChat && <>
                     <InitialSuggestions onClick={simpleSend}/>
                 </>}
