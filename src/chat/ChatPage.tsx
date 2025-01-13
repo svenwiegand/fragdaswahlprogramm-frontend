@@ -1,21 +1,15 @@
 import React from 'react'
-import {PostEventSource} from "../util/event-source"
-import {backendBaseUrl} from "../environment"
 import {css} from "@emotion/react"
 import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
 import {ChatTextField} from "./ChatTextField.tsx"
-import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
-import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 import {Page} from "../page/Page.tsx"
 import {Logo} from "./Logo.tsx"
 import {Action} from "../page/PageHeader.tsx"
 import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
-import {sessionHeaders} from "../common/track.ts"
 import {GenerationStatus} from "./GeneratingIndicator.tsx"
 import {InitialSuggestions} from "./InitialSuggestions.tsx"
-
-type Command = "selectParties"
+import {CancelController, sendQuestion, ServerCommand} from "./send-question.ts"
 
 const chatStyle = css`
     flex-direction: column;
@@ -32,8 +26,7 @@ export function ChatPage() {
     const [suggestions, setSuggestions] = React.useState<string[]>([])
     const [showPartySelector, setShowPartySelector] = React.useState(false)
     const [isError, setIsError] = React.useState(false)
-    const eventSourceRef = React.useRef<PostEventSource>()
-
+    const cancelControllerRef = React.useRef<CancelController>()
     const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
         setMessages(prevMessages => prevMessages.concat({msgType, message}))
 
@@ -47,7 +40,7 @@ export function ChatPage() {
         setSuggestions([])
         setShowPartySelector(false)
 
-        const onCommand = (command: Command) => {
+        const onCommand = (command: ServerCommand) => {
             if (command === "selectParties") {
                 setShowPartySelector(true)
             }
@@ -57,20 +50,18 @@ export function ChatPage() {
             setAnswer("")
             setGenerationStatus("idle")
         }
-        const onError = (answer: string) => {
-            addMessage("answer", answer)
+        const onError = () => {
             setAnswer("")
             setIsError(true)
             setGenerationStatus("idle")
         }
-        sendQuestion(question, threadId, setThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError, eventSourceRef)
+        sendQuestion(question, threadId, setThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError, cancelControllerRef)
+            .then(() => console.log("Finished receiving response"))
     }
     const simpleSend = (question: string) => send(question, false)
 
     const reset = () => {
-        if (eventSourceRef.current) {
-            eventSourceRef.current.close()
-        }
+        cancelControllerRef.current?.cancel()
         setMessages([])
         setThreadId(undefined)
         setAnswer("")
@@ -110,74 +101,3 @@ export function ChatPage() {
         </Page>
     )
 }
-
-function sendQuestion(
-    message: string,
-    threadId: string | undefined,
-    setThreadId: (threadId: string | undefined) => void,
-    updateStatus: (status: GenerationStatus) => void,
-    updateAnswer: (answer: string) => void,
-    updateSuggestions: (set: (pref: string[]) => string[]) => void,
-    onCommand: (command: Command) => void,
-    onDone: (answer: string) => void,
-    onError: (answer: string) => void,
-    eventSourceRef: React.MutableRefObject<PostEventSource | undefined>
-) {
-    const url = threadId ? `${backendBaseUrl}/api/thread/${threadId}` : `${backendBaseUrl}/api/thread`
-    const eventSource = new PostEventSource(url, {body: message, headers: sessionHeaders})
-    eventSourceRef.current = eventSource
-    const answer = new StreamingText(...lineParsers)
-
-    eventSource.onopen = (_, response) => {
-        const threadId = response.headers.get("Thread-Id")
-        setThreadId(threadId ?? undefined)
-    }
-
-    eventSource.onmessage = (event) => {
-        const token = event.data
-        if (event.type === "message") {
-            updateStatus("generating")
-            updateAnswer(answer.push(token))
-        } else if (event.type === "command") {
-            onCommand(token as Command)
-        } else if (event.type === "followUpQuestion") {
-            updateSuggestions(prev => {
-                const suggestions = [...prev, token]
-                return Array.from(new Set(suggestions))
-            })
-        } else if (event.type === "status") {
-            updateStatus(token)
-        }
-    }
-
-    eventSource.ondone = () => onDone(answer.finalize())
-
-    eventSource.onerror = (error) => {
-        console.error(error)
-        onError(answer.getText())
-    }
-}
-
-const referenceParser: RegexLineParserSpec = {
-    regex: /〔([^〕]+)〕/g,
-    replacer: (match, [refJson]) => {
-        try {
-            const ref = JSON.parse(refJson) as Reference
-            return " " + createReferenceMarkdownLink(ref)
-        } catch (e) {
-            console.error(`Failed to parse reference: ${refJson}`)
-            console.error(e)
-            return match
-        }
-    }
-}
-
-const suppressNativeReferenceParser: RegexLineParserSpec = {
-    regex: /【([^】]+)】/g,
-    replacer: () => ""
-}
-
-const lineParsers: LineParser[] = [
-    regexLineParser(suppressNativeReferenceParser),
-    regexLineParser(referenceParser),
-]

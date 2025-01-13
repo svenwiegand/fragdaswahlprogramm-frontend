@@ -13,6 +13,7 @@
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@floating-ui/react": "^0.27.3",
+    "eventsource-parser": "^3.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "^7.0.2",
