@@ -59,20 +59,28 @@ export async function sendQuestion(
 
     const answer = new StreamingText(...lineParsers)
     const onEvent = ({event, data}: EventSourceMessage) => {
-        if (event === "message") {
-            updateStatus("generating")
-            updateAnswer(answer.push(data))
-        } else if (event === "command") {
-            onCommand(data as ServerCommand)
-        } else if (event === "followUpQuestion") {
-            updateSuggestions(prev => {
-                const suggestions = [...prev, data]
-                return Array.from(new Set(suggestions))
-            })
-        } else if (event === "status" && data === "searching") {
-            updateStatus(data)
-        } else {
-            console.warn(`Unknown event: ${event}`)
+        try {
+            console.debug(`Start processing event ${event}`, data)
+            if (event === "message") {
+                updateStatus("generating")
+                updateAnswer(answer.push(data))
+            } else if (event === "command") {
+                onCommand(data as ServerCommand)
+            } else if (event === "followUpQuestion") {
+                updateSuggestions(prev => {
+                    const suggestions = [...prev, data]
+                    return Array.from(new Set(suggestions))
+                })
+            } else if (event === "status" && data === "searching") {
+                updateStatus(data)
+            } else {
+                console.warn(`Unknown event: ${event}`)
+            }
+            console.debug(`Done processing event ${event}`, data)
+        } catch (e) { // todo: should be removed or made a better exception handling
+            console.error(`Error processing this event ${event}`, data)
+            console.error("Error", e)
+            onErrorCallback()
         }
     }
     const onError = (error: ParseError) => {
