@@ -7,7 +7,6 @@ import {useElementHeight} from "../common/react-utils.ts"
 
 const contentStyle = css`
     width: 100%;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 `
