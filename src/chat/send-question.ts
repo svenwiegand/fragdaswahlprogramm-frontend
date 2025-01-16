@@ -6,7 +6,37 @@ import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from ".
 import {createParser, EventSourceMessage, ParseError} from "eventsource-parser"
 import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
 
-export type ServerCommand = "selectParties"
+//
+// reference parsers
+//
+
+const referenceParser: RegexLineParserSpec = {
+    regex: /〔([^〕]+)〕/g,
+    replacer: (match, [refJson]) => {
+        try {
+            const ref = JSON.parse(refJson) as Reference
+            return " " + createReferenceMarkdownLink(ref)
+        } catch (e) {
+            console.error(`Failed to parse reference: ${refJson}`)
+            console.error(e)
+            return match
+        }
+    }
+}
+
+const suppressNativeReferenceParser: RegexLineParserSpec = {
+    regex: /【([^】]+)】/g,
+    replacer: () => ""
+}
+
+const lineParsers: LineParser[] = [
+    regexLineParser(suppressNativeReferenceParser),
+    regexLineParser(referenceParser),
+]
+
+//
+// SSE reading
+//
 
 export class CancelController {
     private cancelled = false
@@ -19,6 +49,8 @@ export class CancelController {
         return this.cancelled
     }
 }
+
+export type ServerCommand = "selectParties"
 
 export async function sendQuestion(
     message: string,
@@ -50,6 +82,7 @@ export async function sendQuestion(
         onErrorCallback()
         return
     }
+    const _threadId = threadId ?? response.headers.get("thread-id")!
     setThreadId(response.headers.get("thread-id") ?? undefined)
     if (!response.body) {
         console.error("Response body is empty")
@@ -57,11 +90,14 @@ export async function sendQuestion(
         return
     }
 
+    let runId: string | undefined = undefined
     const answer = new StreamingText(...lineParsers)
     const onEvent = ({event, data}: EventSourceMessage) => {
         try {
-            console.debug(`Start processing event ${event}`, data)
-            if (event === "message") {
+            if (event === "runId") {
+                runId = data
+                console.log(`Received runId: ${runId}`)
+            } else if (event === "message") {
                 updateStatus("generating")
                 updateAnswer(answer.push(data))
             } else if (event === "command") {
@@ -76,7 +112,6 @@ export async function sendQuestion(
             } else {
                 console.warn(`Unknown event: ${event}`)
             }
-            console.debug(`Done processing event ${event}`, data)
         } catch (e) { // todo: should be removed or made a better exception handling
             console.error(`Error processing this event ${event}`, data)
             console.error("Error", e)
@@ -90,50 +125,37 @@ export async function sendQuestion(
     const onRetry = (retry: number) => {
         console.warn(`Server requested retry in ${retry}ms`)
     }
-    const parser = createParser({onEvent, onError, onRetry})
-    const reader: ReadableStreamDefaultReader<Uint8Array> = response.body.getReader()
-    reader.closed.then(() => console.log("reader closed")).catch(e => console.error("Error closing reader", e))
-    for await (const chunk of readerToAsyncIterator(reader)) {
-        if (cancelController.isCancelled) {
-            console.log("Cancelling request")
-            await reader.cancel()
-            break
-        } else {
-            console.debug(chunk) //TODO: remove for production
-            parser.feed(chunk)
+    try {
+        const parser = createParser({onEvent, onError, onRetry})
+        const reader: ReadableStreamDefaultReader<Uint8Array> = response.body.getReader()
+        reader.closed.then(() => console.log("reader closed")).catch(e => console.warn("Error closing reader", e))
+        for await (const chunk of readerToAsyncIterator(reader)) {
+            if (cancelController.isCancelled) {
+                console.log("Cancelling request")
+                await reader.cancel()
+                break
+            } else {
+                parser.feed(chunk)
+            }
         }
-    }
-    if (!cancelController.isCancelled) {
-        console.log("Received full response")
-        onDone(answer.finalize())
-    }
-}
-
-const referenceParser: RegexLineParserSpec = {
-    regex: /〔([^〕]+)〕/g,
-    replacer: (match, [refJson]) => {
+        if (!cancelController.isCancelled) {
+            console.log("Received full response")
+            onDone(answer.finalize())
+        }
+    } catch (e) {
+        console.warn("Timeout while reading stream:", e)
         try {
-            const ref = JSON.parse(refJson) as Reference
-            return " " + createReferenceMarkdownLink(ref)
+            if (runId) {
+                onDone(await loadMessages(_threadId, runId))
+            }
         } catch (e) {
-            console.error(`Failed to parse reference: ${refJson}`)
-            console.error(e)
-            return match
+            console.error("Error while fallback loading of messages:", e)
+            onErrorCallback()
         }
     }
 }
 
-const suppressNativeReferenceParser: RegexLineParserSpec = {
-    regex: /【([^】]+)】/g,
-    replacer: () => ""
-}
-
-const lineParsers: LineParser[] = [
-    regexLineParser(suppressNativeReferenceParser),
-    regexLineParser(referenceParser),
-]
-
-const timeout = 60 * 1000
+const timeout = 20 * 1000 // time after the last event has been received in seconds
 
 async function* readerToAsyncIterator(
     reader: ReadableStreamDefaultReader<Uint8Array>
@@ -142,7 +164,6 @@ async function* readerToAsyncIterator(
 
     try {
         while (true) {
-            // Lese Daten aus dem Stream mit Timeout
             const { done, value } = await readWithTimeout(reader.read(), timeout);
 
             if (done) {
@@ -152,9 +173,6 @@ async function* readerToAsyncIterator(
 
             yield decoder.decode(value);
         }
-    } catch (e) {
-        console.error("Error or timeout while reading stream:", e);
-        throw e;
     } finally {
         reader.releaseLock();
     }
@@ -168,4 +186,28 @@ async function readWithTimeout<T>(
         setTimeout(() => reject(new Error("Stream timeout")), timeoutMs)
     );
     return Promise.race([readerPromise, timeout]);
+}
+
+//
+// fallback message loading
+//
+
+type Message = {
+    id: string
+    type: "question" | "answer"
+    content: string
+}
+
+async function loadMessages(threadId: string, runId: string): Promise<string> {
+    const response = await fetch(`${backendBaseUrl}/api/thread/${threadId}/message?runId=${runId}`, {
+        headers: sessionHeaders,
+    })
+    if (!response.ok) {
+        throw Error(`fetching messages failed with status ${response.status}`)
+    }
+    const messages = await response.json() as Message[]
+    const content = messages.map(m => m.content).join("\n\n")
+    const streamingText = new StreamingText(...lineParsers)
+    streamingText.push(content)
+    return streamingText.finalize()
 }
