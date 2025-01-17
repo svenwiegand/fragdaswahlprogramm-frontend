@@ -164,6 +164,8 @@ async function* readerToAsyncIterator(
 
     try {
         while (true) {
+            // on iPhone from time to time the SSE stream stops to receive events and I don't know why
+            // So I'm adding a timeout. If it fires the generated message will be loaded from the server
             const { done, value } = await readWithTimeout(reader.read(), timeout);
 
             if (done) {
