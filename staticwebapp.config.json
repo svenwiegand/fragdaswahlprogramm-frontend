@@ -14,7 +14,7 @@
   ],
   "routes": [
     {
-      "route": "/*",
+      "route": "/maintenance",
       "serve": "/public/content/maintenance.html",
       "statusCode": 200
     }
