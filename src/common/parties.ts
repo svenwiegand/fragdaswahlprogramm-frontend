@@ -35,9 +35,9 @@ export const parties: Record<Party, PartyProps> = {
         symbol: "bsw",
         manifesto: {
             title: "Wahlprogramm vom Bündnis Sarah Wagenknecht",
-            url: "https://www.bundestagswahl-bw.de/fileadmin/bundestagswahl-bw/2025/Wahlprogramme/BSW_Wahlprogramm_2025__Entwurf_.pdf",
+            url: "https://bsw-vg.de/wp-content/themes/bsw/assets/downloads/BSW%20Wahlprogramm%202025.pdf",
             pageOffset: 0,
-            draft: true,
+            draft: false,
         }
     },
     "cdu-csu": {
