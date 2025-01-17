@@ -5,10 +5,13 @@ import {MarkdownPage} from "./page/MarkdownPage.tsx"
 import {BrowserRouter, Route, Routes, useLocation} from "react-router"
 import {useEffect, useState} from "react"
 import {trackHello, trackPage} from "./common/track.ts"
+import {MaintenancePage} from "./page/MaintenancePage.tsx"
 
 const userLocales = getBrowserLocales()
 const messages = getMessages(userLocales)
 const locale = "de"
+
+const isMaintenance = document.querySelector("meta[name=maintenance]")?.getAttribute("content") === "true"
 
 function App() {
     const [trackedHello, setTrackedHello] = useState(false)
@@ -24,9 +27,14 @@ function App() {
 
     return (
         <IntlProvider messages={messages} locale={locale}>
-            <BrowserRouter>
-                <AppRoutes/>
-            </BrowserRouter>
+            {isMaintenance
+                ? <MaintenancePage/>
+                : <>
+                    <BrowserRouter>
+                        <AppRoutes/>
+                    </BrowserRouter>
+                </>
+            }
         </IntlProvider>
     )
 }
@@ -52,6 +60,7 @@ function AppRoutes() {
             <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
             <Route path={"privacy"} element={<MarkdownPage contentName={"privacy"}/>}/>
             <Route path={"parties"} element={<MarkdownPage contentName={"parties"}/>}/>
+            <Route path={"maintenance"} element={<MaintenancePage/>}/>
         </Routes>
     )
 }
