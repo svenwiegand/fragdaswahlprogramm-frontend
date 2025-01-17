@@ -12,11 +12,5 @@
       "statusCode": 301
     }
   ],
-  "routes": [
-    {
-      "route": "/maintenance",
-      "serve": "/public/content/maintenance.html",
-      "statusCode": 200
-    }
-  ]
+  "routes": []
 }
