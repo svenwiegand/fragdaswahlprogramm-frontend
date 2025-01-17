@@ -3,7 +3,7 @@ import {Logo} from "../chat/Logo.tsx"
 
 const containerStyle = css`
     margin: -4rem 0 0 0;
-    padding: 0;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
