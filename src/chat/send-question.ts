@@ -2,37 +2,9 @@ import {GenerationStatus} from "./GeneratingIndicator.tsx"
 import {MutableRefObject} from "react"
 import {backendBaseUrl} from "../environment.ts"
 import {sessionHeaders} from "../common/track.ts"
-import {LineParser, regexLineParser, RegexLineParserSpec, StreamingText} from "./streaming-text.ts"
+import {StreamingText} from "./streaming-text.ts"
 import {createParser, EventSourceMessage, ParseError} from "eventsource-parser"
-import {createReferenceMarkdownLink, Reference} from "./reference-link.ts"
-
-//
-// reference parsers
-//
-
-const referenceParser: RegexLineParserSpec = {
-    regex: /〔([^〕]+)〕/g,
-    replacer: (match, [refJson]) => {
-        try {
-            const ref = JSON.parse(refJson) as Reference
-            return " " + createReferenceMarkdownLink(ref)
-        } catch (e) {
-            console.error(`Failed to parse reference: ${refJson}`)
-            console.error(e)
-            return match
-        }
-    }
-}
-
-const suppressNativeReferenceParser: RegexLineParserSpec = {
-    regex: /【([^】]+)】/g,
-    replacer: () => ""
-}
-
-const lineParsers: LineParser[] = [
-    regexLineParser(suppressNativeReferenceParser),
-    regexLineParser(referenceParser),
-]
+import {fetchResponse, lineParsers} from "./load-messages.ts"
 
 //
 // SSE reading
@@ -146,7 +118,7 @@ export async function sendQuestion(
         console.warn("Timeout while reading stream:", e)
         try {
             if (runId) {
-                onDone(await loadMessages(_threadId, runId))
+                onDone(await fetchResponse(_threadId, runId))
             }
         } catch (e) {
             console.error("Error while fallback loading of messages:", e)
@@ -188,28 +160,4 @@ async function readWithTimeout<T>(
         setTimeout(() => reject(new Error("Stream timeout")), timeoutMs)
     );
     return Promise.race([readerPromise, timeout]);
-}
-
-//
-// fallback message loading
-//
-
-type Message = {
-    id: string
-    type: "question" | "answer"
-    content: string
-}
-
-async function loadMessages(threadId: string, runId: string): Promise<string> {
-    const response = await fetch(`${backendBaseUrl}/api/thread/${threadId}/message?runId=${runId}`, {
-        headers: sessionHeaders,
-    })
-    if (!response.ok) {
-        throw Error(`fetching messages failed with status ${response.status}`)
-    }
-    const messages = await response.json() as Message[]
-    const content = messages.map(m => m.content).join("\n\n")
-    const streamingText = new StreamingText(...lineParsers)
-    streamingText.push(content)
-    return streamingText.finalize()
 }

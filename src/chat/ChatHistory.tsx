@@ -35,7 +35,7 @@ export interface ChatHistoryProps {
     isError: boolean
     showPartySelector: boolean
     suggestions: string[]
-    sendQuestion: (question: string, hideQuestion: boolean) => void
+    sendQuestion: (question: string) => void
 }
 
 export function ChatHistory(
@@ -53,9 +53,9 @@ export function ChatHistory(
         }
     }, [isGenerating, messages, indicatorRef])
 
-    const send = useCallback((question: string) => sendQuestion(question, false), [sendQuestion])
+    const send = useCallback((question: string) => sendQuestion(question), [sendQuestion])
     const onPartiesSelected = useCallback((selectedParties: Party[]) => {
-        sendQuestion(`${selectedParties.map(p => parties[p].name).join(", ")}`, false)
+        sendQuestion(`${selectedParties.map(p => parties[p].name).join(", ")}`)
     }, [sendQuestion])
 
     return (

@@ -6,6 +6,7 @@ import {BrowserRouter, Route, Routes, useLocation} from "react-router"
 import {useEffect, useState} from "react"
 import {trackHello, trackPage} from "./common/track.ts"
 import {MaintenancePage} from "./page/MaintenancePage.tsx"
+import {StartPage} from "./chat/StartPage.tsx"
 
 const userLocales = getBrowserLocales()
 const messages = getMessages(userLocales)
@@ -54,7 +55,9 @@ function AppRoutes() {
 
     return (
         <Routes>
-            <Route index element={<ChatPage/>}/>
+            <Route index element={<StartPage/>}/>
+            <Route path={"chat"} element={<ChatPage/>}/>
+            <Route path={"chat/:threadId"} element={<ChatPage/>}/>
             <Route path={"about"} element={<MarkdownPage contentName={"about"}/>}/>
             <Route path={"qna"} element={<MarkdownPage contentName={"qna"}/>}/>
             <Route path={"imprint"} element={<MarkdownPage contentName={"imprint"}/>}/>
