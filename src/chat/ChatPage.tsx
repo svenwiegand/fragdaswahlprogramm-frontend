@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {css} from "@emotion/react"
 import {ChatHistory, ChatMessageProps} from "./ChatHistory.tsx"
 import {ChatTextField} from "./ChatTextField.tsx"
@@ -8,7 +8,7 @@ import NewChatIcon from "../icons/icon-new-chat.svg?react"
 import {useIntl} from "react-intl"
 import {GenerationStatus} from "./GeneratingIndicator.tsx"
 import {CancelController, sendQuestion, ServerCommand} from "./send-question.ts"
-import {useNavigate, useParams, useSearchParams} from "react-router"
+import {NavigateFunction, useNavigate, useParams, useSearchParams} from "react-router"
 import {fetchThreadMessages, Message} from "./load-messages.ts"
 
 const chatStyle = css`
@@ -18,102 +18,36 @@ const chatStyle = css`
     align-items: center;
 `
 
-type PageParams = {
-    threadId?: string
-}
-
 export function ChatPage() {
     const navigate = useNavigate()
-    const {threadId: threadIdParam} = useParams<PageParams>()
+    const {threadId: threadIdParam} = useParams<{ threadId?: string }>()
     const [queryParams] = useSearchParams()
     const questionParam = queryParams.get("question")
-    const [threadId, setThreadId] = useState<string | undefined>(threadIdParam)
-    const onThreadId = useCallback((threadId: string | undefined) => {
-        setThreadId(threadId)
-        navigate(`/chat/${threadId}`, {replace: true})
-    }, [navigate])
-
     const [messages, setMessages] = useState<ChatMessageProps[]>([])
-    const send = useCallback((question: string) => {
-        addMessage("question", question)
-        setIsError(false)
-        setGenerationStatus("thinking")
-        setAnswer("")
-        setSuggestions([])
-        setShowPartySelector(false)
 
-        const onCommand = (command: ServerCommand) => {
-            if (command === "selectParties") {
-                setShowPartySelector(true)
-            }
-        }
-        const onDone = (answer: string) => {
-            addMessage("answer", answer)
-            setAnswer("")
-            setGenerationStatus("idle")
-        }
-        const onError = () => {
-            setAnswer("")
-            setIsError(true)
-            setGenerationStatus("idle")
-        }
-        sendQuestion(question, threadId, onThreadId, setGenerationStatus, setAnswer, setSuggestions, onCommand, onDone, onError, cancelControllerRef)
-            .then(() => console.log("Finished receiving response"))
-    }, [onThreadId, threadId])
-
-    const [answer, setAnswer] = useState('')
-    const [generationStatus, setGenerationStatus] = useState<GenerationStatus>("idle")
-    const [suggestions, setSuggestions] = useState<string[]>([])
-    const [showPartySelector, setShowPartySelector] = useState(false)
-    const [isError, setIsError] = useState(false)
-    const cancelControllerRef = useRef<CancelController>()
-    const addMessage = (msgType: ChatMessageProps['msgType'], message: string) =>
-        setMessages(prevMessages => prevMessages.concat({msgType, message}))
-
-
-    const reset = () => {
-        cancelControllerRef.current?.cancel()
-        setMessages([])
-        setThreadId(undefined)
-        setAnswer("")
-        setGenerationStatus("idle")
-        setIsError(false)
-        setSuggestions([])
-    }
+    const {setThreadId, send, reset, generationStatus, answer, showPartySelector, suggestions, isError} = useChatSender(
+        threadIdParam,
+        setMessages,
+        navigate
+    )
+    useChatLoader(threadIdParam, questionParam, send, setMessages, setThreadId)
 
     const intl = useIntl()
     const newChatAction: Action = {
-        icon:  NewChatIcon,
+        icon: NewChatIcon,
         title: intl.formatMessage({id: "chatNew"}),
-        onClick: reset
+        onClick: () => {
+            reset()
+            navigate("/")
+        },
     }
-    const hasChat = messages.length > 0 || !!answer || generationStatus !== "idle"
 
-    // Initially load either the answer to a question or a whole thread
-    const hasTriggeredLoad = useRef(false)
-    useEffect(() => {
-        if (!hasTriggeredLoad.current) {
-            hasTriggeredLoad.current = true
-            if (threadIdParam) {
-                console.log(`Loading thread ${threadIdParam}`)
-                setThreadId(threadIdParam)
-                const onMessages = (messages: Message[]) => {
-                    setMessages(prev => [...prev, ...messages.map(msg => ({
-                        msgType: msg.type,
-                        message: msg.content,
-                    }))])
-                }
-                fetchThreadMessages(threadIdParam, onMessages).then(() => console.log("Finished fetching messages"))
-            } else if (questionParam) {
-                send(questionParam)
-            }
-        }
-    }, [])
+    const hasChat = messages.length > 0 || !!answer || generationStatus !== "idle"
 
     return (
         <Page isSubPage={true} onBack={reset} headerAction={newChatAction} hideFooter={true}>
             <div css={chatStyle}>
-                {hasChat &&
+                {hasChat && (
                     <ChatHistory
                         messages={messages}
                         generationStatus={generationStatus}
@@ -123,9 +57,116 @@ export function ChatPage() {
                         suggestions={suggestions}
                         sendQuestion={send}
                     />
-                }
-                <ChatTextField fixed={true} onSend={send} />
+                )}
+                <ChatTextField fixed={true} onSend={send}/>
             </div>
         </Page>
     )
+}
+
+function useChatLoader(
+    threadIdParam: string | undefined,
+    questionParam: string | undefined | null,
+    sendQuestion: (q: string) => void,
+    setMessages: React.Dispatch<React.SetStateAction<ChatMessageProps[]>>,
+    setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>
+) {
+    const hasTriggeredLoad = useRef(false)
+
+    useEffect(() => {
+        if (!hasTriggeredLoad.current) {
+            hasTriggeredLoad.current = true
+            if (threadIdParam) {
+                console.log(`Loading messages for thread ${threadIdParam}`)
+                setThreadId(threadIdParam)
+                const onMessages = (messages: Message[]) => {
+                    setMessages(prev => [...prev, ...messages.map(msg => ({
+                        msgType: msg.type,
+                        message: msg.content,
+                    }))])
+                }
+                fetchThreadMessages(threadIdParam, onMessages)
+                    .then(() => console.log("Finished fetching messages"))
+            } else if (questionParam && sendQuestion) {
+                sendQuestion(questionParam)
+            }
+        }
+    }, [threadIdParam, questionParam, sendQuestion, setMessages, setThreadId])
+}
+
+function useChatSender(
+    initialThreadId: string | undefined,
+    setMessages: React.Dispatch<React.SetStateAction<ChatMessageProps[]>>,
+    navigate: NavigateFunction
+) {
+    const [threadId, setThreadId] = useState(initialThreadId)
+    const [generationStatus, setGenerationStatus] = useState<GenerationStatus>("idle")
+    const [answer, setAnswer] = useState("")
+    const [suggestions, setSuggestions] = useState<string[]>([])
+    const [isError, setIsError] = useState(false)
+    const [showPartySelector, setShowPartySelector] = useState(false)
+    const cancelControllerRef = useRef<CancelController>()
+
+    const addMessage = useCallback((msgType: ChatMessageProps["msgType"], message: string) => {
+        setMessages(prev => [...prev, {msgType, message}])
+    }, [setMessages])
+    const onThreadIdChange = useCallback((newThreadId: string | undefined) => {
+        setThreadId(newThreadId)
+        if (newThreadId) {
+            navigate(`/chat/${newThreadId}`, {replace: true})
+        } else {
+            navigate(`/chat`)
+        }
+    }, [navigate])
+    const onCommand = (command: ServerCommand) => {
+        if (command === "selectParties") {
+            setShowPartySelector(true)
+        }
+    }
+    const onDone = useCallback((answer: string) => {
+        addMessage("answer", answer)
+        setAnswer("")
+        setGenerationStatus("idle")
+    }, [addMessage])
+    const onError = useCallback(() => {
+        setAnswer("")
+        setGenerationStatus("idle")
+        setIsError(true)
+    }, [])
+
+    const send = useCallback(
+        (question: string) => {
+            addMessage("question", question)
+            setGenerationStatus("thinking")
+            setAnswer("")
+            setSuggestions([])
+            setIsError(false)
+
+            sendQuestion(
+                question,
+                threadId,
+                onThreadIdChange,
+                setGenerationStatus,
+                setAnswer,
+                setSuggestions,
+                onCommand,
+                onDone,
+                onError,
+                cancelControllerRef,
+            )
+        },
+        [addMessage, threadId, onThreadIdChange, onDone, onError],
+    )
+
+    const reset = () => {
+        cancelControllerRef.current?.cancel()
+        setMessages([])
+        onThreadIdChange(undefined)
+        setAnswer("")
+        setGenerationStatus("idle")
+        setSuggestions([])
+        setIsError(false)
+    }
+
+    return {setThreadId, send, reset, generationStatus, answer, showPartySelector, suggestions, isError}
 }
