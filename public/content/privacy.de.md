@@ -9,11 +9,11 @@ Alleiniger Ansprechpartner für fragdaswahlprogramm bin ich, Sven Wiegand. Daten
 fragdaswahlprogramm erfasst keine personenbezogenen Daten. Die Nutzung erfolgt ohne Anmeldung und ohne Angabe persönlicher Daten. Folglich kann ich auch keine Auskunft, Berichtigung oder Löschung entsprechender Daten vornehmen.
 
 ## Datenverarbeiter
-In einer Datenschutzerklärung müssen ausschließlich Auftragsverarbeiter personenbezogener Daten genannt werden. Diese gibt es bei fragdaswahlprogramm nicht!
+In einer Datenschutzerklärung müssen ausschließlich Auftragsverarbeiter **personen**bezogener Daten genannt werden. Diese gibt es bei fragdaswahlprogramm nicht!
 
 Aus Gründen der Transparenz führe ich hier dennoch auf, welche Unternehmen zur Erbringung des Dienstes zum Einsatz kommen, auch wenn diese keine **persönlichen** Daten erfassen:
 
-- **Microsoft:** Betrieb von fragdaswahlprogramm (Server-Standort Deutschland) und Bereitstellung der KI-Dienste, mit denen die Anfragen verarbeitet werden (Schweden).
+- **Microsoft:** Betrieb von fragdaswahlprogramm (Server-Standort Deutschland) und Bereitstellung der KI-Dienste, mit denen die Anfragen verarbeitet werden (Global inklusive USA).
 - **Mixpanel:** Erfassung statistischer Daten zum Betrieb und zur Nutzung von fragdaswahlprogramm (Server-Standort Europa).
 
 ## Diese Daten erfasse ich
