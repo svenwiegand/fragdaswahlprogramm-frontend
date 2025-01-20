@@ -10,6 +10,7 @@ import {GenerationStatus} from "./GeneratingIndicator.tsx"
 import {CancelController, sendQuestion, ServerCommand} from "./send-question.ts"
 import {NavigateFunction, useNavigate, useParams, useSearchParams} from "react-router"
 import {fetchThreadMessages, Message} from "./load-messages.ts"
+import {useElementHeight} from "../common/react-utils.ts"
 
 const chatStyle = css`
     flex-direction: column;
@@ -42,11 +43,17 @@ export function ChatPage() {
         },
     }
 
+    const [textFieldRef, textFieldHeight] = useElementHeight<HTMLDivElement>()
+    const advancedChatStyle = css`
+        ${chatStyle};
+        margin-bottom: ${textFieldHeight}px;
+    `
+
     const hasChat = messages.length > 0 || !!answer || generationStatus !== "idle"
 
     return (
         <Page isSubPage={true} onBack={reset} headerAction={newChatAction} hideFooter={true}>
-            <div css={chatStyle}>
+            <div css={advancedChatStyle}>
                 {hasChat && (
                     <ChatHistory
                         messages={messages}
@@ -58,7 +65,7 @@ export function ChatPage() {
                         sendQuestion={send}
                     />
                 )}
-                <ChatTextField fixed={true} onSend={send}/>
+                <ChatTextField fixed={true} onSend={send} ref={textFieldRef} />
             </div>
         </Page>
     )
