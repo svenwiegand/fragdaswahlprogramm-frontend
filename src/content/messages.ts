@@ -34,7 +34,7 @@ const messages: Record<string, MessagesById> = {
         chatError: "Es ist ein Fehler aufgetreten. Bitte versuch es später noch einmal.",
         chatDisclaimer: "KI-generierte Antwort kann fehlerhaft sein",
 
-        refPage: "vermutlich Seite {page, number}",
+        refPage: "Seite {page, number}",
         refOpenProgram: "Wahlprogramm öffnen",
     },
 
@@ -56,7 +56,7 @@ const messages: Record<string, MessagesById> = {
         chatError: "An error occurred. Please try again later.",
         chatDisclaimer: "AI-generated answer may be incorrect",
 
-        refPage: "probably page {page, number}",
+        refPage: "page {page, number}",
         refOpenProgram: "Open election program",
     }
 }
