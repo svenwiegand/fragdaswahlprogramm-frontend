@@ -37,7 +37,7 @@ const messages: Record<string, MessagesById> = {
         refPage: "Seite {page, number}",
         refOpenProgram: "Wahlprogramm öffnen",
 
-        notInParliament: "Nicht im Bundestag oder Landtag vertreten"
+        notInParliament: "Nicht im Bundestag vertreten"
     },
 
     en: {
@@ -61,6 +61,6 @@ const messages: Record<string, MessagesById> = {
         refPage: "page {page, number}",
         refOpenProgram: "Open election program",
 
-        notInParliament: "Not represented in the Bundestag or state parliament"
+        notInParliament: "Not represented in the Bundestag"
     }
 }

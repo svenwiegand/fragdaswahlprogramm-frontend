@@ -86,18 +86,17 @@ export function PartySelector({maxNumberOfSelectableParties = 4, onSelect, reado
 
     return (
         <div css={selectorStyle}>
-            {readonly
-                ? <SelectorSection allowSelectIfNotAlready={false} readonly={true}/>
-                : <>
-                    <SelectorSection parliament={true} allowSelectIfNotAlready={allowSelectIfNotAlready} onSelect={onSelectParty}/>
-                    <Separator/>
-                    <SelectorSection parliament={false} allowSelectIfNotAlready={allowSelectIfNotAlready} onSelect={onSelectParty}/>
-                    <div css={selectorSectionStyle}>
-                            <div css={buttonContainerStyle}>
-                                <SendButton disabled={!canSend} onClick={send}/>
-                            </div>
+            <SelectorSection parliament={true} readonly={readonly} allowSelectIfNotAlready={allowSelectIfNotAlready}
+                             onSelect={onSelectParty}/>
+            <Separator/>
+            <SelectorSection parliament={false} readonly={readonly} allowSelectIfNotAlready={allowSelectIfNotAlready}
+                             onSelect={onSelectParty}/>
+            {!readonly &&
+                <div css={selectorSectionStyle}>
+                    <div css={buttonContainerStyle}>
+                        <SendButton disabled={!canSend} onClick={send}/>
                     </div>
-                </>
+                </div>
             }
         </div>
     )

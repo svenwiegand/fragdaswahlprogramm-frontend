@@ -42,7 +42,7 @@ export const parties: Record<Party, PartyProps> = {
     "buendnis-deutschland": {
         name: "Bündnis Deutschland",
         symbol: "buendnis-deutschland",
-        parliament: true,
+        parliament: false,
         manifesto: {
             title: "Wahlprogramm vom Bündnis Deutschland",
             url: "https://buendnis-deutschland.de/wp-content/uploads/2025/01/btw25-a5-final-einzelseiten-final.pdf",

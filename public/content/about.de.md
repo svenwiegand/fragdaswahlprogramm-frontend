@@ -10,9 +10,7 @@ Eine informierte Gesellschaft ist die Grundlage einer starken Demokratie. In ein
 - **Neutralität:** Alle Antworten basieren ausschließlich auf den Inhalten der Wahlprogramme, um eine unabhängige Meinungsbildung zu gewährleisten.
 - **Offenheit:** Die Nutzung ist kostenfrei, anonym und erfordert keine Registrierung. Politische Bildung soll allen zugänglich sein.
 
-fragdaswahlprogramm berücksichtig die Wahlprogramme aller Parteien, die zur Bundestagswahl 2025 ein Programm oder einen Entwurf veröffentlicht haben:
-
-{{parties}}
+fragdaswahlprogramm berücksichtig die Wahlprogramme aller Parteien, die zur Bundestagswahl 2025 ein Programm oder einen Entwurf veröffentlicht haben – siehe [Parteien](/parties).
 
 ## Warum ist das wichtig?
 Politische Entscheidungen beeinflussen unser aller Leben. Gut informierte Wählerinnen und Wähler tragen dazu bei, dass Demokratie lebendig bleibt und langfristig Bestand hat. Mit fragdaswahlprogramm leiste ich einen Beitrag dazu, die politische Debatte zu bereichern und die Bedeutung von Vielfalt und Komplexität in der Politik zu vermitteln.
