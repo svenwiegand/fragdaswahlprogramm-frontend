@@ -24,6 +24,17 @@ const navStyle = css`
     gap: ${rempx(16)};
 `
 
+const qnaLongStyle = css`
+    @media (max-width: 600px) {
+        display: none;
+    }
+`
+const qnaShortStyle = css`
+    @media (min-width: 600px) {
+        display: none;
+    }
+`
+
 type PageFooterProps = object
 
 export const PageFooter = forwardRef<HTMLDivElement, PageFooterProps>((_, ref) => {
@@ -32,7 +43,10 @@ export const PageFooter = forwardRef<HTMLDivElement, PageFooterProps>((_, ref) =
             <nav css={navStyle}>
                 <NavbarLink to="/imprint"><FormattedMessage id={"imprint"}/></NavbarLink>
                 <NavbarLink to="/privacy"><FormattedMessage id={"privacy"}/></NavbarLink>
-                <NavbarLink to="/parties"><FormattedMessage id={"parties"}/></NavbarLink>
+                <NavbarLink to="/qna">
+                    <span css={qnaLongStyle}><FormattedMessage id={"qna"}/></span>
+                    <span css={qnaShortStyle}><FormattedMessage id={"qnaShort"}/></span>
+                </NavbarLink>
             </nav>
         </footer>
     )

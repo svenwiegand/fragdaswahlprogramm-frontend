@@ -25,17 +25,6 @@ const spacerStyle = css`
     flex: 1 0 0;
 `
 
-const qnaLongStyle = css`
-    @media (max-width: 600px) {
-        display: none;
-    }
-`
-const qnaShortStyle = css`
-    @media (min-width: 600px) {
-        display: none;
-    }
-`
-
 type Icon = typeof BackIcon
 
 export type Action = {
@@ -61,10 +50,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(({isSubPag
             <div aria-hidden={true} css={spacerStyle}></div>
             {isSubPage
                 ? action ? <ActionButton {...action}/>: null
-                : <NavbarLink to="/qna">
-                    <span css={qnaLongStyle}><FormattedMessage id={"qna"}/></span>
-                    <span css={qnaShortStyle}><FormattedMessage id={"qnaShort"}/></span>
-                </NavbarLink>
+                : <NavbarLink to="/parties"><FormattedMessage id={"parties"}/></NavbarLink>
             }
         </nav>
     )
