@@ -1,7 +1,7 @@
 import {css} from "@emotion/react"
 import {Action, PageHeader} from "./PageHeader.tsx"
 import {PageFooter} from "./PageFooter.tsx"
-import {ReactNode, useEffect} from "react"
+import {ReactNode, useEffect, useState} from "react"
 import {useLocation} from "react-router"
 import {useElementHeight} from "../common/react-utils.ts"
 
@@ -28,9 +28,13 @@ export function Page({ isSubPage, onBack, headerAction, hideFooter, children }: 
     `
 
     const location = useLocation()
+    const [prevLocationPath, setPrevLocationPath] = useState("")
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [location])
+        if (location.pathname !== prevLocationPath) {
+            window.scrollTo(0, 0)
+            setPrevLocationPath(location.pathname)
+        }
+    }, [location, prevLocationPath])
 
     return (
         <>
