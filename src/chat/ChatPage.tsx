@@ -145,6 +145,7 @@ function useChatSender(
         (question: string) => {
             addMessage("question", question)
             setGenerationStatus("thinking")
+            setShowPartySelector(false)
             setAnswer("")
             setSuggestions([])
             setIsError(false)
@@ -171,6 +172,7 @@ function useChatSender(
         onThreadIdChange(undefined)
         setAnswer("")
         setGenerationStatus("idle")
+        setShowPartySelector(false)
         setSuggestions([])
         setIsError(false)
     }
