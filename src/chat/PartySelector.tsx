@@ -3,10 +3,18 @@ import {useCallback, useState} from "react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
 import {SendButton} from "./SendButton.tsx"
+import {FormattedMessage} from "react-intl"
 
 const gap = rempx(16)
 
 const selectorStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ${gap};
+`
+
+const selectorSectionStyle = css`
     display: flex;
     flex-wrap: wrap;
     gap: ${gap};
@@ -78,21 +86,43 @@ export function PartySelector({maxNumberOfSelectableParties = 4, onSelect, reado
 
     return (
         <div css={selectorStyle}>
-            {partySymbols.map((party) =>
+            {readonly
+                ? <SelectorSection allowSelectIfNotAlready={false} readonly={true}/>
+                : <>
+                    <SelectorSection parliament={true} allowSelectIfNotAlready={allowSelectIfNotAlready} onSelect={onSelectParty}/>
+                    <Separator/>
+                    <SelectorSection parliament={false} allowSelectIfNotAlready={allowSelectIfNotAlready} onSelect={onSelectParty}/>
+                    <div css={selectorSectionStyle}>
+                            <div css={buttonContainerStyle}>
+                                <SendButton disabled={!canSend} onClick={send}/>
+                            </div>
+                    </div>
+                </>
+            }
+        </div>
+    )
+}
+
+export type PartySelectorSectionProps = {
+    parliament?: boolean
+    allowSelectIfNotAlready: boolean
+    onSelect?: (party: Party, isSelected: boolean) => void
+    readonly?: boolean
+}
+
+function SelectorSection({parliament, allowSelectIfNotAlready, onSelect, readonly}: PartySelectorSectionProps) {
+    const _parties = partySymbols.map(symbol => parties[symbol]).filter(party => parliament === undefined ? party : party.parliament === parliament)
+    return (
+        <div css={selectorSectionStyle}>
+            {_parties.map(party =>
                 <PartyToggleButton
-                    key={parties[party].symbol}
-                    party={party}
+                    key={party.symbol}
+                    party={party.symbol}
                     allowSelectIfNotAlready={allowSelectIfNotAlready}
-                    onSelect={onSelectParty}
+                    onSelect={onSelect}
                     readonly={readonly ?? false}
                 />,
             )}
-            {!readonly ?
-                <div css={buttonContainerStyle}>
-                    <SendButton disabled={!canSend} onClick={send}/>
-                </div>
-                : null
-            }
         </div>
     )
 }
@@ -121,4 +151,36 @@ function PartyToggleButton({party, onSelect, allowSelectIfNotAlready, readonly}:
         ? <span css={partyButtonReadOnlyStyle}>{img}</span>
         : <button css={partyButtonStyle} onClick={onClick} aria-pressed={isSelected}
                   disabled={!isSelected && !allowSelectIfNotAlready}>{img}</button>
+}
+
+const separatorStyle = css`
+    width: 100%;
+    margin: -0.5rem 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    
+    &::before, &::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid ${color.neutral.neutral400};
+        margin: 0 10px;
+    }
+    & > span {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: ${color.neutral.neutral700};
+        padding: 0 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+`
+
+function Separator() {
+    return (
+        <div css={separatorStyle} role={"separator"}>
+            <span role={"heading"}><FormattedMessage id={"notInParliament"}/></span>
+        </div>
+    )
 }

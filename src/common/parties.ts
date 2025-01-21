@@ -1,7 +1,7 @@
 export type Party = "afd" | "gruene" | "bsw" | "cdu-csu" | "fdp" | "linke" | "spd" | "volt"
 type PartyProps = {
     name: string
-    symbol: string
+    symbol: Party
     parliament: boolean
     manifesto: {
         title: string
