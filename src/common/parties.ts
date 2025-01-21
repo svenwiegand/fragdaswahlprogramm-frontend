@@ -119,4 +119,3 @@ export const parties: Record<Party, PartyProps> = {
     }
 }
 export const partySymbols: Party[] = Object.keys(parties) as Party[]
-export const maxNumberOfPartiesPerQuestion = 4

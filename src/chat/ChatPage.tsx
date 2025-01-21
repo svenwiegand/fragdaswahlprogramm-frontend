@@ -26,7 +26,7 @@ export function ChatPage() {
     const questionParam = queryParams.get("question")
     const [messages, setMessages] = useState<ChatMessageProps[]>([])
 
-    const {setThreadId, send, reset, generationStatus, answer, showPartySelector, suggestions, isError} = useChatSender(
+    const {setThreadId, send, reset, generationStatus, answer, maxNumberOfPartiesToSelect, suggestions, isError} = useChatSender(
         threadIdParam,
         setMessages,
         navigate
@@ -60,7 +60,7 @@ export function ChatPage() {
                         generationStatus={generationStatus}
                         generatingAnswer={answer}
                         isError={isError}
-                        showPartySelector={showPartySelector}
+                        maxNumberOfPartiesToSelect={maxNumberOfPartiesToSelect}
                         suggestions={suggestions}
                         sendQuestion={send}
                     />
@@ -111,7 +111,7 @@ function useChatSender(
     const [answer, setAnswer] = useState("")
     const [suggestions, setSuggestions] = useState<string[]>([])
     const [isError, setIsError] = useState(false)
-    const [showPartySelector, setShowPartySelector] = useState(false)
+    const [numberOfPartiesToSelect, setNumberOfPartiesToSelect] = useState(0)
     const cancelControllerRef = useRef<CancelController>()
 
     const addMessage = useCallback((msgType: ChatMessageProps["msgType"], message: string) => {
@@ -126,8 +126,9 @@ function useChatSender(
         }
     }, [navigate])
     const onCommand = (command: ServerCommand) => {
-        if (command === "selectParties") {
-            setShowPartySelector(true)
+        const selectPartiesMatch = command.match(/selectParties\((\d+)\)/)
+        if (selectPartiesMatch) {
+            setNumberOfPartiesToSelect(Number(selectPartiesMatch[1]))
         }
     }
     const onDone = useCallback((answer: string) => {
@@ -145,7 +146,7 @@ function useChatSender(
         (question: string) => {
             addMessage("question", question)
             setGenerationStatus("thinking")
-            setShowPartySelector(false)
+            setNumberOfPartiesToSelect(0)
             setAnswer("")
             setSuggestions([])
             setIsError(false)
@@ -172,10 +173,10 @@ function useChatSender(
         onThreadIdChange(undefined)
         setAnswer("")
         setGenerationStatus("idle")
-        setShowPartySelector(false)
+        setNumberOfPartiesToSelect(0)
         setSuggestions([])
         setIsError(false)
     }
 
-    return {setThreadId, send, reset, generationStatus, answer, showPartySelector, suggestions, isError}
+    return {setThreadId, send, reset, generationStatus, answer, maxNumberOfPartiesToSelect: numberOfPartiesToSelect, suggestions, isError}
 }

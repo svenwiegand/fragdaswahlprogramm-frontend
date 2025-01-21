@@ -1,4 +1,4 @@
-import {maxNumberOfPartiesPerQuestion, parties, Party, partySymbols} from "../common/parties.ts"
+import {parties, Party, partySymbols} from "../common/parties.ts"
 import {useCallback, useState} from "react"
 import {css} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
@@ -56,11 +56,12 @@ const logoUnselectedStyle = css`
 `
 
 export type PartySelectorProps = {
+    maxNumberOfParties: number
     onSelect?: (parties: Party[]) => void
     readonly?: boolean
 }
 
-export function PartySelector({onSelect, readonly}: PartySelectorProps) {
+export function PartySelector({maxNumberOfParties, onSelect, readonly}: PartySelectorProps) {
     const [selectedParties, setSelectedParties] = useState<Party[]>([])
     const onSelectParty = (party: Party, isSelected: boolean) => {
         setSelectedParties(prevState => {
@@ -71,9 +72,9 @@ export function PartySelector({onSelect, readonly}: PartySelectorProps) {
             }
         })
     }
-    const allowSelectIfNotAlready = selectedParties.length < maxNumberOfPartiesPerQuestion
+    const allowSelectIfNotAlready = selectedParties.length < maxNumberOfParties
     const send = useCallback(() => onSelect ? onSelect(selectedParties) : {}, [onSelect, selectedParties])
-    const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfPartiesPerQuestion
+    const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfParties
 
     return (
         <div css={selectorStyle}>
