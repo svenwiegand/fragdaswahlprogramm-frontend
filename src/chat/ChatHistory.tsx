@@ -67,7 +67,7 @@ export function ChatHistory(
             <div css={chatHistoryContentStyle}>
                 {messages.map((msg, index) => <ChatMessage key={index} {...msg} />)}
                 {showPartySelector && !isGenerating &&
-                    <PartySelector maxNumberOfParties={maxNumberOfPartiesToSelect} onSelect={onPartiesSelected}/>
+                    <PartySelector maxNumberOfSelectableParties={maxNumberOfPartiesToSelect} onSelect={onPartiesSelected}/>
                 }
                 {generatingAnswer &&
                     <ChatMessage msgType={"answer"} message={generatingAnswer} isGenerating={true}/>

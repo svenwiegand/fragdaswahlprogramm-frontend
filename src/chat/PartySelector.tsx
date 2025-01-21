@@ -56,12 +56,12 @@ const logoUnselectedStyle = css`
 `
 
 export type PartySelectorProps = {
-    maxNumberOfParties: number
+    maxNumberOfSelectableParties?: number
     onSelect?: (parties: Party[]) => void
     readonly?: boolean
 }
 
-export function PartySelector({maxNumberOfParties, onSelect, readonly}: PartySelectorProps) {
+export function PartySelector({maxNumberOfSelectableParties = 4, onSelect, readonly}: PartySelectorProps) {
     const [selectedParties, setSelectedParties] = useState<Party[]>([])
     const onSelectParty = (party: Party, isSelected: boolean) => {
         setSelectedParties(prevState => {
@@ -72,9 +72,9 @@ export function PartySelector({maxNumberOfParties, onSelect, readonly}: PartySel
             }
         })
     }
-    const allowSelectIfNotAlready = selectedParties.length < maxNumberOfParties
+    const allowSelectIfNotAlready = selectedParties.length < maxNumberOfSelectableParties
     const send = useCallback(() => onSelect ? onSelect(selectedParties) : {}, [onSelect, selectedParties])
-    const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfParties
+    const canSend = selectedParties.length > 0 && selectedParties.length <= maxNumberOfSelectableParties
 
     return (
         <div css={selectorStyle}>
