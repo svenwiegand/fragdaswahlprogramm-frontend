@@ -1,4 +1,4 @@
-export type Party = "afd" | "gruene" | "bsw" | "cdu-csu" | "fdp" | "linke" | "spd" | "volt"
+export type Party = "afd" | "gruene" | "buendnis-deutschland" | "bsw" | "cdu-csu" | "fdp" | "linke" | "spd" | "volt"
 type PartyProps = {
     name: string
     symbol: Party
@@ -36,6 +36,19 @@ export const parties: Record<Party, PartyProps> = {
             pageOffset: 0,
             draft: true,
             website: "https://www.gruene.de/artikel/zusammen-wachsenhttps://www.gruene.de/artikel/zusammen-wachsen",
+            lastCheck: new Date("2025-01-21"),
+        },
+    },
+    "buendnis-deutschland": {
+        name: "Bündnis Deutschland",
+        symbol: "buendnis-deutschland",
+        parliament: true,
+        manifesto: {
+            title: "Wahlprogramm vom Bündnis Deutschland",
+            url: "https://buendnis-deutschland.de/wp-content/uploads/2025/01/btw25-a5-final-einzelseiten-final.pdf",
+            pageOffset: 0,
+            draft: false,
+            website: "https://buendnis-deutschland.de/btw2025/",
             lastCheck: new Date("2025-01-21"),
         },
     },
@@ -119,3 +132,24 @@ export const parties: Record<Party, PartyProps> = {
     }
 }
 export const partySymbols: Party[] = Object.keys(parties) as Party[]
+
+type PartyWithoutProgramProps = {
+    name: string
+    symbol: string
+    parliament: boolean
+    manifesto: {
+        website: string
+        lastCheck: Date
+    }
+}
+const partiesWithoutProgram: Record<string, PartyWithoutProgramProps> = {
+    "freie-waehler": {
+        name: "Freie Wähler",
+        symbol: "freie-waehler",
+        parliament: true,
+        manifesto: {
+            website: "https://www.freiewaehler.eu/",
+            lastCheck: new Date("2025-01-21"),
+        },
+    }
+}
