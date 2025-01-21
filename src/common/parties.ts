@@ -133,6 +133,7 @@ export const parties: Record<Party, PartyProps> = {
 }
 export const partySymbols: Party[] = Object.keys(parties) as Party[]
 
+/*
 type PartyWithoutProgramProps = {
     name: string
     symbol: string
@@ -153,3 +154,4 @@ const partiesWithoutProgram: Record<string, PartyWithoutProgramProps> = {
         },
     }
 }
+*/
