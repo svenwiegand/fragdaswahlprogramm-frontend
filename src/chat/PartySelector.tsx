@@ -179,7 +179,7 @@ const separatorStyle = css`
 function Separator() {
     return (
         <div css={separatorStyle} role={"separator"}>
-            <span role={"heading"}><FormattedMessage id={"notInParliament"}/></span>
+            <span role={"heading"}><FormattedMessage id={"partyNotInParliamentShort"}/></span>
         </div>
     )
 }

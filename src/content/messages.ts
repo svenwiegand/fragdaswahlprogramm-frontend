@@ -37,7 +37,15 @@ const messages: Record<string, MessagesById> = {
         refPage: "Seite {page, number}",
         refOpenProgram: "Wahlprogramm öffnen",
 
-        notInParliament: "Nicht im Bundestag vertreten"
+        partyInParliament: "Im Bundestag vertretene Parteien",
+        partyNotInParliament: "Nicht im Bundestag vertretene Parteien",
+        partyNotInParliamentShort: "Nicht im Bundestag vertreten",
+        partyWithoutProgram: "Zugelassene Parteien ohne Wahlprogramm",
+        partyWebsite: "Website",
+        partyWebsiteWithLinkToProgram: "Website mit Link zum Wahlprogramm",
+        partyProgramStatusDraft: "Entwurf",
+        partyProgramStatusFinal: "Final",
+        partyProgramStatus: "Status: {status}",
     },
 
     en: {
@@ -61,6 +69,6 @@ const messages: Record<string, MessagesById> = {
         refPage: "page {page, number}",
         refOpenProgram: "Open election program",
 
-        notInParliament: "Not represented in the Bundestag"
+        partyNotInParliamentShort: "Not represented in the Bundestag"
     }
 }

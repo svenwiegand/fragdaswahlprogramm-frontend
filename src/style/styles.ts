@@ -45,4 +45,8 @@ export const color = {
         background: '#FFE8EA', // red-100
         text: '#66141c', // red-990 / text
     },
+    success: {
+        background: '#dcf5e5', // green-100
+        text: '#0d4120', // green-990 / text
+    }
 }

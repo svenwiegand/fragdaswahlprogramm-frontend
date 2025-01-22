@@ -1,5 +1,5 @@
 export type Party = "afd" | "gruene" | "buendnis-deutschland" | "bsw" | "cdu-csu" | "fdp" | "linke" | "spd" | "volt"
-type PartyProps = {
+export type PartyProps = {
     name: string
     symbol: Party
     parliament: boolean
@@ -35,20 +35,7 @@ export const parties: Record<Party, PartyProps> = {
             url: "https://cms.gruene.de/uploads/assets/20241216_BTW25_Programmentwurf_DINA4_digital.pdf",
             pageOffset: 0,
             draft: true,
-            website: "https://www.gruene.de/artikel/zusammen-wachsenhttps://www.gruene.de/artikel/zusammen-wachsen",
-            lastCheck: new Date("2025-01-21"),
-        },
-    },
-    "buendnis-deutschland": {
-        name: "Bündnis Deutschland",
-        symbol: "buendnis-deutschland",
-        parliament: false,
-        manifesto: {
-            title: "Wahlprogramm vom Bündnis Deutschland",
-            url: "https://buendnis-deutschland.de/wp-content/uploads/2025/01/btw25-a5-final-einzelseiten-final.pdf",
-            pageOffset: 0,
-            draft: false,
-            website: "https://buendnis-deutschland.de/btw2025/",
+            website: "https://www.gruene.de/artikel/zusammen-wachsen",
             lastCheck: new Date("2025-01-21"),
         },
     },
@@ -117,6 +104,19 @@ export const parties: Record<Party, PartyProps> = {
             lastCheck: new Date("2025-01-21"),
         },
     },
+    "buendnis-deutschland": {
+        name: "Bündnis Deutschland",
+        symbol: "buendnis-deutschland",
+        parliament: false,
+        manifesto: {
+            title: "Wahlprogramm vom Bündnis Deutschland",
+            url: "https://buendnis-deutschland.de/wp-content/uploads/2025/01/btw25-a5-final-einzelseiten-final.pdf",
+            pageOffset: 0,
+            draft: false,
+            website: "https://buendnis-deutschland.de/btw2025/",
+            lastCheck: new Date("2025-01-21"),
+        },
+    },
     volt: {
         name: "Volt",
         symbol: "volt",
@@ -126,15 +126,14 @@ export const parties: Record<Party, PartyProps> = {
             url: "https://voltdeutschland.org/storage/assets-btw25/volt-programm-bundestagswahl-2025.pdf",
             pageOffset: 0,
             draft: false,
-            website: "https://voltdeutschland.org/programm/programme/programme-positionenhttps://voltdeutschland.org/programm/programme/programme-positionen",
+            website: "https://voltdeutschland.org/programm/programme/programme-positionen",
             lastCheck: new Date("2025-01-21"),
         },
     }
 }
 export const partySymbols: Party[] = Object.keys(parties) as Party[]
 
-/*
-type PartyWithoutProgramProps = {
+export type PartyWithoutProgramProps = {
     name: string
     symbol: string
     parliament: boolean
@@ -143,7 +142,7 @@ type PartyWithoutProgramProps = {
         lastCheck: Date
     }
 }
-const partiesWithoutProgram: Record<string, PartyWithoutProgramProps> = {
+export const partiesWithoutProgram: Record<string, PartyWithoutProgramProps> = {
     "freie-waehler": {
         name: "Freie Wähler",
         symbol: "freie-waehler",
@@ -154,4 +153,3 @@ const partiesWithoutProgram: Record<string, PartyWithoutProgramProps> = {
         },
     }
 }
-*/

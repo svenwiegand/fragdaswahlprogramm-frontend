@@ -1,10 +1,12 @@
 import {cloneElement, isValidElement, ReactNode} from "react"
 import {PartySelector} from "../chat/PartySelector.tsx"
+import {PartiesDetails} from "./PartiesDetails.tsx"
 
 type Replacements = Record<string, ReactNode>
 
 const replacements: Replacements = {
-    "parties": <PartySelector readonly={true}/>
+    "parties": <PartySelector readonly={true}/>,
+    "partiesDetails": <PartiesDetails/>,
 }
 
 export function ParagraphWithDynamicContent({children}: { children: ReactNode }) {

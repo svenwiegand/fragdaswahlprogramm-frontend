@@ -4,3 +4,5 @@ fragdaswahlprogramm beantwortet Fragen an die Wahlprogramme aller Parteien, die 
 Aktuell können Fragen zu folgenden Parteien beantwortet werden:
 
 {{parties}}
+
+{{partiesDetails}}
