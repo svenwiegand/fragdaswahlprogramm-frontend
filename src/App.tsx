@@ -1,6 +1,6 @@
 import {ChatPage} from "./chat/ChatPage.tsx"
 import {IntlProvider} from "react-intl"
-import {getBrowserLocales, getMessages} from "./content/messages.ts"
+import {getMessages} from "./content/messages.ts"
 import {MarkdownPage} from "./page/MarkdownPage.tsx"
 import {BrowserRouter, Route, Routes, useLocation} from "react-router"
 import {useEffect, useState} from "react"
@@ -8,9 +8,9 @@ import {trackHello, trackPage} from "./common/track.ts"
 import {MaintenancePage} from "./page/MaintenancePage.tsx"
 import {StartPage} from "./chat/StartPage.tsx"
 
-const userLocales = getBrowserLocales()
-const messages = getMessages(userLocales)
 const locale = "de"
+const userLocales = [locale]
+const messages = getMessages(userLocales)
 
 const isMaintenance = document.querySelector("meta[name=maintenance]")?.getAttribute("content") === "true"
 
