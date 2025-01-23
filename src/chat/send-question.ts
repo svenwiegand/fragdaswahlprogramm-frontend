@@ -127,7 +127,7 @@ export async function sendQuestion(
     }
 }
 
-const timeout = 20 * 1000 // time after the last event has been received in seconds
+const timeout = 30 * 1000 // time after the last event has been received in seconds
 
 async function* readerToAsyncIterator(
     reader: ReadableStreamDefaultReader<Uint8Array>
