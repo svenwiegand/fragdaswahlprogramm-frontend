@@ -1,9 +1,10 @@
 import {parties, Party, partySymbols} from "../common/parties.ts"
 import {useCallback, useState} from "react"
-import {css} from "@emotion/react"
+import {css, SerializedStyles} from "@emotion/react"
 import {color, rempx} from "../style/styles.ts"
 import {SendButton} from "./SendButton.tsx"
 import {FormattedMessage} from "react-intl"
+import {Tooltip, TooltipContent, TooltipTrigger} from "../common/Tooltip.tsx"
 
 const gap = rempx(16)
 
@@ -26,41 +27,6 @@ const buttonContainerStyle = css`
     display: flex;
     flex-direction: row;
     justify-content: center;
-`
-
-const partyButtonSelectedStyle = css`
-    width: ${rempx(160)};
-    height: ${rempx(80)};
-    box-sizing: border-box;
-    padding: ${rempx(16)};
-    border: 1px solid #000;
-    border-radius: ${rempx(8)};
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-`
-const partyButtonUnselectedStyle = css`
-    ${partyButtonSelectedStyle};
-    border-color: ${color.neutral.neutral400}
-`
-const partyButtonReadOnlyStyle = css`
-    ${partyButtonSelectedStyle};
-    cursor: default;
-`
-
-const logoSelectedStyle = css`
-    max-width: 100%;
-    max-height: 100%;
-    box-sizing: border-box;
-    object-fit: contain;
-`
-const logoUnselectedStyle = css`
-    ${logoSelectedStyle};
-    filter: grayscale(100%);
-    opacity: 0.7;
 `
 
 export type PartySelectorProps = {
@@ -110,7 +76,7 @@ export type PartySelectorSectionProps = {
 }
 
 function SelectorSection({parliament, allowSelectIfNotAlready, onSelect, readonly}: PartySelectorSectionProps) {
-    const _parties = partySymbols.map(symbol => parties[symbol]).filter(party => parliament === undefined ? party : party.parliament === parliament)
+    const _parties = partySymbols.map(symbol => parties[symbol]).filter(party => parliament === undefined ? party : !!party.parliament === parliament)
     return (
         <div css={selectorSectionStyle}>
             {_parties.map(party =>
@@ -125,6 +91,49 @@ function SelectorSection({parliament, allowSelectIfNotAlready, onSelect, readonl
         </div>
     )
 }
+
+const partyButtonStyle = css`
+    width: ${rempx(160)};
+    height: ${rempx(80)};
+    box-sizing: border-box;
+    padding: ${rempx(16)};
+    border: 1px solid ${color.neutral.neutral400};
+    border-radius: ${rempx(8)};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    
+    & > span {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+`
+const partyButtonSmallStyle = css`
+    width: ${rempx(120)};
+    height: ${rempx(60)};
+`
+const partyButtonSelectedStyle = css`
+    border-color: #000;
+`
+const partyButtonReadOnlyStyle = css`
+    cursor: default;
+`
+const noStyle = css``
+
+const logoSelectedStyle = css`
+    max-width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+    object-fit: contain;
+`
+const logoUnselectedStyle = css`
+    ${logoSelectedStyle};
+    filter: grayscale(100%);
+    opacity: 0.7;
+`
 
 export type PartyToggleButtonProps = {
     party: Party
@@ -142,14 +151,26 @@ function PartyToggleButton({party, onSelect, allowSelectIfNotAlready, readonly}:
             onSelect(party, select)
         }
     }, [party, onSelect, isSelected])
-    const partyButtonStyle = isSelected ? partyButtonSelectedStyle : partyButtonUnselectedStyle
-    const logoStyle = isSelected || readonly ? logoSelectedStyle : logoUnselectedStyle
-    const img = <img css={logoStyle} src={`/logos/${parties[party].symbol}.png`} alt={parties[party].name}/>
 
-    return readonly
-        ? <span css={partyButtonReadOnlyStyle}>{img}</span>
-        : <button css={partyButtonStyle} onClick={onClick} aria-pressed={isSelected}
-                  disabled={!isSelected && !allowSelectIfNotAlready}>{img}</button>
+    const _party = parties[party]
+    const conditionalStyle = (condition: boolean, style: SerializedStyles) => condition ? style : noStyle
+    const style = [partyButtonStyle, conditionalStyle(isSelected, partyButtonSelectedStyle), conditionalStyle(!_party.parliament, partyButtonSmallStyle)]
+    const logoStyle = isSelected || readonly ? logoSelectedStyle : logoUnselectedStyle
+    const content = _party.nameAsLogo ? <span>{_party.name}</span> : <img css={logoStyle} src={`/logos/${_party.symbol}.png`} alt={_party.name}/>
+    const label = _party?.shortName ? `${_party.name} (${_party.shortName})` : _party.name
+
+    return (
+        <Tooltip placement={"bottom"}>
+            <TooltipTrigger asChild={true}>
+                {readonly
+                    ? <span css={[...style, partyButtonReadOnlyStyle]} title={label}>{content}</span>
+                    : <button css={style} onClick={onClick} aria-pressed={isSelected} title={label}
+                              disabled={!isSelected && !allowSelectIfNotAlready}>{content}</button>
+                }
+            </TooltipTrigger>
+            <TooltipContent>{label}</TooltipContent>
+        </Tooltip>
+    )
 }
 
 const separatorStyle = css`

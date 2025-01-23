@@ -2,14 +2,12 @@
 Hier findest du Antworten auf häufig gestellte Fragen zu fragdaswahlprogramm.
 
 ### Welche Parteien sind auf fragdaswahlprogramm vertreten?
-fragdaswahlprogramm bietet Informationen zu den Wahlprogrammen aller Parteien, die aktuell ein Wahlprogramm oder einen Entwurf dazu veröffentlicht haben.
-
-Derzeit werden Fragen zu den folgenden Parteien beantwortet:
+fragdaswahlprogramm berücksichtigt alle Parteien, die ein Programm zur Bundestagswahl&nbsp;2025 veröffentlicht haben – die vollständige Liste und die genauen Kriterien findest Du [hier](/parties).
 
 {{parties}}
 
 ### Warum wird eine bestimmte Partei nicht angezeigt?
-fragdaswahlprogramm berücksichtigt nur Parteien, die an der Bundestagswahl 2025 teilnehmen und ein vollständiges Wahlprogramm oder zumindest einen offiziellen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme genügen nicht, um in die Auswahl aufgenommen zu werden.
+fragdaswahlprogramm berücksichtigt nur Parteien, die an der Bundestagswahl&nbsp;2025 teilnehmen und ein vollständiges Wahlprogramm oder zumindest einen offiziellen Entwurf veröffentlicht haben. Kurzwahlprogramme oder Grundsatzprogramme genügen nicht, um in die Auswahl aufgenommen zu werden.
 
 ### Warum erscheint die AfD an erster Stelle der Auswahl?
 Die Reihenfolge der Parteien auf fragdaswahlprogramm ist alphabetisch sortiert, um Neutralität und Objektivität zu gewährleisten.

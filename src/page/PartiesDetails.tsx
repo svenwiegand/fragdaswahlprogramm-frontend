@@ -13,7 +13,7 @@ const partiesDetailsStyle = css`
 export function PartiesDetails() {
     return (
         <div css={partiesDetailsStyle}>
-            <PartiesDetailsSection headerId="partyInParliament" filter={party => party.parliament}/>
+            <PartiesDetailsSection headerId="partyInParliament" filter={party => !!party.parliament}/>
             <PartiesDetailsSection headerId="partyNotInParliament"
                                    filter={party => !party.parliament}/>
             <PartiesWithoutProgramDetailsSection headerId="partyWithoutProgram" />
@@ -33,12 +33,20 @@ function PartiesDetailsSection({headerId, filter}: { headerId: string, filter: (
 }
 
 function PartiesWithoutProgramDetailsSection({headerId}: { headerId: string }) {
+    const name = (party: PartyWithoutProgramProps) => party.shortName ? `${party.name} (${party.shortName})` : party.name
     return (
         <>
             <h2><FormattedMessage id={headerId}/></h2>
-            {Object.values(partiesWithoutProgram).map(party => (
-                <PartyWithoutProgramDetails key={party.symbol} party={party}/>
-            ))}
+            <ul css={css`padding-left: 1rem;`}>
+                {Object.values(partiesWithoutProgram).map(party => (
+                    <li>
+                        {party.manifesto.website
+                            ? <a href={party.manifesto.website}>{name(party)}</a>
+                            : name(party)
+                        }
+                    </li>
+                ))}
+            </ul>
         </>
     )
 }
@@ -68,23 +76,13 @@ const propListStyle = css`
     }
 `
 function PartyDetails({party}: { party: PartyProps }) {
+    const name = party.shortName ? `${party.name} (${party.shortName})` : party.name
     return (
         <div>
-            <h3>{party.name}</h3>
+            <h3>{name}</h3>
             <ul css={propListStyle}>
                 <li><ManifestoIcon aria-hidden/> <a href={party.manifesto.url} target={"_blank"}>{party.manifesto.title}</a> <Status draft={party.manifesto.draft}/> </li>
                 <li><WebIcon aria-hidden/> <a href={party.manifesto.website} target={"_blank"}><FormattedMessage id={"partyWebsiteWithLinkToProgram"}/></a></li>
-            </ul>
-        </div>
-    )
-}
-
-function PartyWithoutProgramDetails({party}: { party: PartyWithoutProgramProps }) {
-    return (
-        <div>
-            <h3>{party.name}</h3>
-            <ul css={propListStyle}>
-                <li><WebIcon aria-hidden/> <a href={party.manifesto.website} target={"_blank"}><FormattedMessage id={"partyWebsite"}/></a></li>
             </ul>
         </div>
     )
