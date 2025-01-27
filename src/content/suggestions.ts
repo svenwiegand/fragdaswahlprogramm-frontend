@@ -7,7 +7,7 @@ type SubjectArea =
     | "environmentAndClimate"
     | "migrationAndIntegration"
     | "foreignPolicy"
-    | "internalSecurity"
+    | "securityAndDefense"
     | "transportationAndInfrastructure"
     | "digitalizationAndTechnology"
     | "europe"
@@ -20,7 +20,7 @@ export type Suggestion = {
     question: string
 }
 
-export const suggestions = [
+export const suggestions: Suggestion[] = [
     // Wirtschaft & Finanzen
     {
         "questionType": "general",
@@ -92,7 +92,13 @@ export const suggestions = [
         "questionType": "specific",
         "parties": ["spd", "gruene"],
         "category": "economyAndFinance",
-        "question": "Wie stehen SPD und Grüne zur Einführung einer Finanztransaktionssteuer?",
+        "question": "Wie stehen SPD und CDU/CSU zur Einführung einer Finanztransaktionssteuer?",
+    },
+    {
+        "questionType": "specific",
+        "parties": ["spd", "gruene"],
+        "category": "economyAndFinance",
+        "question": "Wie stehen Grüne und CDU/CSU zur Erhöhung der Abgaben auf Kapitalerträge?",
     },
     {
         "questionType": "specific",
@@ -140,7 +146,13 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "economyAndFinance",
-        "question": "Welche Parteien streben eine Bankenregulierung an?",
+        "question": "Welche Parteien fordern eine Finanztransaktionssteuer?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "economyAndFinance",
+        "question": "Welche Parteien planen höhere Abgaben auf Kapitalerträge?",
     },
 
     // Arbeit & Soziales
@@ -160,13 +172,13 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "workAndSocialAffairs",
-        "question": "Wie soll die Arbeitslosenquote gesenkt werden?",
+        "question": "Wie soll die Zahl der Bürgergeldempfänger gesenkt werden?",
     },
     {
         "questionType": "general",
         "parties": [],
         "category": "workAndSocialAffairs",
-        "question": "Welche Pläne gibt es zur Förderung der Weiterbildung?",
+        "question": "Welche Pläne gibt es zur Förderung von Weiterbildungen?",
     },
     {
         "questionType": "general",
@@ -264,6 +276,12 @@ export const suggestions = [
         "category": "workAndSocialAffairs",
         "question": "Welche Parteien streben eine Reform der Arbeitslosenversicherung an?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "workAndSocialAffairs",
+        "question": "Welche Parteien planen eine Flexibilisierung der Arbeitszeiten?",
+    },
 
     // Bildung & Forschung
     {
@@ -288,7 +306,7 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "educationAndResearch",
-        "question": "Welche Pläne gibt es zur Förderung der MINT-Fächer?",
+        "question": "Welche Pläne gibt es zur Unterstützung von Kindern mit Förderstatus?",
     },
     {
         "questionType": "general",
@@ -422,6 +440,12 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "healthAndCare",
+        "question": "Wie stehen die Parteien zur Einführung der elektronischen Patientenakte?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "healthAndCare",
         "question": "Was wird gegen die Schließung von Pflegeeinrichtungen unternommen?",
     },
     {
@@ -435,18 +459,6 @@ export const suggestions = [
         "parties": [],
         "category": "healthAndCare",
         "question": "Wie soll die psychische Gesundheitsversorgung verbessert werden?",
-    },
-    {
-        "questionType": "general",
-        "parties": [],
-        "category": "healthAndCare",
-        "question": "Welche Maßnahmen sind zur Bekämpfung von Krankenhauskeimen geplant?",
-    },
-    {
-        "questionType": "general",
-        "parties": [],
-        "category": "healthAndCare",
-        "question": "Wie wollen die Parteien die Impfquote erhöhen?",
     },
     {
         "questionType": "specific",
@@ -506,7 +518,7 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "healthAndCare",
-        "question": "Welche Parteien streben eine Stärkung der Präventionsmedizin an?",
+        "question": "Welche Parteien möchten den Eigenanteil an den Pflegeheimkosten senken?",
     },
 
     // Familie & Gesellschaft
@@ -533,12 +545,6 @@ export const suggestions = [
         "parties": [],
         "category": "familyAndSociety",
         "question": "Welche Strategien gibt es zur Bekämpfung der Kinderarmut?",
-    },
-    {
-        "questionType": "general",
-        "parties": [],
-        "category": "familyAndSociety",
-        "question": "Wie stehen die Parteien zur Einführung der Verantwortungsgemeinschaft?",
     },
     {
         "questionType": "general",
@@ -571,6 +577,12 @@ export const suggestions = [
         "question": "Wie wollen die Parteien den gesellschaftlichen Zusammenhalt fördern?",
     },
     {
+        "questionType": "general",
+        "parties": [],
+        "category": "familyAndSociety",
+        "question": "Wie wollen die Parteien die Schere zwischen Arm und Reich verkleinern?",
+    },
+    {
         "questionType": "specific",
         "parties": ["spd", "gruene"],
         "category": "familyAndSociety",
@@ -590,12 +602,6 @@ export const suggestions = [
     },
     {
         "questionType": "specific",
-        "parties": ["gruene", "bsw"],
-        "category": "familyAndSociety",
-        "question": "Was planen Grüne und BSW zur Förderung von Mehrgenerationenhäusern?",
-    },
-    {
-        "questionType": "specific",
         "parties": ["cdu-csu", "spd"],
         "category": "familyAndSociety",
         "question": "Wie wollen CDU/CSU und SPD die Kinderbetreuung ausbauen?",
@@ -605,12 +611,6 @@ export const suggestions = [
         "parties": [],
         "category": "familyAndSociety",
         "question": "Welche Parteien fordern die Einführung einer Kindergrundsicherung?",
-    },
-    {
-        "questionType": "search",
-        "parties": [],
-        "category": "familyAndSociety",
-        "question": "Welche Parteien setzen sich für die Abschaffung des Begriffs 'Migrationshintergrund' ein?",
     },
     {
         "questionType": "search",
@@ -628,7 +628,7 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "familyAndSociety",
-        "question": "Welche Parteien streben eine Stärkung der Rechte von Regenbogenfamilien an?",
+        "question": "Welche Parteien streben eine Stärkung der Rechte gleichgeschlechtlicher Partnerschaften an?",
     },
 
     // Umwelt & Klima
@@ -654,7 +654,19 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "environmentAndClimate",
-        "question": "Welche Strategien gibt es zur Reduzierung von Plastikmüll?",
+        "question": "Wie stehen die Parteien zum Ausbau erneuerbarer Energien?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Wie möchten die Parteien Speichertechnologien für erneuerbare Energien voranbringen?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Maßnahmen sind zur Reduzierung des CO₂-Ausstoßes geplant?",
     },
     {
         "questionType": "general",
@@ -666,7 +678,25 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "environmentAndClimate",
-        "question": "Was wird gegen die Verschmutzung der Gewässer unternommen?",
+        "question": "Wie stehen die Parteien zur Wiederaufnahme des Betriebs existierender Kernkraftwerke?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Wie stehen die Parteien zum Bau neuer Kernkraftwerke?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Wie stehen die Parteien zur Kernfusion als Energiequelle?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Maßnahmen sind zur Reduzierung des CO₂-Ausstoßes im Verkehrssektor geplant?",
     },
     {
         "questionType": "general",
@@ -691,6 +721,12 @@ export const suggestions = [
         "parties": [],
         "category": "environmentAndClimate",
         "question": "Wie wollen die Parteien den Waldschutz stärken?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Maßnahmen sind zur Verbesserung des Klimas in Großstädten geplant?",
     },
     {
         "questionType": "specific",
@@ -752,6 +788,36 @@ export const suggestions = [
         "category": "environmentAndClimate",
         "question": "Welche Parteien streben ein Verbot von Verbrennungsmotoren an?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Parteien leugnen den menschengemachten Klimawandel?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Parteien möchten existierende Kernkraftwerke wieder in Betrieb nehmen?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Parteien fordern den Neubau von Kernkraftwerken?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Parteien fordern die Nutzung von Kernfusion zur Energiegewinnung?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "environmentAndClimate",
+        "question": "Welche Parteien haben konkrete Pläne zu Speichertechnologien für erneuerbare Energien?",
+    },
 
     // Migration & Integration
     {
@@ -770,13 +836,31 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "migrationAndIntegration",
-        "question": "Wie bewerten die Parteien die aktuelle Entwicklung in Syrien?",
+        "question": "Wie stehen die Parteien zur Abschiebung syrischer Flüchtlinge nach dem Sturz des Assad-Regimes?",
     },
     {
         "questionType": "general",
         "parties": [],
         "category": "migrationAndIntegration",
-        "question": "Welche Sozialhilfe planen die Parteien für Ukraineflüchtlinge?",
+        "question": "Welche Maßnahmen sind zur Reduzierung islamistisch motivierter Straftaten geplant?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "migrationAndIntegration",
+        "question": "Welche Maßnahmen sind zur verlässlichen Rückführung von Migranten ohne Bleiberecht geplant?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "migrationAndIntegration",
+        "question": "Welche Maßnahmen sind zur Reduzierung des Flüchtlingsaufkommens geplant?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "migrationAndIntegration",
+        "question": "Wie Stehen die Parteien zum Bürgergeld für Ukraineflüchtlinge?",
     },
     {
         "questionType": "specific",
@@ -794,13 +878,13 @@ export const suggestions = [
         "questionType": "specific",
         "parties": ["afd", "fdp"],
         "category": "migrationAndIntegration",
-        "question": "Was fordern AfD und FDP zur aktuellen Syrien-Politik?",
+        "question": "Was fordern Grüne und CDU/CSU zum Umgang mit syrischen Flüchtlingen?",
     },
     {
         "questionType": "specific",
         "parties": ["spd", "gruene"],
         "category": "migrationAndIntegration",
-        "question": "Welche Pläne haben SPD und Grüne für Ukraineflüchtlinge?",
+        "question": "Welche Pläne haben CDU/CSU und Grüne für Ukraineflüchtlinge?",
     },
     {
         "questionType": "search",
@@ -818,7 +902,7 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "migrationAndIntegration",
-        "question": "Welche Parteien fordern eine Neubewertung der Syrien-Politik?",
+        "question": "Welche Parteien fordern die Abschiebung syrischer Flüchtlinge?",
     },
     {
         "questionType": "search",
@@ -892,7 +976,13 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "foreignPolicy",
-        "question": "Wie wird die deutsche Position im Ukraine-Konflikt angepasst?",
+        "question": "Welche Maßnahmen sind zum Umgang mit den von Trump angekündigten Zöllen geplant?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "foreignPolicy",
+        "question": "Wie stehen die Parteien zur weiteren Waffenlieferungen an die Ukraine?",
     },
     {
         "questionType": "general",
@@ -904,7 +994,7 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "foreignPolicy",
-        "question": "Wie soll die Zusammenarbeit mit den USA gestaltet werden?",
+        "question": "Wie soll die Zusammenarbeit mit den USA unter Trump gestaltet werden?",
     },
     {
         "questionType": "general",
@@ -967,6 +1057,18 @@ export const suggestions = [
         "question": "Welche Pläne haben CDU/CSU und FDP für den Nahost-Friedensprozess?",
     },
     {
+        "questionType": "specific",
+        "parties": ["cdu-csu", "fdp"],
+        "category": "foreignPolicy",
+        "question": "Wie stehen CDU/CSU und AfD zur Wiederaufnahme von Gaslieferungen aus Russland?",
+    },
+    {
+        "questionType": "specific",
+        "parties": ["cdu-csu", "fdp"],
+        "category": "foreignPolicy",
+        "question": "Wie stehen Linke und BSW zur Wiederaufnahme von Gaslieferungen aus Russland?",
+    },
+    {
         "questionType": "search",
         "parties": [],
         "category": "foreignPolicy",
@@ -996,6 +1098,12 @@ export const suggestions = [
         "category": "foreignPolicy",
         "question": "Welche Parteien unterstützen humanitäre Hilfen für den Gaza-Streifen?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "foreignPolicy",
+        "question": "Welche Parteien möchten die Gaslieferungen aus Russland wieder aufnehmen?",
+    },
 
     // Sicherheit & Verteidigung
     {
@@ -1008,7 +1116,7 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "securityAndDefense",
-        "question": "Welche Maßnahmen sind gegen Cyberangriffe geplant?",
+        "question": "Wie viel Prozent des Bruttoinlandproduktes möchten die Parteien für Verteidigung investieren?",
     },
     {
         "questionType": "general",
@@ -1032,19 +1140,19 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "securityAndDefense",
-        "question": "Welche Strategien gibt es gegen hybride Bedrohungen?",
+        "question": "Welche Maßnahmen zur Modernisierung der Bundeswehr geplant?",
     },
     {
         "questionType": "general",
         "parties": [],
         "category": "securityAndDefense",
-        "question": "Wie wird die innere Sicherheit gewährleistet?",
+        "question": "Wie stehen die Parteien zur Vorratsdatenspeicherung?",
     },
     {
         "questionType": "general",
         "parties": [],
         "category": "securityAndDefense",
-        "question": "Welche Rolle spielt Deutschland in internationalen Friedensmissionen?",
+        "question": "Wie stehen die Parteien zur Stationierung amerikanischer Mittelstreckenraketen in Deutschland?",
     },
     {
         "questionType": "general",
@@ -1080,7 +1188,7 @@ export const suggestions = [
         "questionType": "specific",
         "parties": ["spd", "gruene"],
         "category": "securityAndDefense",
-        "question": "Was planen SPD und Grüne zur Stärkung der Cybersicherheit?",
+        "question": "Wie stehen CDU/CSU und Grüne zur Vorratsdatenspeicherung?",
     },
     {
         "questionType": "specific",
@@ -1116,7 +1224,7 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "securityAndDefense",
-        "question": "Welche Parteien wollen das Verteidigungsbudget erhöhen?",
+        "question": "Welche Parteien sind gegen die Erhöhung des Verteidigungsbudgets?",
     },
 
     // Verkehr & Infrastruktur
@@ -1131,6 +1239,12 @@ export const suggestions = [
         "parties": [],
         "category": "transportationAndInfrastructure",
         "question": "Welche Pläne gibt es für den Ausbau des Schienennetzes?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
+        "question": "Wie soll die Bahninfrastruktur modernisiert werden?",
     },
     {
         "questionType": "general",
@@ -1154,7 +1268,25 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "transportationAndInfrastructure",
+        "question": "Wie stehen die Parteien zum Einsatz von E-Fuels im Individualverkehr?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
         "question": "Welche Strategien gibt es gegen Verkehrsstau in Städten?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
+        "question": "Wie stehen die Parteien zum Deutschlandticket?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
+        "question": "Wie stehen die Parteien zum Ausbau der Autobahnen?",
     },
     {
         "questionType": "general",
@@ -1240,6 +1372,18 @@ export const suggestions = [
         "category": "transportationAndInfrastructure",
         "question": "Welche Parteien planen die Förderung von Wasserstoffantrieben?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
+        "question": "Welche Parteien fordern den Einsatz von E-Fuels im Individualverkehr?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "transportationAndInfrastructure",
+        "question": "Welche Parteien fordern ein Verbot von Verbrennermotoren?",
+    },
 
     // Digitalisierung & Technologie
     {
@@ -1247,6 +1391,24 @@ export const suggestions = [
         "parties": [],
         "category": "digitalizationAndTechnology",
         "question": "Wie wollen die Parteien die digitale Infrastruktur verbessern?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Welche Mindestgeschwindigkeit möchte die Parteien für Internetanschlüsse gesetzlich regeln?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Wie soll eine flächendeckende Breitbandversorgung realisiert werden?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Wie möchten die Parteien wichtige Industriezweige in Deutschland ansiedeln und halten?",
     },
     {
         "questionType": "general",
@@ -1294,13 +1456,25 @@ export const suggestions = [
         "questionType": "general",
         "parties": [],
         "category": "digitalizationAndTechnology",
-        "question": "Wie wollen die Parteien den Datenschutz verbessern?",
+        "question": "Wie stehen die Parteien zum Datenschutz?",
     },
     {
         "questionType": "general",
         "parties": [],
         "category": "digitalizationAndTechnology",
         "question": "Welche Pläne gibt es für den Einsatz von Open-Source-Software?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Wie stehen die Parteien zur Förderung der Herstellung von Batteriezellen in Deutschland?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Wie möchten die Parteien flächendeckenden Mobilfunkempfang sicherstellen?",
     },
     {
         "questionType": "specific",
@@ -1330,7 +1504,7 @@ export const suggestions = [
         "questionType": "specific",
         "parties": ["cdu-csu", "fdp"],
         "category": "digitalizationAndTechnology",
-        "question": "Wie stehen CDU/CSU und FDP zur Förderung von E-Learning?",
+        "question": "Wie stehen CDU/CSU und AfD zur Digitalisierung der Verwaltung?",
     },
     {
         "questionType": "search",
@@ -1362,13 +1536,19 @@ export const suggestions = [
         "category": "digitalizationAndTechnology",
         "question": "Welche Parteien unterstützen den Ausbau von 5G-Netzen?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "digitalizationAndTechnology",
+        "question": "Welche Parteien fordern eine Erhöhung der gesetzlich zugesicherten Mindestbandbreite für Internetanschlüsse?",
+    },
 
     // Europa
     {
         "questionType": "general",
         "parties": [],
         "category": "europe",
-        "question": "Wie positionieren sich die Parteien zur EU-Erweiterung?",
+        "question": "Wie positionieren sich die Parteien zur Aufnahme der Ukraine in die EU?",
     },
     {
         "questionType": "general",
@@ -1484,6 +1664,12 @@ export const suggestions = [
         "category": "europe",
         "question": "Welche Parteien unterstützen die Einführung von EU-Steuern?",
     },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "europe",
+        "question": "Welche Parteien möchten aus der EU austreten?",
+    },
 
     // Demokratie & Rechtsstaat
     {
@@ -1497,6 +1683,12 @@ export const suggestions = [
         "parties": [],
         "category": "democracyAndRuleOfLaw",
         "question": "Welche Maßnahmen sind gegen politischen Extremismus geplant?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "democracyAndRuleOfLaw",
+        "question": "Welche Maßnahmen sind zur politischen Bildung geplant?",
     },
     {
         "questionType": "general",
@@ -1521,6 +1713,12 @@ export const suggestions = [
         "parties": [],
         "category": "democracyAndRuleOfLaw",
         "question": "Welche Pläne gibt es zur Bekämpfung von Korruption?",
+    },
+    {
+        "questionType": "general",
+        "parties": [],
+        "category": "democracyAndRuleOfLaw",
+        "question": "Wie ist die Position der Parteien zum Wahlrecht ab 16?",
     },
     {
         "questionType": "general",
@@ -1580,7 +1778,7 @@ export const suggestions = [
         "questionType": "search",
         "parties": [],
         "category": "democracyAndRuleOfLaw",
-        "question": "Welche Parteien fordern mehr direkte Demokratie?",
+        "question": "Welche Parteien fordern mehr Volksabstimmungen?",
     },
     {
         "questionType": "search",
@@ -1605,6 +1803,12 @@ export const suggestions = [
         "parties": [],
         "category": "democracyAndRuleOfLaw",
         "question": "Welche Parteien planen Maßnahmen gegen Hasskriminalität?",
+    },
+    {
+        "questionType": "search",
+        "parties": [],
+        "category": "democracyAndRuleOfLaw",
+        "question": "Welche Parteien fordern ein Wahlrecht ab 16?",
     },
 
     // Innovation & Zukunft
