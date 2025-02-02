@@ -159,17 +159,16 @@ function PartyToggleButton({party, onSelect, allowSelectIfNotAlready, readonly}:
     const content = _party.nameAsLogo ? <span>{_party.name}</span> : <img css={logoStyle} src={`/logos/${_party.symbol}.png`} alt={_party.name}/>
     const label = _party?.shortName ? `${_party.name} (${_party.shortName})` : _party.name
 
-    return (
+    return readonly ? (
         <Tooltip placement={"bottom"}>
             <TooltipTrigger asChild={true}>
-                {readonly
-                    ? <span css={[...style, partyButtonReadOnlyStyle]} title={label}>{content}</span>
-                    : <button css={style} onClick={onClick} aria-pressed={isSelected} title={label}
-                              disabled={!isSelected && !allowSelectIfNotAlready}>{content}</button>
-                }
+                <span css={[...style, partyButtonReadOnlyStyle]} title={label}>{content}</span>
             </TooltipTrigger>
             <TooltipContent>{label}</TooltipContent>
         </Tooltip>
+    ) : (
+        <button css={style} onClick={onClick} aria-pressed={isSelected} title={label} aria-label={label}
+                disabled={!isSelected && !allowSelectIfNotAlready}>{content}</button>
     )
 }
 
@@ -180,7 +179,7 @@ const separatorStyle = css`
     align-items: center;
     text-align: center;
     position: relative;
-    
+
     &::before, &::after {
         content: '';
         flex: 1;
